@@ -1,4 +1,4 @@
-.\objects\main.o: User\main.c
+.\objects\main.o: User\main.cpp
 .\objects\main.o: .\Start\stm32f10x.h
 .\objects\main.o: .\Start\core_cm3.h
 .\objects\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,7 +29,6 @@
 .\objects\main.o: .\Library\stm32f10x_wwdg.h
 .\objects\main.o: .\Library\misc.h
 .\objects\main.o: .\System\Delay.h
-.\objects\main.o: .\Hardware\OLED.h
-.\objects\main.o: .\Hardware\Serial.h
+.\objects\main.o: .\Hardware\OLED\OLED.h
+.\objects\main.o: .\Hardware\Serial\Serial.h
 .\objects\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\main.o: .\Hardware\Key.h

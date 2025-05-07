@@ -26,12 +26,11 @@
 ".\objects\stm32f10x_usart.o"
 ".\objects\stm32f10x_wwdg.o"
 ".\objects\delay.o"
-".\objects\led.o"
-".\objects\key.o"
+".\objects\hts221.o"
 ".\objects\oled.o"
 ".\objects\serial.o"
-".\objects\main.o"
 ".\objects\stm32f10x_it.o"
+".\objects\main.o"
 --library_type=microlib --strict --scatter ".\Objects\Project.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

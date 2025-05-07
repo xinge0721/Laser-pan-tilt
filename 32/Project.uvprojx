@@ -340,7 +340,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\HTS221;.\Hardware\OLED;.\Hardware\Serial</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -670,60 +670,30 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>LED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\LED.c</FilePath>
+              <FileName>HTS221.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Hardware\HTS221\HTS221.cpp</FilePath>
             </File>
             <File>
-              <FileName>LED.h</FileName>
+              <FileName>HTS221.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Hardware\LED.h</FilePath>
+              <FilePath>.\Hardware\HTS221\HTS221.h</FilePath>
             </File>
             <File>
-              <FileName>Key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\Key.c</FilePath>
+              <FileName>OLED.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Hardware\OLED\OLED.cpp</FilePath>
             </File>
             <File>
-              <FileName>Key.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\Key.h</FilePath>
-            </File>
-            <File>
-              <FileName>OLED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\OLED.c</FilePath>
-            </File>
-            <File>
-              <FileName>OLED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\OLED.h</FilePath>
-            </File>
-            <File>
-              <FileName>OLED_Font.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\OLED_Font.h</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\Serial.h</FilePath>
+              <FileName>Serial.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Hardware\Serial\Serial.cpp</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>User</GroupName>
           <Files>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\main.c</FilePath>
-            </File>
             <File>
               <FileName>stm32f10x_conf.h</FileName>
               <FileType>5</FileType>
@@ -738,6 +708,11 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\main.cpp</FilePath>
             </File>
           </Files>
         </Group>
