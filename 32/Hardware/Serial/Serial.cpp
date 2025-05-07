@@ -184,6 +184,75 @@ uint8_t Serial_GetRxFlag(void)
 	return 0;						//如果标志位为0，则返回0
 }
 
+
+
+class HTS221
+{
+public:
+	HTS221(uint8_t ID = 0x00)
+	{
+		this->ID = ID;
+	}
+	
+	void turn(uint16_t angle, uint16_t time)
+	{
+		date[0] = 0x55;
+		date[1] = 0x55;
+		date[2] = ID;
+		// Length
+		date[3] = 0x07;
+		// Command
+		date[4] = 0x01;
+		// Data
+		// 参数 1：角度的低八位。
+		date[5] = angle & 0xFF;
+
+		// 参数 2：角度的高八位。范围 0~1000，对应舵机角度的 0~240°，即舵机可变化
+		// 的最小角度为 0.24度。
+		date[6] = angle >> 8;
+
+		// 参数 3：时间低八位。
+		date[7] = time & 0xFF;
+
+		// 参数 4：时间高八位，时间的范围 0~30000毫秒。该命令发送给舵机，舵机将
+		// 在参数时间内从当前角度匀速转动到参数角度。该指令到达舵机后，舵机会立
+		// 即转动。
+		date[8] = time >> 8;
+
+		// CRC
+		// Checksum = ~ (ID + Length + Cmd+ Prm1 + ... Prm N)若括号内的计算和超出 255
+		// 则取后 8 位，即对 255 取反。
+		date[9] = ~ (ID + date[3] + date[4] + date[5] + date[6] + date[7] + date[8]);
+
+		Serial_SendArray(date, size);
+	}
+
+	void stop(void)
+	{
+		date[0] = 0x55;
+		date[1] = 0x55;
+		date[2] = ID;
+
+		// Length
+		date[3] = 0x03;
+		// Command
+		date[4] = 0x0C;
+
+		// CRC
+		// Checksum = ~ (ID + Length + Cmd+ Prm1 + ... Prm N)若括号内的计算和超出 255
+		// 则取后 8 位，即对 255 取反。
+		date[9] = ~ (ID + date[3] + date[4]);
+
+		Serial_SendArray(date, 6);
+	}
+
+private:
+	uint8_t ID;
+	uint8_t date[10];
+	uint8_t size = 10;
+};
+
+
 /**
   * 函    数：USART1中断函数
   * 参    数：无
@@ -200,36 +269,7 @@ void USART1_IRQHandler(void)
 	{
 		uint8_t RxData = USART_ReceiveData(USART1);				//读取数据寄存器，存放在接收的数据变量
 		
-		/*使用状态机的思路，依次处理数据包的不同部分*/
 		
-		/*当前状态为0，接收数据包包头*/
-		if (RxState == 0)
-		{
-			if (RxData == 0xFF)			//如果数据确实是包头
-			{
-				RxState = 1;			//置下一个状态
-				pRxPacket = 0;			//数据包的位置归零
-			}
-		}
-		/*当前状态为1，接收数据包数据*/
-		else if (RxState == 1)
-		{
-			Serial_RxPacket[pRxPacket] = RxData;	//将数据存入数据包数组的指定位置
-			pRxPacket ++;				//数据包的位置自增
-			if (pRxPacket >= 4)			//如果收够4个数据
-			{
-				RxState = 2;			//置下一个状态
-			}
-		}
-		/*当前状态为2，接收数据包包尾*/
-		else if (RxState == 2)
-		{
-			if (RxData == 0xFE)			//如果数据确实是包尾部
-			{
-				RxState = 0;			//状态归0
-				Serial_RxFlag = 1;		//接收数据包标志位置1，成功接收一个数据包
-			}
-		}
 		
 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);		//清除标志位
 	}
