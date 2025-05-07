@@ -1,6 +1,6 @@
 #include "HTS221.h"
 
-// 注意事项
+	// 注意事项
 	// 注意：在发送舵机控制指令时，需要等待前一条指令运行结束后，再发送
 	// 下一条指令，否则旧指令的运行会被打断
 
@@ -127,4 +127,53 @@
 		
 		Serial_SendArray(date, 10);
 	}
+
+// 串口接收数据
+void HTS221::RXData(uint8_t data)
+{
+	
+}
+
+// AngleData结构体函数实现
+// 数据转换
+// 根据数据手册所示范围 0~1000，对应舵机角度的 0~240°
+// 所以需要将数据转换为角度
+// 注意：这种转换是线性映射，每个单位数据对应0.24度角度
+void AngleData::dataToAngle(void)
+{
+	// 使用浮点数计算以提高精度
+	x = (uint16_t)((float)x * 0.24f);
+	y = (uint16_t)((float)y * 0.24f);
+}
+
+// 将角度转换为数据
+// 注意：这种转换是线性映射，每个度角度对应约4.17个单位数据
+void AngleData::angleToData(void)
+{
+	// 使用浮点数计算以提高精度
+	x = (uint16_t)((float)x * 4.17f);
+	y = (uint16_t)((float)y * 4.17f);
+	
+	// 确保数据不超过最大值1000
+	if (x > 1000) x = 1000;
+	if (y > 1000) y = 1000;
+}
+
+// 处理摄像头数据，转化为舵机可用参数
+// 参数一：目标的中心点x坐标
+// 参数二：目标的中心点y坐标
+// 摄像头数据为像素点的相对坐标，而非舵机的坐标
+void AngleData::processData(uint16_t centerX, uint16_t centerY)
+{
+	if(centerX > width)
+	{
+		centerX = width;
+	}
+	if(centerY > height)
+	{
+		centerY = height;
+	}
+	x = centerX;
+	y = centerY;
+}
 

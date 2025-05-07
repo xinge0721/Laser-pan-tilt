@@ -1,4 +1,6 @@
-.\objects\delay.o: System\Delay.c
+.\objects\delay.o: System\delay\delay.cpp
+.\objects\delay.o: System\delay\delay.h
+.\objects\delay.o: .\System\sys\sys.h
 .\objects\delay.o: .\Start\stm32f10x.h
 .\objects\delay.o: .\Start\core_cm3.h
 .\objects\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,3 +30,8 @@
 .\objects\delay.o: .\Library\stm32f10x_usart.h
 .\objects\delay.o: .\Library\stm32f10x_wwdg.h
 .\objects\delay.o: .\Library\misc.h
+.\objects\delay.o: .\System\delay\delay.h
+.\objects\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

@@ -13,7 +13,7 @@ uint8_t Serial_RxFlag;					//定义接收数据包标志位
   * 参    数：无
   * 返 回 值：无
   */
-void Serial_Init(void)
+void Serial_Init(int BaudRate)
 {
 	/*开启时钟*/
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);	//开启USART1的时钟
@@ -33,7 +33,7 @@ void Serial_Init(void)
 	
 	/*USART初始化*/
 	USART_InitTypeDef USART_InitStructure;					//定义结构体变量
-	USART_InitStructure.USART_BaudRate = 9600;				//波特率
+	USART_InitStructure.USART_BaudRate = BaudRate;				//波特率
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;	//硬件流控制，不需要
 	USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;	//模式，发送模式和接收模式均选择
 	USART_InitStructure.USART_Parity = USART_Parity_No;		//奇偶校验，不需要
@@ -187,23 +187,3 @@ uint8_t Serial_GetRxFlag(void)
 
 
 
-/**
-  * 函    数：USART1中断函数
-  * 参    数：无
-  * 返 回 值：无
-  * 注意事项：此函数为中断函数，无需调用，中断触发后自动执行
-  *           函数名为预留的指定名称，可以从启动文件复制
-  *           请确保函数名正确，不能有任何差异，否则中断函数将不能进入
-  */
-void USART1_IRQHandler(void)
-{
-
-	if (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)		//判断是否是USART1的接收事件触发的中断
-	{
-		uint8_t RxData = USART_ReceiveData(USART1);				//读取数据寄存器，存放在接收的数据变量
-		
-		
-		
-		USART_ClearITPendingBit(USART1, USART_IT_RXNE);		//清除标志位
-	}
-}
