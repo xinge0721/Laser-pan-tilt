@@ -1,2 +1,2 @@
 cv
--DCATKIN_DEVEL_PREFIX=/home/ros/opencv/devel -DCMAKE_INSTALL_PREFIX=/home/ros/opencv/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/ros/xiangmu/Laser-pan-tilt/opencv/devel -DCMAKE_INSTALL_PREFIX=/home/ros/xiangmu/Laser-pan-tilt/opencv/install -G Unix Makefiles

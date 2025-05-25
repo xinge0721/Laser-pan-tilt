@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ros/opencv/src
+CMAKE_SOURCE_DIR = /home/ros/xiangmu/Laser-pan-tilt/opencv/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ros/opencv/build
+CMAKE_BINARY_DIR = /home/ros/xiangmu/Laser-pan-tilt/opencv/build
 
 # Utility rule file for rosgraph_msgs_generate_messages_eus.
 
@@ -63,10 +63,10 @@ cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build: rosgraph_msgs_gener
 .PHONY : cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
 
 cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean:
-	cd /home/ros/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/cmake_clean.cmake
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/cmake_clean.cmake
 .PHONY : cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 
 cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/depend:
-	cd /home/ros/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/opencv/src /home/ros/opencv/src/cv /home/ros/opencv/build /home/ros/opencv/build/cv /home/ros/opencv/build/cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/xiangmu/Laser-pan-tilt/opencv/src /home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv /home/ros/xiangmu/Laser-pan-tilt/opencv/build /home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv /home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : cv/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/depend
 

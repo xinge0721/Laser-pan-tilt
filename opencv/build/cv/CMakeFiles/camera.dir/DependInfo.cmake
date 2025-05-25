@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ros/opencv/src/cv/src/camera.cpp" "/home/ros/opencv/build/cv/CMakeFiles/camera.dir/src/camera.cpp.o"
+  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/camera.cpp.o"
+  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

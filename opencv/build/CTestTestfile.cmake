@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/ros/opencv/src
-# Build directory: /home/ros/opencv/build
+# Source directory: /home/ros/xiangmu/Laser-pan-tilt/opencv/src
+# Build directory: /home/ros/xiangmu/Laser-pan-tilt/opencv/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

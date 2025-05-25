@@ -7,9 +7,10 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/ros/opencv/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/ros/opencv/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/ros/opencv/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PWD='/home/ros/opencv/build'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/ros/opencv/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/ros/opencv/src:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib:$LD_LIBRARY_PATH"
+export PATH='/opt/ros/noetic/bin:/home/ros/.local/bin:/home/ros/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+export PKG_CONFIG_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PWD='/home/ros/xiangmu/Laser-pan-tilt/opencv/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/src:$ROS_PACKAGE_PATH"

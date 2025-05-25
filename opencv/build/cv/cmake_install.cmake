@@ -1,8 +1,8 @@
-# Install script for directory: /home/ros/opencv/src/cv
+# Install script for directory: /home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ros/opencv/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ros/xiangmu/Laser-pan-tilt/opencv/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/opencv/build/cv/catkin_generated/installspace/cv.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cv.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/cmake" TYPE FILE FILES
-    "/home/ros/opencv/build/cv/catkin_generated/installspace/cvConfig.cmake"
-    "/home/ros/opencv/build/cv/catkin_generated/installspace/cvConfig-version.cmake"
+    "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cvConfig.cmake"
+    "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cvConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv" TYPE FILE FILES "/home/ros/opencv/src/cv/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv" TYPE FILE FILES "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/package.xml")
 endif()
 
