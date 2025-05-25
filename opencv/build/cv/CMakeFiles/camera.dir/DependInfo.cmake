@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/camera.cpp.o"
   "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
+  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

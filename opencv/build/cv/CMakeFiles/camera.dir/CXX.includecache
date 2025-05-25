@@ -13,9 +13,19 @@ opencv2/opencv.hpp
 -
 ./hsv_threshold/hsv_threshold.h
 /home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.h
+./laser_processor/laser_processor.h
+/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.h
+vector
+-
 
 /home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.h
 opencv2/opencv.hpp
+-
+
+/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.h
+opencv2/opencv.hpp
+-
+vector
 -
 
 /opt/ros/noetic/include/ros/advertise_options.h

@@ -611,6 +611,33 @@ src/hsv_threshold/hsv_threshold.cpp.s:
 	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.s
 .PHONY : src/hsv_threshold/hsv_threshold.cpp.s
 
+src/laser_processor/laser_processor.o: src/laser_processor/laser_processor.cpp.o
+
+.PHONY : src/laser_processor/laser_processor.o
+
+# target to build an object file
+src/laser_processor/laser_processor.cpp.o:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o
+.PHONY : src/laser_processor/laser_processor.cpp.o
+
+src/laser_processor/laser_processor.i: src/laser_processor/laser_processor.cpp.i
+
+.PHONY : src/laser_processor/laser_processor.i
+
+# target to preprocess a source file
+src/laser_processor/laser_processor.cpp.i:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.i
+.PHONY : src/laser_processor/laser_processor.cpp.i
+
+src/laser_processor/laser_processor.s: src/laser_processor/laser_processor.cpp.s
+
+.PHONY : src/laser_processor/laser_processor.s
+
+# target to generate assembly for a file
+src/laser_processor/laser_processor.cpp.s:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.s
+.PHONY : src/laser_processor/laser_processor.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -656,6 +683,9 @@ help:
 	@echo "... src/hsv_threshold/hsv_threshold.o"
 	@echo "... src/hsv_threshold/hsv_threshold.i"
 	@echo "... src/hsv_threshold/hsv_threshold.s"
+	@echo "... src/laser_processor/laser_processor.o"
+	@echo "... src/laser_processor/laser_processor.i"
+	@echo "... src/laser_processor/laser_processor.s"
 .PHONY : help
 
 

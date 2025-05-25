@@ -137,7 +137,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(camera src/camera.cpp
-                      src/hsv_threshold/hsv_threshold.cpp)
+                      src/hsv_threshold/hsv_threshold.cpp
+                      src/laser_processor/laser_processor.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

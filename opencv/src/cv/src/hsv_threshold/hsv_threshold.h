@@ -10,8 +10,8 @@ struct HsvThreshold {
     int V_min = 0, V_max = 255;
 };
 
-// 绿色预设值
-extern HsvThreshold GREEN_HSV;
+// 红色预设值
+extern HsvThreshold RED_HSV;
 
 // 对图像进行HSV阈值处理
 cv::Mat thresholdHsv(const cv::Mat& src, const HsvThreshold& thresh);

@@ -1,12 +1,12 @@
 #include "hsv_threshold.h"
 
-// 绿色预设值
-HsvThreshold GREEN_HSV = {
-    35,  // H_min - 色调最小值
-    85,  // H_max - 色调最大值
-    14,  // S_min - 饱和度最小值
-    255, // S_max - 饱和度最大值
-    40,  // V_min - 亮度最小值
+// 红色预设值
+HsvThreshold RED_HSV = {
+    105, // H_min - 色调最小值
+    179, // H_max - 色调最大值
+    42,  // S_min - 饱和度最小值
+    168, // S_max - 饱和度最大值
+    107,  // V_min - 亮度最小值
     255  // V_max - 亮度最大值
 };
 
@@ -24,6 +24,15 @@ cv::Mat thresholdHsv(const cv::Mat& src, const HsvThreshold& thresh)
     // 应用阈值
     cv::Mat result;
     cv::inRange(hsv, lower, upper, result);
+    
+    // 如果是检测红色，需要处理HSV色调环的另一端(约170-180)
+    if (thresh.H_min == 0 && thresh.H_max <= 10) {
+        cv::Mat upper_red;
+        cv::inRange(hsv, cv::Scalar(170, thresh.S_min, thresh.V_min), 
+                        cv::Scalar(179, thresh.S_max, thresh.V_max), upper_red);
+        // 合并两个红色区域
+        cv::bitwise_or(result, upper_red, result);
+    }
     
     return result;
 }
@@ -54,9 +63,9 @@ void createHsvSliders(const std::string& window_name, HsvThreshold& thresh)
 HsvThreshold initHsvThreshold()
 {
     // 创建HSV阈值调节滑块
-    createHsvSliders("HSV阈值控制", GREEN_HSV);
+    createHsvSliders("HSV阈值控制", RED_HSV);
     
-    return GREEN_HSV;
+    return RED_HSV;
 }
 
 /**
