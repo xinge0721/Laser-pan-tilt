@@ -9,6 +9,7 @@
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/devel:$CMAKE_PREFIX_PATH"
 export LD_LIBRARY_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib:$LD_LIBRARY_PATH"
+export PATH='/opt/ros/noetic/bin:/home/ros/.local/bin:/home/ros/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ros/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/bundled/scripts/noConfigScripts'
 export PKG_CONFIG_PATH="/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/ros/xiangmu/Laser-pan-tilt/opencv/build'
 export ROSLISP_PACKAGE_DIRECTORIES='/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/share/common-lisp'
