@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS20L.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o"
+  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
+  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
+  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

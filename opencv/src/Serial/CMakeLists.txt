@@ -134,7 +134,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(HTS20L src/HTS20L.cpp)
+add_executable(HTS20L src/main.cpp
+                      src/HTS221/HTS221.cpp
+                      src/Serial/Serial.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

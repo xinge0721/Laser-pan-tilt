@@ -57,27 +57,57 @@ include Serial/CMakeFiles/HTS20L.dir/progress.make
 # Include the compile flags for this target's objects.
 include Serial/CMakeFiles/HTS20L.dir/flags.make
 
-Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o: Serial/CMakeFiles/HTS20L.dir/flags.make
-Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o: /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS20L.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/xiangmu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o"
-	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o -c /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS20L.cpp
+Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: Serial/CMakeFiles/HTS20L.dir/flags.make
+Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/xiangmu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HTS20L.dir/src/main.cpp.o -c /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp
 
-Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HTS20L.dir/src/HTS20L.cpp.i"
-	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS20L.cpp > CMakeFiles/HTS20L.dir/src/HTS20L.cpp.i
+Serial/CMakeFiles/HTS20L.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HTS20L.dir/src/main.cpp.i"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp > CMakeFiles/HTS20L.dir/src/main.cpp.i
 
-Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HTS20L.dir/src/HTS20L.cpp.s"
-	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS20L.cpp -o CMakeFiles/HTS20L.dir/src/HTS20L.cpp.s
+Serial/CMakeFiles/HTS20L.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HTS20L.dir/src/main.cpp.s"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp -o CMakeFiles/HTS20L.dir/src/main.cpp.s
+
+Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o: Serial/CMakeFiles/HTS20L.dir/flags.make
+Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o: /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/xiangmu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o -c /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp
+
+Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.i"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp > CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.i
+
+Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.s"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp -o CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.s
+
+Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o: Serial/CMakeFiles/HTS20L.dir/flags.make
+Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o: /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/xiangmu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o -c /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp
+
+Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.i"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp > CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.i
+
+Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.s"
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp -o CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.s
 
 # Object files for target HTS20L
 HTS20L_OBJECTS = \
-"CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o"
+"CMakeFiles/HTS20L.dir/src/main.cpp.o" \
+"CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o" \
+"CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
 
 # External object files for target HTS20L
 HTS20L_EXTERNAL_OBJECTS =
 
-/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o
+/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o
+/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o
+/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o
 /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: Serial/CMakeFiles/HTS20L.dir/build.make
 /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: /opt/ros/noetic/lib/libroscpp.so
 /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: /usr/lib/x86_64-linux-gnu/libpthread.so
@@ -97,7 +127,7 @@ HTS20L_EXTERNAL_OBJECTS =
 /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L: Serial/CMakeFiles/HTS20L.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ros/xiangmu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ros/xiangmu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable /home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L"
 	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HTS20L.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

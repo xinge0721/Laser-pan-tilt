@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
   "/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L"
   "/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/lib/Serial/HTS20L.pdb"
-  "CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o"
+  "CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
+  "CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
+  "CMakeFiles/HTS20L.dir/src/main.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -407,32 +407,86 @@ rosgraph_msgs_generate_messages_py/fast:
 	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
-src/HTS20L.o: src/HTS20L.cpp.o
+src/HTS221/HTS221.o: src/HTS221/HTS221.cpp.o
 
-.PHONY : src/HTS20L.o
+.PHONY : src/HTS221/HTS221.o
 
 # target to build an object file
-src/HTS20L.cpp.o:
-	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.o
-.PHONY : src/HTS20L.cpp.o
+src/HTS221/HTS221.cpp.o:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o
+.PHONY : src/HTS221/HTS221.cpp.o
 
-src/HTS20L.i: src/HTS20L.cpp.i
+src/HTS221/HTS221.i: src/HTS221/HTS221.cpp.i
 
-.PHONY : src/HTS20L.i
+.PHONY : src/HTS221/HTS221.i
 
 # target to preprocess a source file
-src/HTS20L.cpp.i:
-	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.i
-.PHONY : src/HTS20L.cpp.i
+src/HTS221/HTS221.cpp.i:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.i
+.PHONY : src/HTS221/HTS221.cpp.i
 
-src/HTS20L.s: src/HTS20L.cpp.s
+src/HTS221/HTS221.s: src/HTS221/HTS221.cpp.s
 
-.PHONY : src/HTS20L.s
+.PHONY : src/HTS221/HTS221.s
 
 # target to generate assembly for a file
-src/HTS20L.cpp.s:
-	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/HTS20L.cpp.s
-.PHONY : src/HTS20L.cpp.s
+src/HTS221/HTS221.cpp.s:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.s
+.PHONY : src/HTS221/HTS221.cpp.s
+
+src/Serial/Serial.o: src/Serial/Serial.cpp.o
+
+.PHONY : src/Serial/Serial.o
+
+# target to build an object file
+src/Serial/Serial.cpp.o:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o
+.PHONY : src/Serial/Serial.cpp.o
+
+src/Serial/Serial.i: src/Serial/Serial.cpp.i
+
+.PHONY : src/Serial/Serial.i
+
+# target to preprocess a source file
+src/Serial/Serial.cpp.i:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.i
+.PHONY : src/Serial/Serial.cpp.i
+
+src/Serial/Serial.s: src/Serial/Serial.cpp.s
+
+.PHONY : src/Serial/Serial.s
+
+# target to generate assembly for a file
+src/Serial/Serial.cpp.s:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.s
+.PHONY : src/Serial/Serial.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	cd /home/ros/xiangmu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -463,9 +517,15 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... src/HTS20L.o"
-	@echo "... src/HTS20L.i"
-	@echo "... src/HTS20L.s"
+	@echo "... src/HTS221/HTS221.o"
+	@echo "... src/HTS221/HTS221.i"
+	@echo "... src/HTS221/HTS221.s"
+	@echo "... src/Serial/Serial.o"
+	@echo "... src/Serial/Serial.i"
+	@echo "... src/Serial/Serial.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 
