@@ -1,8 +1,8 @@
-prefix=/home/ros/xiangmu/Laser-pan-tilt/opencv/install
+prefix=/home/ros/chenxu/Laser-pan-tilt/opencv/install
 
 Name: cv
 Description: Description of cv
 Version: 0.0.0
-Cflags: 
+Cflags: -I${prefix}/include
 Libs: -L${prefix}/lib 
 Requires: 

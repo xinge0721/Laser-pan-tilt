@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   serial
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -55,11 +56,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  date.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -69,10 +69,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -151,6 +151,8 @@ add_executable(HTS20L src/main.cpp
 # Specify libraries to link a library or executable target against
 target_link_libraries(HTS20L
   ${catkin_LIBRARIES}
+  /usr/lib/x86_64-linux-gnu/libserial.so
+
 )
 
 #############

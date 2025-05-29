@@ -1,8 +1,0 @@
-prefix=/home/ros/xiangmu/Laser-pan-tilt/opencv/install
-
-Name: serial
-Description: Description of serial
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

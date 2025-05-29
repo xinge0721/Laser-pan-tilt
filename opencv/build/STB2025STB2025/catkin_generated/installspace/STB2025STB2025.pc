@@ -1,0 +1,8 @@
+prefix=/home/ros/chenxu/Laser-pan-tilt/opencv/install
+
+Name: STB2025STB2025
+Description: Description of STB2025STB2025
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

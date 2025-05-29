@@ -11,7 +11,7 @@ public:
     // 注意：size必须大于6，否则无法正确初始化数据包
     // 通信协议最短是6个字节，所以size至少为6
     // 通信协议长度一般为10个字节，所以size的缺省值为10
-	HTS221(const std::string& port, int baudrate,uint8_t ID = 0x00,uint8_t size = 10)
+	HTS221(uint8_t ID = 0x00,uint8_t size = 10,const std::string& port="/dev/ttyUSB0", int baudrate=115200)
     :ID(ID)
     ,size(size)
     {
@@ -26,7 +26,7 @@ public:
 		for(int i = 2; i < size; i++) {
 			date[i] = 0x00;
 		}
-        if (!serial.init("/dev/ttyUSB0", 115200)) {
+        if (!serial.init(port, baudrate)) {
             std::cerr << "串口初始化失败！" << std::endl;
         } else {
             std::cout << "串口初始化成功！" << std::endl;

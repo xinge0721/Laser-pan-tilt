@@ -7,7 +7,8 @@
       },
       "includePath": [
         "/opt/ros/noetic/include/**",
-        "/usr/include/**"
+        "/usr/include/**",
+        "/home/ros/xiangmu/Laser-pan-tilt/opencv/devel/include/**"
       ],
       "name": "ROS",
       "intelliSenseMode": "gcc-x64",
