@@ -1,8 +1,8 @@
-# Install script for directory: /home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial
+# Install script for directory: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ros/xiangmu/Laser-pan-tilt/opencv/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ros/chenxu/Laser-pan-tilt/opencv/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,57 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/Serial.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Serial/srv" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/srv/date.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Serial/cmake" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/Serial-msg-paths.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/include/Serial")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/roseus/ros/Serial")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/common-lisp/ros/Serial")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/gennodejs/ros/Serial")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/python3/dist-packages/Serial")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/python3/dist-packages/Serial")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/Serial.pc")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Serial/cmake" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/Serial-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Serial/cmake" TYPE FILE FILES
-    "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/SerialConfig.cmake"
-    "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/SerialConfig-version.cmake"
+    "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/SerialConfig.cmake"
+    "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/SerialConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Serial" TYPE FILE FILES "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Serial" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/package.xml")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Serial" TYPE PROGRAM FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/catkin_generated/installspace/servo_controller_gui.py")
 endif()
 

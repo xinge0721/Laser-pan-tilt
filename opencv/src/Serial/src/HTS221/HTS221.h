@@ -1,6 +1,12 @@
 #ifndef __HTS221_H
 #define __HTS221_H
 #include "./../Serial/Serial.h"
+#include <iostream>
+#define uint8_t unsigned char
+#define int16_t short int
+#define int8_t char
+#define uint32_t unsigned long int
+#define int32_t long int
 
 class HTS221
 {
@@ -11,7 +17,7 @@ public:
     // 注意：size必须大于6，否则无法正确初始化数据包
     // 通信协议最短是6个字节，所以size至少为6
     // 通信协议长度一般为10个字节，所以size的缺省值为10
-	HTS221(const std::string& port, int baudrate,uint8_t ID = 0x00,uint8_t size = 10)
+	HTS221(uint8_t ID = 0x00,uint8_t size = 10,const std::string& port="/dev/ttyUSB0", int baudrate=115200)
     :ID(ID)
     ,size(size)
     {
@@ -26,7 +32,7 @@ public:
 		for(int i = 2; i < size; i++) {
 			date[i] = 0x00;
 		}
-        if (!serial.init("/dev/ttyUSB0", 115200)) {
+        if (!serial.init(port, baudrate)) {
             std::cerr << "串口初始化失败！" << std::endl;
         } else {
             std::cout << "串口初始化成功！" << std::endl;
@@ -47,6 +53,11 @@ public:
     void getAngle(void);
     void setAngleLimit(uint16_t minAngle, uint16_t maxAngle);
 	
+    // 滑块控制函数
+    // 根据滑块值调整舵机角度和速度
+    // angle_percent: 角度百分比，范围0-100，对应舵机角度0-1000
+    // speed_percent: 速度百分比，范围0-100，对应舵机速度0-30000
+    void sliderControl(int angle_percent, int speed_percent);
 
 private:
 	const uint8_t ID;

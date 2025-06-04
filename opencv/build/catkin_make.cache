@@ -1,2 +1,2 @@
-Serial:cv
--DCATKIN_DEVEL_PREFIX=/home/ros/xiangmu/Laser-pan-tilt/opencv/devel -DCMAKE_INSTALL_PREFIX=/home/ros/xiangmu/Laser-pan-tilt/opencv/install -G Unix Makefiles
+STB2025STB2025:Serial:cv
+-DCATKIN_DEVEL_PREFIX=/home/ros/chenxu/Laser-pan-tilt/opencv/devel -DCMAKE_INSTALL_PREFIX=/home/ros/chenxu/Laser-pan-tilt/opencv/install -G Unix Makefiles

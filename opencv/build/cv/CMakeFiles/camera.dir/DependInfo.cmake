@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/camera.cpp.o"
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/camera.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -19,6 +19,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/opencv4"

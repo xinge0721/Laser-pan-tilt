@@ -128,6 +128,26 @@
 		serial.sendArray(date, 10);
 	}
 
+	// 滑块控制函数实现
+	// 根据滑块的百分比值调整舵机角度和速度
+	void HTS221::sliderControl(int angle_percent, int speed_percent)
+	{
+		// 限制百分比范围为0-100
+		if (angle_percent < 0) angle_percent = 0;
+		if (angle_percent > 100) angle_percent = 100;
+		if (speed_percent < 0) speed_percent = 0;
+		if (speed_percent > 100) speed_percent = 100;
+		
+		// 将百分比转换为实际角度和速度值
+		uint16_t angle = (uint16_t)((angle_percent * 1000) / 100);  // 0-100% 映射到 0-1000
+		uint16_t speed = (uint16_t)((speed_percent * 30000) / 100); // 0-100% 映射到 0-30000
+		
+		// 至少保证有最小速度
+		if (speed < 500) speed = 500;
+		
+		// 调用turn函数执行舵机控制
+		turn(angle, speed);
+	}
 
 
 // AngleData结构体函数实现

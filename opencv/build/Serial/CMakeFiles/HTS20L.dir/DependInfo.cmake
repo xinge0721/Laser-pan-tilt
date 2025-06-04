@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
-  "/home/ros/xiangmu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp" "/home/ros/xiangmu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -19,6 +19,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   )
