@@ -385,7 +385,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googlemock/CMakeFiles/gmoc
 gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=25,26 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=26,27 "Built target gmock_main"
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -412,7 +412,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/clean:
 gtest/googlemock/CMakeFiles/gmock.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=23,24 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=24,25 "Built target gmock"
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -439,7 +439,7 @@ gtest/googlemock/CMakeFiles/gmock.dir/clean:
 gtest/googletest/CMakeFiles/gtest_main.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest_main.dir/build.make gtest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest_main.dir/build.make gtest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=29,30 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=30,31 "Built target gtest_main"
 .PHONY : gtest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -466,7 +466,7 @@ gtest/googletest/CMakeFiles/gtest_main.dir/clean:
 gtest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=27,28 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=28,29 "Built target gtest"
 .PHONY : gtest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1340,7 +1340,7 @@ cv/CMakeFiles/cv_generate_messages_eus.dir/all: STB2025STB2025/CMakeFiles/std_ms
 cv/CMakeFiles/cv_generate_messages_eus.dir/all: cv/CMakeFiles/_cv_generate_messages_check_deps_date.dir/all
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_eus.dir/build.make cv/CMakeFiles/cv_generate_messages_eus.dir/depend
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_eus.dir/build.make cv/CMakeFiles/cv_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=17,18 "Built target cv_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=18,19 "Built target cv_generate_messages_eus"
 .PHONY : cv/CMakeFiles/cv_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1561,7 +1561,7 @@ cv/CMakeFiles/cv_generate_messages_nodejs.dir/all: STB2025STB2025/CMakeFiles/std
 cv/CMakeFiles/cv_generate_messages_nodejs.dir/all: cv/CMakeFiles/_cv_generate_messages_check_deps_date.dir/all
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_nodejs.dir/build.make cv/CMakeFiles/cv_generate_messages_nodejs.dir/depend
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_nodejs.dir/build.make cv/CMakeFiles/cv_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=20 "Built target cv_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=21 "Built target cv_generate_messages_nodejs"
 .PHONY : cv/CMakeFiles/cv_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1724,7 +1724,7 @@ cv/CMakeFiles/cv_generate_messages_lisp.dir/all: STB2025STB2025/CMakeFiles/std_m
 cv/CMakeFiles/cv_generate_messages_lisp.dir/all: cv/CMakeFiles/_cv_generate_messages_check_deps_date.dir/all
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_lisp.dir/build.make cv/CMakeFiles/cv_generate_messages_lisp.dir/depend
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_lisp.dir/build.make cv/CMakeFiles/cv_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=19 "Built target cv_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=20 "Built target cv_generate_messages_lisp"
 .PHONY : cv/CMakeFiles/cv_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1778,12 +1778,12 @@ cv/CMakeFiles/cv_genlisp.dir/clean:
 cv/CMakeFiles/camera.dir/all:
 	$(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/depend
 	$(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=12,13,14,15 "Built target camera"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=12,13,14,15,16 "Built target camera"
 .PHONY : cv/CMakeFiles/camera.dir/all
 
 # Build rule for subdir invocation for target.
 cv/CMakeFiles/camera.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 cv/CMakeFiles/camera.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles 0
 .PHONY : cv/CMakeFiles/camera.dir/rule
@@ -1806,7 +1806,7 @@ cv/CMakeFiles/cv_generate_messages_py.dir/all: STB2025STB2025/CMakeFiles/std_msg
 cv/CMakeFiles/cv_generate_messages_py.dir/all: cv/CMakeFiles/_cv_generate_messages_check_deps_date.dir/all
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_py.dir/build.make cv/CMakeFiles/cv_generate_messages_py.dir/depend
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_py.dir/build.make cv/CMakeFiles/cv_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=21,22 "Built target cv_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=22,23 "Built target cv_generate_messages_py"
 .PHONY : cv/CMakeFiles/cv_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1861,7 +1861,7 @@ cv/CMakeFiles/cv_generate_messages_cpp.dir/all: STB2025STB2025/CMakeFiles/std_ms
 cv/CMakeFiles/cv_generate_messages_cpp.dir/all: cv/CMakeFiles/_cv_generate_messages_check_deps_date.dir/all
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_cpp.dir/build.make cv/CMakeFiles/cv_generate_messages_cpp.dir/depend
 	$(MAKE) -f cv/CMakeFiles/cv_generate_messages_cpp.dir/build.make cv/CMakeFiles/cv_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=16 "Built target cv_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=17 "Built target cv_generate_messages_cpp"
 .PHONY : cv/CMakeFiles/cv_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.

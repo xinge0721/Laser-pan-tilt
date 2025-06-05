@@ -593,6 +593,33 @@ src/laser_processor/laser_processor.cpp.s:
 	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.s
 .PHONY : src/laser_processor/laser_processor.cpp.s
 
+src/mission/mission.o: src/mission/mission.cpp.o
+
+.PHONY : src/mission/mission.o
+
+# target to build an object file
+src/mission/mission.cpp.o:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o
+.PHONY : src/mission/mission.cpp.o
+
+src/mission/mission.i: src/mission/mission.cpp.i
+
+.PHONY : src/mission/mission.i
+
+# target to preprocess a source file
+src/mission/mission.cpp.i:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/mission/mission.cpp.i
+.PHONY : src/mission/mission.cpp.i
+
+src/mission/mission.s: src/mission/mission.cpp.s
+
+.PHONY : src/mission/mission.s
+
+# target to generate assembly for a file
+src/mission/mission.cpp.s:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f cv/CMakeFiles/camera.dir/build.make cv/CMakeFiles/camera.dir/src/mission/mission.cpp.s
+.PHONY : src/mission/mission.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -638,6 +665,9 @@ help:
 	@echo "... src/laser_processor/laser_processor.o"
 	@echo "... src/laser_processor/laser_processor.i"
 	@echo "... src/laser_processor/laser_processor.s"
+	@echo "... src/mission/mission.o"
+	@echo "... src/mission/mission.i"
+	@echo "... src/mission/mission.s"
 .PHONY : help
 
 

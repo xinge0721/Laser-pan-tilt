@@ -3,8 +3,8 @@
 #include "./hsv_threshold/hsv_threshold.h"
 #include "./laser_processor/laser_processor.h"
 #include <vector>
-#include <std_srvs/Trigger.h>
-#include "Serial/date.h"
+#include <std_msgs/Int32.h>
+#include <geometry_msgs/Point.h>
 
 // 自定义服务消息类型的包含路径
 // 实际使用时，需要创建以下服务文件并在CMakeLists.txt中配置
@@ -16,36 +16,6 @@ int x_angle = 500;
 int y_angle = 500;
 bool has_data = false;
 int current_mode = 1; // 当前工作模式
-
-/**
- * @brief 角度服务回调函数
- * 当客户端请求角度数据时，根据当前模式返回对应处理的角度数据
- * @param req 服务请求 
- * @param res 服务响应，包含角度数据字符串
- * @return 服务处理结果
- * 
- * 注意：由于标准的Trigger服务不支持在请求中传递参数，
- * 所以这里我们使用全局变量current_mode来表示当前模式
- */
-bool angleServiceCallback(Serial::date::Request &req, Serial::date::Response &res)
-{
-    // ROS_INFO("收到服务请求，当前模式: %d", req.mood);
-    std::cout <<"收到服务请求，当前模式: " << req.mood << std::endl;
-    switch (req.mood)
-    {
-    case 1:
-        /* code */
-        break;
-    case 2:
-        /* code */
-        break;    
-    case 3:
-        /* code */
-        break;
-    default:
-        break;
-    }
-}
 
 /**
  * @brief 初始化摄像头
@@ -151,6 +121,9 @@ void updateCurrentMode()
     // }
 }
 
+// 矩形处理函数
+// 将剧情的四个点之间，切成无数个小点。
+
 int main(int argc, char *argv[])
 {
     //执行 ros 节点初始化
@@ -158,8 +131,10 @@ int main(int argc, char *argv[])
     //创建 ros 节点句柄(非必须)
     ros::NodeHandle n;
     
-    // 创建角度服务服务器
-    ros::ServiceServer angle_service = n.advertiseService("angle_service", angleServiceCallback);
+    // 创建角度发布者（替代原来的服务）
+    ros::Publisher angle_pub = n.advertise<geometry_msgs::Point>("angle_data", 10);
+    // 创建模式发布者
+    ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("camera_mode", 10);
     
     // 初始化摄像头
     auto cap = initCamera(0,640,480,60);
@@ -175,6 +150,9 @@ int main(int argc, char *argv[])
     createHsvSliders("红色HSV阈值", hsvThresh);
 
     cv::Mat frame;
+
+    cap >> frame; // 从摄像头获取原始图片
+
     while(ros::ok())
     {
         // 更新当前工作模式
@@ -224,13 +202,24 @@ int main(int argc, char *argv[])
             std::string angle_text = "X: " + std::to_string(x_angle) + " Y: " + std::to_string(y_angle);
             cv::putText(cropped, angle_text, cv::Point(10, 40), 
                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
+                       
+            // 发布角度数据
+            geometry_msgs::Point angle_msg;
+            angle_msg.x = x_angle;
+            angle_msg.y = y_angle;
+            angle_pub.publish(angle_msg);
+            
+            // 发布当前模式
+            std_msgs::Int32 mode_msg;
+            mode_msg.data = current_mode;
+            mode_pub.publish(mode_msg);
         }
         
         cv::imshow("中心区域", cropped);
         if(cv::waitKey(1) == 27) // ESC键退出
             break;
         
-        // 处理ROS服务回调
+        // 处理ROS回调
         ros::spinOnce();
     }
     return 0;

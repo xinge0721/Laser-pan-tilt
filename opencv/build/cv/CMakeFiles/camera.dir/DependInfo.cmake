@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/camera.cpp.o"
   "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
   "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
