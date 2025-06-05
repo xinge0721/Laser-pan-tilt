@@ -5,6 +5,7 @@
 #include <vector>
 #include <std_msgs/Int32.h>
 #include <geometry_msgs/Point.h>
+#include "./mission/mission.h"
 
 // 自定义服务消息类型的包含路径
 // 实际使用时，需要创建以下服务文件并在CMakeLists.txt中配置
@@ -135,23 +136,31 @@ int main(int argc, char *argv[])
     ros::Publisher angle_pub = n.advertise<geometry_msgs::Point>("angle_data", 10);
     // 创建模式发布者
     ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("camera_mode", 10);
-    
-    // 初始化摄像头
-    auto cap = initCamera(0,640,480,60);
-    if (!cap.isOpened()) {
-        std::cerr << "摄像头打开失败！" << std::endl;
-        return -1;
+    while(1)
+    {    
+        // 初始化摄像头
+        auto cap = initCamera(0,640,480,60);
+        if (!cap.isOpened()) {
+            std::cerr << "摄像头打开成功！" << std::endl;
+            break;
+        }
+
     }
+
+    // 创建Mission对象
+    Mission mission;
 
     // 使用红色HSV预设
     HsvThreshold hsvThresh = RED_HSV;
     
     // 创建HSV阈值调节滑块
-    createHsvSliders("红色HSV阈值", hsvThresh);
+    // createHsvSliders("红色HSV阈值", hsvThresh);
 
     cv::Mat frame;
 
     cap >> frame; // 从摄像头获取原始图片
+
+    mission.calibration(frame,hsvThresh,cap);
 
     while(ros::ok())
     {
@@ -165,12 +174,14 @@ int main(int argc, char *argv[])
         cv::Mat croppeds = cropped;
         // 获取并标记矩形
         std::vector<cv::Point> rectPoints = getRectAndMark(croppeds);
+
         // 打印矩形顶点个数，用于调试
         if (!rectPoints.empty()) {
             cv::polylines(croppeds, rectPoints, true, cv::Scalar(0, 255, 0), 2);
             cv::imshow("矩形识别结果", croppeds);
             std::cout << "检测到矩形，顶点数: " << rectPoints.size() << std::endl;
         }
+
         // 处理并显示HSV阈值结果
         cv::Mat result = thresholdHsv(cropped, hsvThresh);
         cv::imshow("HSV阈值处理", result);

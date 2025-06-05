@@ -4,6 +4,7 @@
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.h
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.h
+cv/CMakeFiles/camera.dir/src/camera.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.h
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: /opt/ros/noetic/include/ros/advertise_options.h
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: /opt/ros/noetic/include/ros/advertise_service_options.h
@@ -455,6 +456,7 @@ cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o: /usr/include
 cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o: /usr/include/opencv4/opencv2/viz/vizcore.hpp
 cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o: /usr/include/opencv4/opencv2/viz/widgets.hpp
 
+cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.h
 cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.h
 cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.cpp
 cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.h

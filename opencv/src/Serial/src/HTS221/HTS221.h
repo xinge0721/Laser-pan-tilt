@@ -73,6 +73,9 @@ struct AngleData
     uint16_t y;
     uint16_t width;
     uint16_t height;
+    
+    // 构造函数，设置默认值
+    AngleData() : x(701), y(637), width(823), height(750) {}
 
     // 数据转换
     // 根据数据手册所示范围 0~1000，对应舵机角度的 0~240°

@@ -106,9 +106,47 @@ std::vector<cv::Point> divideRectangle(const std::vector<cv::Point>& rect, int n
     return allPoints;
 }
 
+// 校准函数
+std::vector<cv::Point> Mission::calibration(cv::Mat frame,HsvThreshold& hsvThresh,cv::VideoCapture& cap)
+{
+    std::vector<cv::Point> points;
+    cout << "开始校准" << endl;
+    // 校准上下左右
+    int cont = 4;
+    // 阻塞试校准
+    while(cont)
+    {
+        // 获取当前图像
+        cap >> frame;
+        // 裁剪中心区域
+        cv::Mat cropped = cropCenterRegion(frame);
+        // 显示中心区域
+        cv::imshow("中心区域", cropped);
+
+        // 处理并显示HSV阈值结果
+        cv::Mat result = thresholdHsv(frame, hsvThresh);
+        cv::imshow("HSV阈值处理", result);
+
+        // 应用膨胀腐蚀处理
+        result = colorProcessAndDilateErode(result);
+        cv::imshow("形态", result);
+
+        // 处理轮廓并在图像上绘制
+        std::vector<std::vector<cv::Point>> contours = processContours(result, cropped);
+        if(cv::waitKey(1) == 32) // 按下空格键，记录当前激光位置
+        {
+            // 记录当前激光位置
+            points.push_back(contours[0][0]);
+            cout << "激光位置: " << contours[0][0] << endl;
+            cont--;
+        }
+    }
+    return points;  // 返回屏幕坐标
+}
+
 // 第一题回归原点（复位）
 
-void Mission::one(ros::Publisher angle_pub)
+void Mission::one(cv::Mat frame,ros::Publisher angle_pub)
 {
     // 创建点消息对象
     geometry_msgs::Point point_msg;
@@ -124,7 +162,7 @@ void Mission::one(ros::Publisher angle_pub)
 }
 
 // 第二题 沿着屏幕走
-void Mission::two(ros::Publisher angle_pub)
+void Mission::two(cv::Mat frame,ros::Publisher angle_pub)
 {
     // 遍历四个点
     // 硬编码四个点的坐标

@@ -34,22 +34,24 @@ bool myserial::init(const std::string& port, int baudrate)
         ser.setParity(serial::parity_none);    // 无校验位
         ser.setStopbits(serial::stopbits_one); // 停止位 = 1
         ser.setFlowcontrol(serial::flowcontrol_none); // 无流控制
-        
-        // 打开串口
-        ser.open();
-        
-        // 检查串口是否成功打开
-        if (ser.isOpen())
+        while(1)
         {
-            isConnected = true;
-            std::cout << "串口 " << portName << " 已成功打开，波特率：" << baudRate << std::endl;
-            return true;
+            // 打开串口
+            ser.open();
+            
+            // 检查串口是否成功打开
+            if (ser.isOpen())
+            {
+                isConnected = true;
+                std::cout << "串口 " << portName << " 已成功打开，波特率：" << baudRate << std::endl;
+                return true;
+            }
+            else
+            {
+                std::cout << "串口无法打开" << std::endl;
+            }
         }
-        else
-        {
-            std::cout << "串口无法打开" << std::endl;
-            return false;
-        }
+
     }
     catch (serial::IOException& e)
     {

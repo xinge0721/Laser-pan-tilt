@@ -12,12 +12,10 @@ Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o: /home/ros/chenxu/Laser-pan
 Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o: /opt/ros/noetic/include/serial/serial.h
 Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o: /opt/ros/noetic/include/serial/v8stdint.h
 
-Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/devel/include/Serial/date.h
-Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/devel/include/Serial/dateRequest.h
-Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/devel/include/Serial/dateResponse.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp
+Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/ros/advertise_options.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/ros/advertise_service_options.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/ros/assert.h
@@ -78,9 +76,6 @@ Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/serial/seri
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/serial/v8stdint.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_msgs/Int32.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_msgs/String.h
-Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_srvs/Trigger.h
-Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_srvs/TriggerRequest.h
-Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_srvs/TriggerResponse.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
 

@@ -143,7 +143,7 @@
 		uint16_t speed = (uint16_t)((speed_percent * 30000) / 100); // 0-100% 映射到 0-30000
 		
 		// 至少保证有最小速度
-		if (speed < 500) speed = 500;
+		if (speed < 50) speed = 50;
 		
 		// 调用turn函数执行舵机控制
 		turn(angle, speed);
@@ -181,14 +181,27 @@ void AngleData::angleToData(void)
 // 摄像头数据为像素点的相对坐标，而非舵机的坐标
 void AngleData::processData(uint16_t centerX, uint16_t centerY)
 {
-	if(centerX > width)
+	// 根据设定的范围限制坐标
+	// X轴范围：613~823
+	// Y轴范围：562~750
+	if(centerX < 613)
 	{
-		centerX = width;
+		centerX = 613;
 	}
-	if(centerY > height)
+	else if(centerX > 823)
 	{
-		centerY = height;
+		centerX = 823;
 	}
+	
+	if(centerY < 562)
+	{
+		centerY = 562;
+	}
+	else if(centerY > 750)
+	{
+		centerY = 750;
+	}
+	
 	x = centerX;
 	y = centerY;
 }

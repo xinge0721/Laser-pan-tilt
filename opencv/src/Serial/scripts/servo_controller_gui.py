@@ -5,6 +5,25 @@ import sys
 import rospy
 from std_msgs.msg import Int32
 
+# 全局配置参数，方便调整
+# 初始角度值
+INITIAL_X_ANGLE = 660
+INITIAL_Y_ANGLE = 630  # 更新为650与main.cpp匹配
+
+# # 角度范围限制
+# X_MIN_ANGLE = 613
+# X_MAX_ANGLE = 823
+# Y_MIN_ANGLE = 562
+# Y_MAX_ANGLE = 750
+
+# 角度范围限制
+X_MIN_ANGLE = 0
+X_MAX_ANGLE = 1000
+Y_MIN_ANGLE = 0
+Y_MAX_ANGLE = 1000
+# 舵机速度（仅显示用）
+SERVO_SPEED = 50  # 更新为50与main.cpp匹配
+
 # 确保消息类型正确导入
 try:
     # Python 3
@@ -31,8 +50,8 @@ class ServoControllerGUI:
         self.y_angle_pub = rospy.Publisher('/y_angle_slider', Int32, queue_size=1)
         
         # 存储当前值，用于避免重复发布
-        self.current_x_angle = 600  # 初始角度为600（对应原来的60%）
-        self.current_y_angle = 500  # 初始角度为500（对应原来的50%）
+        self.current_x_angle = INITIAL_X_ANGLE  # 使用全局变量
+        self.current_y_angle = INITIAL_Y_ANGLE  # 使用全局变量
         
         # 创建角度控制框架
         self.create_x_angle_frame()
@@ -45,11 +64,14 @@ class ServoControllerGUI:
         info_frame = ttk.Frame(master)
         info_frame.grid(row=3, column=0, padx=10, pady=5, sticky="w")
         
-        speed_info = ttk.Label(info_frame, text="舵机速度固定为500")
+        speed_info = ttk.Label(info_frame, text="舵机速度固定为{}".format(SERVO_SPEED))
         speed_info.grid(row=0, column=0, padx=10, pady=5, sticky="w")
         
-        angle_range_info = ttk.Label(info_frame, text="角度范围: 0-1000 (对应舵机角度0-240°)")
-        angle_range_info.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        x_range_info = ttk.Label(info_frame, text="X轴角度范围: {}-{}".format(X_MIN_ANGLE, X_MAX_ANGLE))
+        x_range_info.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        
+        y_range_info = ttk.Label(info_frame, text="Y轴角度范围: {}-{}".format(Y_MIN_ANGLE, Y_MAX_ANGLE))
+        y_range_info.grid(row=2, column=0, padx=10, pady=5, sticky="w")
         
         # 控制按钮
         self.create_control_buttons()
@@ -68,13 +90,13 @@ class ServoControllerGUI:
         frame = ttk.LabelFrame(self.master, text="X轴舵机角度控制")
         frame.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
         
-        # 使用0-1000范围而不是0-100
-        self.x_angle_var = tk.IntVar(value=600)  # 初始值600
+        # 使用0-1000范围
+        self.x_angle_var = tk.IntVar(value=INITIAL_X_ANGLE)  # 使用全局变量
         self.x_angle_scale = ttk.Scale(frame, from_=0, to=1000, variable=self.x_angle_var, 
                                       orient=tk.HORIZONTAL, length=350)
         self.x_angle_scale.grid(row=0, column=0, padx=10, pady=10)
         
-        self.x_angle_label = ttk.Label(frame, text="600")
+        self.x_angle_label = ttk.Label(frame, text=str(INITIAL_X_ANGLE))
         self.x_angle_label.grid(row=0, column=1, padx=10, pady=10)
         
         # 添加跟踪变量变化
@@ -84,13 +106,13 @@ class ServoControllerGUI:
         frame = ttk.LabelFrame(self.master, text="Y轴舵机角度控制")
         frame.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
         
-        # 使用0-1000范围而不是0-100
-        self.y_angle_var = tk.IntVar(value=500)  # 初始值500
+        # 使用0-1000范围
+        self.y_angle_var = tk.IntVar(value=INITIAL_Y_ANGLE)  # 使用全局变量
         self.y_angle_scale = ttk.Scale(frame, from_=0, to=1000, variable=self.y_angle_var, 
                                       orient=tk.HORIZONTAL, length=350)
         self.y_angle_scale.grid(row=0, column=0, padx=10, pady=10)
         
-        self.y_angle_label = ttk.Label(frame, text="500")
+        self.y_angle_label = ttk.Label(frame, text=str(INITIAL_Y_ANGLE))
         self.y_angle_label.grid(row=0, column=1, padx=10, pady=10)
         
         # 添加跟踪变量变化
@@ -104,13 +126,13 @@ class ServoControllerGUI:
         ttk.Label(frame, text="X轴:").grid(row=0, column=0, padx=5, pady=5)
         self.x_entry = ttk.Entry(frame, width=8)
         self.x_entry.grid(row=0, column=1, padx=5, pady=5)
-        self.x_entry.insert(0, "600")
+        self.x_entry.insert(0, str(INITIAL_X_ANGLE))
         
         # Y轴精确输入
         ttk.Label(frame, text="Y轴:").grid(row=0, column=2, padx=5, pady=5)
         self.y_entry = ttk.Entry(frame, width=8)
         self.y_entry.grid(row=0, column=3, padx=5, pady=5)
-        self.y_entry.insert(0, "500")
+        self.y_entry.insert(0, str(INITIAL_Y_ANGLE))
         
         # 设置按钮
         set_btn = ttk.Button(frame, text="设置角度", command=self.set_precise_angles)
@@ -120,25 +142,25 @@ class ServoControllerGUI:
         try:
             # 获取并验证X轴输入
             x_value = int(self.x_entry.get())
-            if x_value < 0:
-                x_value = 0
+            if x_value < X_MIN_ANGLE:
+                x_value = X_MIN_ANGLE
                 self.x_entry.delete(0, tk.END)
-                self.x_entry.insert(0, "0")
-            elif x_value > 1000:
-                x_value = 1000
+                self.x_entry.insert(0, str(X_MIN_ANGLE))
+            elif x_value > X_MAX_ANGLE:
+                x_value = X_MAX_ANGLE
                 self.x_entry.delete(0, tk.END)
-                self.x_entry.insert(0, "1000")
+                self.x_entry.insert(0, str(X_MAX_ANGLE))
                 
             # 获取并验证Y轴输入
             y_value = int(self.y_entry.get())
-            if y_value < 0:
-                y_value = 0
+            if y_value < Y_MIN_ANGLE:
+                y_value = Y_MIN_ANGLE
                 self.y_entry.delete(0, tk.END)
-                self.y_entry.insert(0, "0")
-            elif y_value > 1000:
-                y_value = 1000
+                self.y_entry.insert(0, str(Y_MIN_ANGLE))
+            elif y_value > Y_MAX_ANGLE:
+                y_value = Y_MAX_ANGLE
                 self.y_entry.delete(0, tk.END)
-                self.y_entry.insert(0, "1000")
+                self.y_entry.insert(0, str(Y_MAX_ANGLE))
             
             # 更新滑块值
             self.x_angle_var.set(x_value)
@@ -231,8 +253,8 @@ class ServoControllerGUI:
     
     # 重置舵机到默认位置
     def reset_to_default(self):
-        self.x_angle_var.set(600)  # 设置X轴角度为默认值600
-        self.y_angle_var.set(500)  # 设置Y轴角度为默认值500
+        self.x_angle_var.set(INITIAL_X_ANGLE)  # 设置X轴角度为默认值
+        self.y_angle_var.set(INITIAL_Y_ANGLE)  # 设置Y轴角度为默认值
         # 立即发布更新后的值
         self.publish_all_values()
     
