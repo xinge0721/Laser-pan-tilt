@@ -1,4 +1,5 @@
 #include "HTS221.h"
+#include <chrono> // 添加时间相关头文件
 
 	// 注意事项
 	// 注意：在发送舵机控制指令时，需要等待前一条指令运行结束后，再发送
@@ -128,6 +129,38 @@
 		serial.sendArray(date, 10);
 	}
 
+    // 读取舵机角度
+	// 指令名 SERVO_POS_READ指令值 28数据长度 3
+	// 	**发送格式：**
+	// [0x55][0x55][ID][长度=3][0x1C][校验和]
+    void HTS221::readAngle(void)
+    {
+        date[2] = ID;
+        date[3] = 0x03;
+        date[4] = 0x1C;
+        date[5] = ~ (ID + date[3] + date[4]);
+        serial.sendArray(date, 6);
+    }
+
+    // 舵机返回数据函数
+	// **返回格式：**
+	// [0x55][0x55][ID][长度=5][0x1C][位置低8位][位置高8位][校验和]
+    void HTS221::returnData(uint8_t data)
+    {
+		switch(cont)
+		{
+			case 0:if(data == 0x55) cont++;break;
+			case 1:if(data == 0x55) cont++;break;
+			case 2:if(data == ID) cont++;break;
+			case 3:if(data == 0x05) cont++;break;
+			case 4:if(data == 0x1C) cont++;break;
+			case 5:angle = data & 0xFF; cont++;break;//低八位
+			case 6:angle |= (data & 0xFF) << 8; cont++;break;//高八位
+			case 7:if(data == ~ (ID + date[3] + date[4] + date[5] + date[6])) cont = 0;break;//校验和
+			default:cont = 0;break;
+		}
+    }
+
 	// 滑块控制函数实现
 	// 根据滑块的百分比值调整舵机角度和速度
 	void HTS221::sliderControl(int angle_percent, int speed_percent)
@@ -204,5 +237,59 @@ void AngleData::processData(uint16_t centerX, uint16_t centerY)
 	
 	x = centerX;
 	y = centerY;
+}
+
+// 启动接收线程
+void HTS221::startReceiveThread()
+{
+    // 如果线程已经在运行，则不重新启动
+    if (isRunning)
+        return;
+        
+    // 设置运行标志
+    isRunning = true;
+    
+    // 创建新线程并启动接收函数
+    receiveThread = std::thread(&HTS221::receiveThreadFunc, this);
+    
+    std::cout << "接收线程已启动，ID: " << (int)ID << std::endl;
+}
+
+// 停止接收线程
+void HTS221::stopReceiveThread()
+{
+    // 设置停止标志
+    isRunning = false;
+    
+    // 等待线程结束
+    if (receiveThread.joinable())
+    {
+        receiveThread.join();
+        std::cout << "接收线程已停止，ID: " << (int)ID << std::endl;
+    }
+}
+
+// 接收线程函数
+void HTS221::receiveThreadFunc()
+{
+    uint8_t buffer[1]; // 单字节缓冲区
+    
+    while (isRunning)
+    {
+        // 尝试读取一个字节
+        int bytesRead = serial.readBuffer(buffer, 1);
+        
+        // 如果成功读取到数据
+        if (bytesRead > 0)
+        {
+            // 处理接收到的数据
+            returnData(buffer[0]);
+        }
+        else
+        {
+            // 如果没有数据，短暂休眠以降低CPU使用率
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
+    }
 }
 

@@ -2,6 +2,8 @@
 #define __HTS221_H
 #include "./../Serial/Serial.h"
 #include <iostream>
+#include <thread>  // 添加线程支持
+#include <atomic>  // 添加原子变量支持
 #define uint8_t unsigned char
 #define int16_t short int
 #define int8_t char
@@ -20,6 +22,7 @@ public:
 	HTS221(uint8_t ID = 0x00,uint8_t size = 10,const std::string& port="/dev/ttyUSB0", int baudrate=115200)
     :ID(ID)
     ,size(size)
+    ,isRunning(false)
     {
         if(size < 6)
         {
@@ -36,34 +39,64 @@ public:
             std::cerr << "串口初始化失败！" << std::endl;
         } else {
             std::cout << "串口初始化成功！" << std::endl;
+            this->startReceiveThread(); //自动启动线程
         }
-
+        cont = 0;  // 初始化cont变量
 	}
 
     // 析构函数
     ~HTS221()
     {
+        // 停止接收线程
+        stopReceiveThread();
         delete[] date;
         // 关闭串口
         serial.close();
     }
-
-    void turn(uint16_t angle, uint16_t speed);
+    
+    //转动舵机
+    void turn(uint16_t angle, uint16_t speed);  
+    //停止舵机
     void stop(void);
     void getAngle(void);
     void setAngleLimit(uint16_t minAngle, uint16_t maxAngle);
 	
+    // 读取舵机角度
+    void readAngle(void);
+
+    // 舵机返回数据函数
+    void returnData(uint8_t data);
+
     // 滑块控制函数
     // 根据滑块值调整舵机角度和速度
     // angle_percent: 角度百分比，范围0-100，对应舵机角度0-1000
     // speed_percent: 速度百分比，范围0-100，对应舵机速度0-30000
     void sliderControl(int angle_percent, int speed_percent);
+    
+    // 启动接收线程
+    void startReceiveThread();
+    
+    // 停止接收线程
+    void stopReceiveThread();
+    
+    // 获取当前舵机角度
+    uint16_t getCurrentAngle() const { return angle; }
 
 private:
 	const uint8_t ID;
 	uint8_t* date;
 	const uint8_t size;
     myserial serial;
+    uint16_t angle;
+    uint16_t speed;
+    uint8_t cont;
+    
+    // 线程相关变量
+    std::thread receiveThread;
+    std::atomic<bool> isRunning;
+    
+    // 接收线程函数
+    void receiveThreadFunc();
 };
 
 // 关于角度数据处理结构体

@@ -13,9 +13,9 @@
 #include <stdlib.h> // 添加标准库头文件
 
 // 全局角度限制变量
-int X_MIN_ANGLE = 450;  // X轴最小角度
+int X_MIN_ANGLE = 613;  // X轴最小角度
 int X_MAX_ANGLE = 823;  // X轴最大角度
-int Y_MIN_ANGLE = 450;  // Y轴最小角度
+int Y_MIN_ANGLE = 562;  // Y轴最小角度
 int Y_MAX_ANGLE = 750;  // Y轴最大角度
 
 // 信号处理函数
@@ -121,6 +121,10 @@ int main(int argc, char *argv[])
     x.turn(current_x_angle, FIXED_SPEED);
     y.turn(current_y_angle, FIXED_SPEED);
     
+    // 启动X轴和Y轴舵机的接收线程
+    x.startReceiveThread();
+    y.startReceiveThread();
+    
     // 创建订阅者，订阅角度控制话题
     ros::Subscriber x_angle_sub = n.subscribe("/x_angle_slider", 1, xAngleCallback);
     ros::Subscriber y_angle_sub = n.subscribe("/y_angle_slider", 1, yAngleCallback);
@@ -142,6 +146,7 @@ int main(int argc, char *argv[])
     ROS_INFO("Y轴角度控制: /y_angle_slider");
     ROS_INFO("从相机节点接收角度数据: angle_data");
     ROS_INFO("从相机节点接收模式数据: camera_mode");
+    ROS_INFO("舵机接收线程已启动");
     
     while(ros::ok())
     {
@@ -151,6 +156,10 @@ int main(int argc, char *argv[])
         // 按照设定频率休眠
         rate.sleep();
     }
+    
+    // 停止接收线程
+    x.stopReceiveThread();
+    y.stopReceiveThread();
 
     return 0;
 }

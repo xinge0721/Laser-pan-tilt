@@ -62,6 +62,9 @@ public:
     // 读取数据到字节数组
     std::vector<uint8_t> receiveArray(size_t size = 1024);
     
+    // 读取数据到缓冲区，返回读取的字节数
+    int readBuffer(uint8_t* buffer, size_t size);
+    
     // 关闭串口
     void close();
     

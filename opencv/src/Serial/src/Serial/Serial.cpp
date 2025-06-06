@@ -34,24 +34,22 @@ bool myserial::init(const std::string& port, int baudrate)
         ser.setParity(serial::parity_none);    // 无校验位
         ser.setStopbits(serial::stopbits_one); // 停止位 = 1
         ser.setFlowcontrol(serial::flowcontrol_none); // 无流控制
-        while(1)
+        
+        // 打开串口
+        ser.open();
+        
+        // 检查串口是否成功打开
+        if (ser.isOpen())
         {
-            // 打开串口
-            ser.open();
-            
-            // 检查串口是否成功打开
-            if (ser.isOpen())
-            {
-                isConnected = true;
-                std::cout << "串口 " << portName << " 已成功打开，波特率：" << baudRate << std::endl;
-                return true;
-            }
-            else
-            {
-                std::cout << "串口无法打开" << std::endl;
-            }
+            isConnected = true;
+            std::cout << "串口 " << portName << " 已成功打开，波特率：" << baudRate << std::endl;
+            return true;
         }
-
+        else
+        {
+            std::cout << "串口无法打开" << std::endl;
+            return false;
+        }
     }
     catch (serial::IOException& e)
     {
@@ -188,6 +186,38 @@ std::vector<uint8_t> myserial::receiveArray(size_t size)
     }
     
     return buffer;
+}
+
+// 实现readBuffer方法
+int myserial::readBuffer(uint8_t* buffer, size_t size)
+{
+    if (!isConnected || !ser.isOpen())
+    {
+        return 0;  // 串口未连接，返回读取0字节
+    }
+
+    try
+    {
+        // 检查是否有数据可读
+        size_t available = ser.available();
+        if (available == 0)
+        {
+            return 0;  // 没有可读数据，返回读取0字节
+        }
+        
+        // 确定要读取的大小，不超过available或请求的size
+        size_t readSize = std::min(available, size);
+        
+        // 直接读取到提供的缓冲区
+        size_t bytesRead = ser.read(buffer, readSize);
+        
+        return static_cast<int>(bytesRead);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "读取缓冲区异常: " << e.what() << std::endl;
+        return -1;  // 读取异常，返回-1
+    }
 }
 
 void myserial::close()

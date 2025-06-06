@@ -136,16 +136,12 @@ int main(int argc, char *argv[])
     ros::Publisher angle_pub = n.advertise<geometry_msgs::Point>("angle_data", 10);
     // 创建模式发布者
     ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("camera_mode", 10);
-    while(1)
-    {    
+
         // 初始化摄像头
         auto cap = initCamera(0,640,480,60);
         if (!cap.isOpened()) {
             std::cerr << "摄像头打开成功！" << std::endl;
-            break;
         }
-
-    }
 
     // 创建Mission对象
     Mission mission;
