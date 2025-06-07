@@ -2,13 +2,14 @@
 #define __HTS221_H
 #include "./../Serial/Serial.h"
 #include <iostream>
-#include <thread>  // 添加线程支持
-#include <atomic>  // 添加原子变量支持
 #define uint8_t unsigned char
 #define int16_t short int
 #define int8_t char
 #define uint32_t unsigned long int
 #define int32_t long int
+
+// 声明全局串口对象（在main.cpp中定义）
+extern myserial globalSerial;
 
 class HTS221
 {
@@ -19,10 +20,13 @@ public:
     // 注意：size必须大于6，否则无法正确初始化数据包
     // 通信协议最短是6个字节，所以size至少为6
     // 通信协议长度一般为10个字节，所以size的缺省值为10
-	HTS221(uint8_t ID = 0x00,uint8_t size = 10,const std::string& port="/dev/ttyUSB0", int baudrate=115200)
+	HTS221(uint8_t ID = 0x00,uint8_t size = 10)
     :ID(ID)
     ,size(size)
-    ,isRunning(false)
+    ,kp(1.0)
+    ,kd(0.1)
+    ,last_Err(0)
+    ,pwm(0)
     {
         if(size < 6)
         {
@@ -35,23 +39,14 @@ public:
 		for(int i = 2; i < size; i++) {
 			date[i] = 0x00;
 		}
-        if (!serial.init(port, baudrate)) {
-            std::cerr << "串口初始化失败！" << std::endl;
-        } else {
-            std::cout << "串口初始化成功！" << std::endl;
-            this->startReceiveThread(); //自动启动线程
-        }
+        
         cont = 0;  // 初始化cont变量
 	}
 
     // 析构函数
     ~HTS221()
     {
-        // 停止接收线程
-        stopReceiveThread();
         delete[] date;
-        // 关闭串口
-        serial.close();
     }
     
     //转动舵机
@@ -73,30 +68,24 @@ public:
     // speed_percent: 速度百分比，范围0-100，对应舵机速度0-30000
     void sliderControl(int angle_percent, int speed_percent);
     
-    // 启动接收线程
-    void startReceiveThread();
-    
-    // 停止接收线程
-    void stopReceiveThread();
-    
     // 获取当前舵机角度
     uint16_t getCurrentAngle() const { return angle; }
 
-private:
+    // PID控制相关参数
+    float kp;       // 比例系数
+    float kd;       // 微分系数
+    int last_Err;   // 上一次误差
+    int pwm;        // 控制PWM值
+    bool return_flag; // 返回标志位
+public:  // 使angle可直接访问
 	const uint8_t ID;
+    uint16_t angle; // 当前角度
+
+private:
 	uint8_t* date;
 	const uint8_t size;
-    myserial serial;
-    uint16_t angle;
     uint16_t speed;
     uint8_t cont;
-    
-    // 线程相关变量
-    std::thread receiveThread;
-    std::atomic<bool> isRunning;
-    
-    // 接收线程函数
-    void receiveThreadFunc();
 };
 
 // 关于角度数据处理结构体
@@ -126,8 +115,5 @@ struct AngleData
     // 摄像头数据为像素点的相对坐标，而非舵机的坐标
     void processData(uint16_t centerX, uint16_t centerY);
 };
-
-
-
 
 #endif

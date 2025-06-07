@@ -1,5 +1,4 @@
 #include "HTS221.h"
-#include <chrono> // 添加时间相关头文件
 
 	// 注意事项
 	// 注意：在发送舵机控制指令时，需要等待前一条指令运行结束后，再发送
@@ -37,11 +36,16 @@
 		date[8] = speed >> 8;
 
 		// CRC
-		// Checksum = ~ (ID + Length + Cmd+ Prm1 + ... Prm N)若括号内的计算和超出 255
-		// 则取后 8 位，即对 255 取反。
 		date[9] = ~ (ID + date[3] + date[4] + date[5] + date[6] + date[7] + date[8]);
 
-		serial.sendArray(date, size);
+		// 注释掉发送输出
+		// std::cout << "发送: ";
+		// for (int i = 0; i < 10; i++) {
+		// 	std::cout << (int)date[i] << " ";
+		// }
+		// std::cout << std::endl;
+
+		globalSerial.sendArray(date, size);
 	}
 
 	// 停止舵机
@@ -63,7 +67,7 @@
 		// 则取后 8 位，即对 255 取反。
 		date[9] = ~ (ID + date[3] + date[4] + date[5] + date[6] + date[7] + date[8]);
 
-		serial.sendArray(date, 10);
+		globalSerial.sendArray(date, 10);
 	}
 
 	// 获取舵机角度请求
@@ -86,7 +90,7 @@
 		// 则取后 8 位，即对 255 取反。
 		date[9] = ~ (ID + date[3] + date[4] + date[5] + date[6] + date[7] + date[8]);
 
-		serial.sendArray(date, 10);	//发送请求
+		globalSerial.sendArray(date, 10);	//发送请求
 	}
 
 	// 设置舵机角度限制
@@ -126,7 +130,7 @@
 		// 则取后 8 位，即对 255 取反。
 		date[9] = ~ (ID + date[3] + date[4] + date[5] + date[6] + date[7] + date[8]);
 		
-		serial.sendArray(date, 10);
+		globalSerial.sendArray(date, 10);
 	}
 
     // 读取舵机角度
@@ -139,7 +143,15 @@
         date[3] = 0x03;
         date[4] = 0x1C;
         date[5] = ~ (ID + date[3] + date[4]);
-        serial.sendArray(date, 6);
+        
+        // 注释掉发送输出
+        // std::cout << "发送: ";
+        // for (int i = 0; i < 6; i++) {
+        //     std::cout << (int)date[i] << " ";
+        // }
+        // std::cout << std::endl;
+        
+        globalSerial.sendArray(date, 6);
     }
 
     // 舵机返回数据函数
@@ -147,17 +159,58 @@
 	// [0x55][0x55][ID][长度=5][0x1C][位置低8位][位置高8位][校验和]
     void HTS221::returnData(uint8_t data)
     {
+        // 打印每个接收的字节
+        std::cout << (int)data << " ";
+        
 		switch(cont)
 		{
-			case 0:if(data == 0x55) cont++;break;
-			case 1:if(data == 0x55) cont++;break;
-			case 2:if(data == ID) cont++;break;
-			case 3:if(data == 0x05) cont++;break;
-			case 4:if(data == 0x1C) cont++;break;
-			case 5:angle = data & 0xFF; cont++;break;//低八位
-			case 6:angle |= (data & 0xFF) << 8; cont++;break;//高八位
-			case 7:if(data == ~ (ID + date[3] + date[4] + date[5] + date[6])) cont = 0;break;//校验和
-			default:cont = 0;break;
+			case 0:
+			    if(data == 0x55) cont++;
+			    break;
+			case 1:
+			    if(data == 0x55) cont++;
+			    else cont = 0;
+			    break;
+			case 2:
+			    if(data == ID) cont++;
+			    else cont = 0;
+			    break;
+			case 3:
+			    if(data == 0x05) cont++;
+			    else cont = 0;
+			    break;
+			case 4:
+			    if(data == 0x1C) cont++;
+			    else cont = 0;
+			    break;
+			case 5:
+			    this->angle = data & 0xFF;
+			    cont++;
+			    break;//低八位
+			case 6:
+			    this->angle |= (data & 0xFF) << 8;
+			    cont++;
+			    break;//高八位
+			case 7:
+			{
+			    extern int target_angle; // 引用全局目标角度变量
+			    
+			    // 判断校验和
+			    uint8_t expected = ~ (ID + 0x05 + 0x1C + (uint8_t)(angle & 0xFF) + (uint8_t)((angle >> 8) & 0xFF));
+			    
+			    if(data == expected) {
+			        // 打印当前角度值和目标角度
+			        std::cout << "角度值: " << this->angle << " 目标: " << target_angle << std::endl;
+			        return_flag = true;
+			    } else {
+			        std::cout << " 校验错误" << std::endl;
+			    }
+			    cont = 0;
+			    break;
+			}
+			default:
+			    cont = 0;
+			    break;
 		}
     }
 
@@ -237,59 +290,5 @@ void AngleData::processData(uint16_t centerX, uint16_t centerY)
 	
 	x = centerX;
 	y = centerY;
-}
-
-// 启动接收线程
-void HTS221::startReceiveThread()
-{
-    // 如果线程已经在运行，则不重新启动
-    if (isRunning)
-        return;
-        
-    // 设置运行标志
-    isRunning = true;
-    
-    // 创建新线程并启动接收函数
-    receiveThread = std::thread(&HTS221::receiveThreadFunc, this);
-    
-    std::cout << "接收线程已启动，ID: " << (int)ID << std::endl;
-}
-
-// 停止接收线程
-void HTS221::stopReceiveThread()
-{
-    // 设置停止标志
-    isRunning = false;
-    
-    // 等待线程结束
-    if (receiveThread.joinable())
-    {
-        receiveThread.join();
-        std::cout << "接收线程已停止，ID: " << (int)ID << std::endl;
-    }
-}
-
-// 接收线程函数
-void HTS221::receiveThreadFunc()
-{
-    uint8_t buffer[1]; // 单字节缓冲区
-    
-    while (isRunning)
-    {
-        // 尝试读取一个字节
-        int bytesRead = serial.readBuffer(buffer, 1);
-        
-        // 如果成功读取到数据
-        if (bytesRead > 0)
-        {
-            // 处理接收到的数据
-            returnData(buffer[0]);
-        }
-        else
-        {
-            // 如果没有数据，短暂休眠以降低CPU使用率
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        }
-    }
 }
 

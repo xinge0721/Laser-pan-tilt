@@ -6,26 +6,10 @@
 
 #IncludeRegexTransform: 
 
-/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp
-HTS221.h
-/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.h
-chrono
--
-
 /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.h
 ./../Serial/Serial.h
 /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.h
 iostream
--
-thread
--
-atomic
--
-
-/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp
-./Serial.h
-/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.h
-cstring
 -
 
 /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.h
@@ -64,6 +48,12 @@ unistd.h
 signal.h
 -
 stdlib.h
+-
+thread
+-
+atomic
+-
+chrono
 -
 
 /opt/ros/noetic/include/geometry_msgs/Point.h
