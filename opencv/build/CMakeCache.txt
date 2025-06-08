@@ -377,12 +377,6 @@ SETUPTOOLS_DEB_LAYOUT:BOOL=ON
 SITE:STRING=ros-virtual-machine
 
 //Value Computed by CMake
-STB2025STB2025_BINARY_DIR:STATIC=/home/ros/chenxu/Laser-pan-tilt/opencv/build/STB2025STB2025
-
-//Value Computed by CMake
-STB2025STB2025_SOURCE_DIR:STATIC=/home/ros/chenxu/Laser-pan-tilt/opencv/src/STB2025STB2025
-
-//Value Computed by CMake
 Serial_BINARY_DIR:STATIC=/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial
 
 //Value Computed by CMake
@@ -678,7 +672,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

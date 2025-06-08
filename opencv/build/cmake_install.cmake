@@ -146,7 +146,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ros/chenxu/Laser-pan-tilt/opencv/build/gtest/cmake_install.cmake")
-  include("/home/ros/chenxu/Laser-pan-tilt/opencv/build/STB2025STB2025/cmake_install.cmake")
   include("/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/cmake_install.cmake")
   include("/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/cmake_install.cmake")
 

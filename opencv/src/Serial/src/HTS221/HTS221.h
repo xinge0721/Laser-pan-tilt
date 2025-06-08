@@ -8,6 +8,26 @@
 #define uint32_t unsigned long int
 #define int32_t long int
 
+// 关于角度数据处理结构体
+typedef struct AngleData
+{
+    // 数据转换
+    // 根据数据手册所示范围 0~1000，对应舵机角度的 0~240°
+    // 所以需要将数据转换为角度
+    // 注意：这种转换是线性映射，每个单位数据对应0.24度角度
+    int dataToAngle(int data);
+
+    // 将角度转换为数据
+    // 注意：这种转换是线性映射，每个度角度对应约4.17个单位数据
+    int angleToData(int angle);
+
+    // 处理摄像头数据，转化为舵机可用参数
+    // 参数一：目标的中心点x坐标
+    // 参数二：目标的中心点y坐标
+    // 摄像头数据为像素点的相对坐标，而非舵机的坐标
+    void processData(uint16_t centerX, uint16_t centerY);
+}AngleData;
+
 // 声明全局串口对象（在main.cpp中定义）
 extern myserial globalSerial;
 
@@ -61,7 +81,6 @@ public:
 
     // 舵机返回数据函数
     void returnData(uint8_t data);
-
     // 滑块控制函数
     // 根据滑块值调整舵机角度和速度
     // angle_percent: 角度百分比，范围0-100，对应舵机角度0-1000
@@ -70,6 +89,7 @@ public:
     
     // 获取当前舵机角度
     uint16_t getCurrentAngle() const { return angle; }
+    void setMotorMode(int16_t speed);
 
     // PID控制相关参数
     float kp;       // 比例系数
@@ -86,34 +106,7 @@ private:
 	const uint8_t size;
     uint16_t speed;
     uint8_t cont;
-};
-
-// 关于角度数据处理结构体
-struct AngleData
-{
-    uint16_t x;
-    uint16_t y;
-    uint16_t width;
-    uint16_t height;
-    
-    // 构造函数，设置默认值
-    AngleData() : x(701), y(637), width(823), height(750) {}
-
-    // 数据转换
-    // 根据数据手册所示范围 0~1000，对应舵机角度的 0~240°
-    // 所以需要将数据转换为角度
-    // 注意：这种转换是线性映射，每个单位数据对应0.24度角度
-    void dataToAngle(void);
-
-    // 将角度转换为数据
-    // 注意：这种转换是线性映射，每个度角度对应约4.17个单位数据
-    void angleToData(void);
-
-    // 处理摄像头数据，转化为舵机可用参数
-    // 参数一：目标的中心点x坐标
-    // 参数二：目标的中心点y坐标
-    // 摄像头数据为像素点的相对坐标，而非舵机的坐标
-    void processData(uint16_t centerX, uint16_t centerY);
+    AngleData angleConverter; // 重新添加angleConverter成员
 };
 
 #endif

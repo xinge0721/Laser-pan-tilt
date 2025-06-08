@@ -17,6 +17,8 @@ int x_angle = 500;
 int y_angle = 500;
 bool has_data = false;
 int current_mode = 1; // 当前工作模式
+// 使用红色HSV预设
+HsvThreshold hsvThresh = RED_HSV;
 
 /**
  * @brief 初始化摄像头
@@ -28,7 +30,7 @@ int current_mode = 1; // 当前工作模式
  */
 cv::VideoCapture initCamera(int camera_id, int width, int height, int fps)
 {
-    cv::VideoCapture cap(camera_id);
+    cv::VideoCapture cap(camera_id, cv::CAP_V4L2); // 显式使用V4L2后端
     // 检查摄像头是否成功打开
     if(!cap.isOpened())
     {
@@ -42,57 +44,8 @@ cv::VideoCapture initCamera(int camera_id, int width, int height, int fps)
     return cap;
 }
 
-/**
- * @brief 裁剪图像的中心区域
- * @param src 原始图像
- * @param crop_ratio 裁剪比例（0-1之间），控制y方向（垂直）裁剪
- * @param x_ratio 水平裁剪比例（0-1之间），控制x方向（水平）裁剪，值越小裁剪越多
- * @return 裁剪后的图像
- */
-cv::Mat cropCenterRegion(const cv::Mat& src, double crop_ratio = 0.4, double x_ratio = 0.3)
-{
-    // 获取图像尺寸
-    int width = src.cols;
-    int height = src.rows;
-    // 计算中心区域边界，x方向使用更小的比例
-    int crop_width = static_cast<int>(width * x_ratio);  // x方向收紧
-    int crop_height = static_cast<int>(height * crop_ratio);
-    int x = (width - crop_width) / 2;
-    int y = (height - crop_height) / 2;
-    // 裁剪并返回中心区域
-    return src(cv::Rect(x, y, crop_width, crop_height));
-}
 
-/**
- * @brief 根据指定模式处理角度数据
- * @param mode 处理模式
- * 
- * 不同模式下对检测到的角度数据进行不同处理
- */
-void processModeAngleData(int mode)
-{
-    // 更新当前模式
-    current_mode = mode;
-    
-    // 根据当前模式调整处理方式
-    switch(current_mode) {
-        case 1:
-            // 模式1：标准处理
-            // 不做特殊处理，使用原始检测数据
-            break;
-        case 2:
-            // 模式2：精确模式
-            // 这里可以添加平滑处理或精确定位算法
-            break;
-        case 3:
-            // 模式3：快速模式
-            // 这里可以添加快速但精度可能较低的处理
-            break;
-        default:
-            // 默认模式
-            break;
-    }
-}
+
 
 /**
  * @brief 更新当前工作模式
@@ -124,7 +77,6 @@ void updateCurrentMode()
 
 // 矩形处理函数
 // 将剧情的四个点之间，切成无数个小点。
-
 int main(int argc, char *argv[])
 {
     //执行 ros 节点初始化
@@ -136,98 +88,182 @@ int main(int argc, char *argv[])
     ros::Publisher angle_pub = n.advertise<geometry_msgs::Point>("angle_data", 10);
     // 创建模式发布者
     ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("camera_mode", 10);
-
-        // 初始化摄像头
-        auto cap = initCamera(0,640,480,60);
-        if (!cap.isOpened()) {
-            std::cerr << "摄像头打开成功！" << std::endl;
-        }
+    
+    // 初始化摄像头
+    auto cap = initCamera(0,640,480,60);
+    if (!cap.isOpened()) {
+        std::cerr << "摄像头打开失败！" << std::endl;
+        return -1;
+    }
+    else
+        std::cout << "摄像头打开成功"<<std::endl;
 
     // 创建Mission对象
     Mission mission;
 
-    // 使用红色HSV预设
-    HsvThreshold hsvThresh = RED_HSV;
-    
     // 创建HSV阈值调节滑块
-    // createHsvSliders("红色HSV阈值", hsvThresh);
+    createHsvSliders("红色HSV阈值", hsvThresh);
 
     cv::Mat frame;
 
     cap >> frame; // 从摄像头获取原始图片
+    // 校准（必须的）
+    std::cout << "开始校准"<<std::endl;
+    std::vector<cv::Point> rectPoints = mission.calibration(hsvThresh,cap);
+    
+    cap >> frame;
+    frame = cropCenterRegion(frame);
 
-    mission.calibration(frame,hsvThresh,cap);
+    // 校准顺序为左上角，然后顺时针
+    for(auto point : rectPoints)
+    {
+        std::cout << "矩形顶点: " << point << std::endl;
+        // 画个圆，将标注的点画出来
+        cv::circle(frame, point, 10, cv::Scalar(0, 0, 255), -1);
+    }
 
+    cv::imshow("校准结果", frame);
+
+    sleep(2);
+    cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
     while(ros::ok())
     {
-        // 更新当前工作模式
-        updateCurrentMode();
-        
-        cap >> frame; // 从摄像头获取原始图片
+        mission.one(cap,angle_pub,rectPoints);
 
-        // 裁剪中心区域
-        cv::Mat cropped = cropCenterRegion(frame);
-        cv::Mat croppeds = cropped;
-        // 获取并标记矩形
-        std::vector<cv::Point> rectPoints = getRectAndMark(croppeds);
+        // sleep(50);
+        cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
 
-        // 打印矩形顶点个数，用于调试
-        if (!rectPoints.empty()) {
-            cv::polylines(croppeds, rectPoints, true, cv::Scalar(0, 255, 0), 2);
-            cv::imshow("矩形识别结果", croppeds);
-            std::cout << "检测到矩形，顶点数: " << rectPoints.size() << std::endl;
-        }
-
-        // 处理并显示HSV阈值结果
-        cv::Mat result = thresholdHsv(cropped, hsvThresh);
-        cv::imshow("HSV阈值处理", result);
-
-        // 应用膨胀腐蚀处理
-        result = colorProcessAndDilateErode(result);
-        cv::imshow("形态", result);
-
-        // 处理轮廓并在图像上绘制
-        std::vector<std::vector<cv::Point>> contours = processContours(result, cropped);
-        // 检查轮廓和矩形点是否为空
-        if (!contours.empty() && !rectPoints.empty()) {
-            cv::line(cropped, rectPoints[2], contours[0][0], 
-                cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
-                
-            // 更新角度数据，使用检测到的点坐标
-            x_angle = contours[0][0].x;
-            y_angle = contours[0][0].y;
-            has_data = true;
-            
-            // 根据当前模式处理角度数据
-            processModeAngleData(current_mode);
-            
-            // 显示当前模式和角度数据
-            std::string mode_text = "模式: " + std::to_string(current_mode);
-            cv::putText(cropped, mode_text, cv::Point(10, 20), 
-                       cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
-            
-            std::string angle_text = "X: " + std::to_string(x_angle) + " Y: " + std::to_string(y_angle);
-            cv::putText(cropped, angle_text, cv::Point(10, 40), 
-                       cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
-                       
-            // 发布角度数据
-            geometry_msgs::Point angle_msg;
-            angle_msg.x = x_angle;
-            angle_msg.y = y_angle;
-            angle_pub.publish(angle_msg);
-            
-            // 发布当前模式
-            std_msgs::Int32 mode_msg;
-            mode_msg.data = current_mode;
-            mode_pub.publish(mode_msg);
-        }
-        
-        cv::imshow("中心区域", cropped);
-        if(cv::waitKey(1) == 27) // ESC键退出
-            break;
-        
+        // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+        // mission.two(cap,angle_pub,rectPoints);
         // 处理ROS回调
         ros::spinOnce();
     }
     return 0;
 }
+
+// 放弃的代码，保留下来，方便以后参考
+// int main(int argc, char *argv[])
+// {
+//     //执行 ros 节点初始化
+//     ros::init(argc,argv,"camera");
+//     //创建 ros 节点句柄(非必须)
+//     ros::NodeHandle n;
+    
+//     // 创建角度发布者（替代原来的服务）
+//     ros::Publisher angle_pub = n.advertise<geometry_msgs::Point>("angle_data", 10);
+//     // 创建模式发布者
+//     ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("camera_mode", 10);
+    
+//     // 初始化摄像头
+//     auto cap = initCamera(0,640,480,60);
+//     if (!cap.isOpened()) {
+//         std::cerr << "摄像头打开失败！" << std::endl;
+//         return -1;
+//     }
+
+//     // 创建Mission对象
+//     Mission mission;
+
+//     // 使用红色HSV预设
+//     HsvThreshold hsvThresh = RED_HSV;
+    
+//     // 创建HSV阈值调节滑块
+//     // createHsvSliders("红色HSV阈值", hsvThresh);
+
+//     cv::Mat frame;
+
+//     cap >> frame; // 从摄像头获取原始图片
+//     // 校准（必须的）
+//     std::vector<cv::Point> rectPoints = mission.calibration(frame,hsvThresh,cap);
+
+//     // 校准顺序为左上角，然后顺时针
+//     for(auto point : rectPoints)
+//     {
+//         std::cout << "矩形顶点: " << point << std::endl;
+//         // 画个圆，将标注的点画出来
+//         cv::circle(frame, point, 10, cv::Scalar(0, 0, 255), -1);
+//     }
+//     cv::imshow("校准结果", frame);
+//     while(1)
+//     {
+//         // 什么都不做
+//         // 确认校准
+//         if(cv::waitKey(1) == 32)
+//         {
+//             break;
+//         }
+//     }
+    
+//     while(ros::ok())
+//     {
+//         // 更新当前工作模式
+//         updateCurrentMode();
+        
+//         cap >> frame; // 从摄像头获取原始图片
+
+//         // 裁剪中心区域
+//         cv::Mat cropped = cropCenterRegion(frame);
+//         cv::Mat croppeds = cropped;
+//         // 获取并标记矩形
+//         std::vector<cv::Point> rectPoints = getRectAndMark(croppeds);
+
+//         // 打印矩形顶点个数，用于调试
+//         if (!rectPoints.empty()) {
+//             cv::polylines(croppeds, rectPoints, true, cv::Scalar(0, 255, 0), 2);
+//             cv::imshow("矩形识别结果", croppeds);
+//             std::cout << "检测到矩形，顶点数: " << rectPoints.size() << std::endl;
+//         }
+
+//         // 处理并显示HSV阈值结果
+//         cv::Mat result = thresholdHsv(cropped, hsvThresh);
+//         cv::imshow("HSV阈值处理", result);
+
+//         // 应用膨胀腐蚀处理
+//         result = colorProcessAndDilateErode(result);
+//         cv::imshow("形态", result);
+
+//         // 处理轮廓并在图像上绘制
+//         std::vector<std::vector<cv::Point>> contours = processContours(result, cropped);
+//         // 检查轮廓和矩形点是否为空
+//         if (!contours.empty() && !rectPoints.empty()) {
+//             cv::line(cropped, rectPoints[2], contours[0][0], 
+//                 cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
+                
+//             // 更新角度数据，使用检测到的点坐标
+//             x_angle = contours[0][0].x;
+//             y_angle = contours[0][0].y;
+//             has_data = true;
+            
+//             // 根据当前模式处理角度数据
+//             processModeAngleData(current_mode);
+            
+//             // 显示当前模式和角度数据
+//             std::string mode_text = "模式: " + std::to_string(current_mode);
+//             cv::putText(cropped, mode_text, cv::Point(10, 20), 
+//                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
+            
+//             std::string angle_text = "X: " + std::to_string(x_angle) + " Y: " + std::to_string(y_angle);
+//             cv::putText(cropped, angle_text, cv::Point(10, 40), 
+//                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
+                       
+//             // 发布角度数据
+//             geometry_msgs::Point angle_msg;
+//             angle_msg.x = x_angle;
+//             angle_msg.y = y_angle;
+//             angle_pub.publish(angle_msg);
+            
+//             // 发布当前模式
+//             std_msgs::Int32 mode_msg;
+//             mode_msg.data = current_mode;
+//             mode_pub.publish(mode_msg);
+//         }
+        
+//         cv::imshow("中心区域", cropped);
+//         if(cv::waitKey(1) == 27) // ESC键退出
+//             break;
+        
+//         // 处理ROS回调
+//         ros::spinOnce();
+//     }
+//     return 0;
+// }

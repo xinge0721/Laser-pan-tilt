@@ -6,23 +6,38 @@ import rospy
 from std_msgs.msg import Int32
 
 # 全局配置参数，方便调整
-# 初始角度值
-INITIAL_X_ANGLE = 660
-INITIAL_Y_ANGLE = 630  # 更新为650与main.cpp匹配
+# 初始角度值（从数据值转换为角度值）
+INITIAL_X_ANGLE = round(701 * 0.24)  # 约168度
+INITIAL_Y_ANGLE = round(650 * 0.24)  # 约156度
 
-# # 角度范围限制
-# X_MIN_ANGLE = 613
-# X_MAX_ANGLE = 823
-# Y_MIN_ANGLE = 562
-# Y_MAX_ANGLE = 750
+# 角度范围限制（从数据值转换为角度值）
+X_MIN_ANGLE = round(613 * 0.24)  # 约147度
+X_MAX_ANGLE = round(823 * 0.24)  # 约198度
+Y_MIN_ANGLE = round(562 * 0.24)  # 约135度
+Y_MAX_ANGLE = round(750 * 0.24)  # 约180度
 
-# 角度范围限制
-X_MIN_ANGLE = 0
-X_MAX_ANGLE = 1000
-Y_MIN_ANGLE = 0
-Y_MAX_ANGLE = 1000
 # 舵机速度（仅显示用）
 SERVO_SPEED = 50  # 更新为50与main.cpp匹配
+
+# 角度转换函数
+def angle_to_data(angle):
+    """将角度值(0-240度)转换为数据值(0-1000)"""
+    if angle > 240:
+        angle = 240
+    if angle < 0:
+        angle = 0
+    data = round((angle * 1000) / 240)
+    if data > 1000:
+        data = 1000
+    return data
+
+def data_to_angle(data):
+    """将数据值(0-1000)转换为角度值(0-240度)"""
+    if data > 1000:
+        data = 1000
+    if data < 0:
+        data = 0
+    return round((data * 240) / 1000)
 
 # 确保消息类型正确导入
 try:
@@ -49,9 +64,9 @@ class ServoControllerGUI:
         self.x_angle_pub = rospy.Publisher('/x_angle_slider', Int32, queue_size=1)
         self.y_angle_pub = rospy.Publisher('/y_angle_slider', Int32, queue_size=1)
         
-        # 存储当前值，用于避免重复发布
-        self.current_x_angle = INITIAL_X_ANGLE  # 使用全局变量
-        self.current_y_angle = INITIAL_Y_ANGLE  # 使用全局变量
+        # 存储当前值，用于避免重复发布（以角度值存储）
+        self.current_x_angle = INITIAL_X_ANGLE
+        self.current_y_angle = INITIAL_Y_ANGLE
         
         # 创建角度控制框架
         self.create_x_angle_frame()
@@ -67,10 +82,10 @@ class ServoControllerGUI:
         speed_info = ttk.Label(info_frame, text="舵机速度固定为{}".format(SERVO_SPEED))
         speed_info.grid(row=0, column=0, padx=10, pady=5, sticky="w")
         
-        x_range_info = ttk.Label(info_frame, text="X轴角度范围: {}-{}".format(X_MIN_ANGLE, X_MAX_ANGLE))
+        x_range_info = ttk.Label(info_frame, text="X轴角度范围: {}-{}度".format(X_MIN_ANGLE, X_MAX_ANGLE))
         x_range_info.grid(row=1, column=0, padx=10, pady=5, sticky="w")
         
-        y_range_info = ttk.Label(info_frame, text="Y轴角度范围: {}-{}".format(Y_MIN_ANGLE, Y_MAX_ANGLE))
+        y_range_info = ttk.Label(info_frame, text="Y轴角度范围: {}-{}度".format(Y_MIN_ANGLE, Y_MAX_ANGLE))
         y_range_info.grid(row=2, column=0, padx=10, pady=5, sticky="w")
         
         # 控制按钮
@@ -87,39 +102,39 @@ class ServoControllerGUI:
         self.publish_all_values()
     
     def create_x_angle_frame(self):
-        frame = ttk.LabelFrame(self.master, text="X轴舵机角度控制")
+        frame = ttk.LabelFrame(self.master, text="X轴舵机角度控制 (度)")
         frame.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
         
-        # 使用0-1000范围
-        self.x_angle_var = tk.IntVar(value=INITIAL_X_ANGLE)  # 使用全局变量
-        self.x_angle_scale = ttk.Scale(frame, from_=0, to=1000, variable=self.x_angle_var, 
+        # 使用0-240度范围
+        self.x_angle_var = tk.IntVar(value=INITIAL_X_ANGLE)
+        self.x_angle_scale = ttk.Scale(frame, from_=0, to=240, variable=self.x_angle_var, 
                                       orient=tk.HORIZONTAL, length=350)
         self.x_angle_scale.grid(row=0, column=0, padx=10, pady=10)
         
-        self.x_angle_label = ttk.Label(frame, text=str(INITIAL_X_ANGLE))
+        self.x_angle_label = ttk.Label(frame, text=str(INITIAL_X_ANGLE)+"°")
         self.x_angle_label.grid(row=0, column=1, padx=10, pady=10)
         
         # 添加跟踪变量变化
         self.x_angle_var.trace("w", self.update_x_angle_label)
     
     def create_y_angle_frame(self):
-        frame = ttk.LabelFrame(self.master, text="Y轴舵机角度控制")
+        frame = ttk.LabelFrame(self.master, text="Y轴舵机角度控制 (度)")
         frame.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
         
-        # 使用0-1000范围
-        self.y_angle_var = tk.IntVar(value=INITIAL_Y_ANGLE)  # 使用全局变量
-        self.y_angle_scale = ttk.Scale(frame, from_=0, to=1000, variable=self.y_angle_var, 
+        # 使用0-240度范围
+        self.y_angle_var = tk.IntVar(value=INITIAL_Y_ANGLE)
+        self.y_angle_scale = ttk.Scale(frame, from_=0, to=240, variable=self.y_angle_var, 
                                       orient=tk.HORIZONTAL, length=350)
         self.y_angle_scale.grid(row=0, column=0, padx=10, pady=10)
         
-        self.y_angle_label = ttk.Label(frame, text=str(INITIAL_Y_ANGLE))
+        self.y_angle_label = ttk.Label(frame, text=str(INITIAL_Y_ANGLE)+"°")
         self.y_angle_label.grid(row=0, column=1, padx=10, pady=10)
         
         # 添加跟踪变量变化
         self.y_angle_var.trace("w", self.update_y_angle_label)
     
     def create_precise_input_frame(self):
-        frame = ttk.LabelFrame(self.master, text="精确角度输入")
+        frame = ttk.LabelFrame(self.master, text="精确角度输入 (度)")
         frame.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
         
         # X轴精确输入
@@ -142,25 +157,25 @@ class ServoControllerGUI:
         try:
             # 获取并验证X轴输入
             x_value = int(self.x_entry.get())
-            if x_value < X_MIN_ANGLE:
-                x_value = X_MIN_ANGLE
+            if x_value < 0:
+                x_value = 0
                 self.x_entry.delete(0, tk.END)
-                self.x_entry.insert(0, str(X_MIN_ANGLE))
-            elif x_value > X_MAX_ANGLE:
-                x_value = X_MAX_ANGLE
+                self.x_entry.insert(0, str(0))
+            elif x_value > 240:
+                x_value = 240
                 self.x_entry.delete(0, tk.END)
-                self.x_entry.insert(0, str(X_MAX_ANGLE))
+                self.x_entry.insert(0, str(240))
                 
             # 获取并验证Y轴输入
             y_value = int(self.y_entry.get())
-            if y_value < Y_MIN_ANGLE:
-                y_value = Y_MIN_ANGLE
+            if y_value < 0:
+                y_value = 0
                 self.y_entry.delete(0, tk.END)
-                self.y_entry.insert(0, str(Y_MIN_ANGLE))
-            elif y_value > Y_MAX_ANGLE:
-                y_value = Y_MAX_ANGLE
+                self.y_entry.insert(0, str(0))
+            elif y_value > 240:
+                y_value = 240
                 self.y_entry.delete(0, tk.END)
-                self.y_entry.insert(0, str(Y_MAX_ANGLE))
+                self.y_entry.insert(0, str(240))
             
             # 更新滑块值
             self.x_angle_var.set(x_value)
@@ -187,37 +202,37 @@ class ServoControllerGUI:
         self.publish_now_btn = ttk.Button(frame, text="立即发布", command=self.publish_all_values)
         self.publish_now_btn.grid(row=0, column=2, padx=10, pady=10)
     
-    # 标签更新函数 - 显示实际角度值而不是百分比
+    # 标签更新函数 - 显示角度值
     def update_x_angle_label(self, *args):
         value = self.x_angle_var.get()
-        self.x_angle_label.config(text=str(value))
+        self.x_angle_label.config(text=str(value)+"°")
         # 同时更新输入框
         self.x_entry.delete(0, tk.END)
         self.x_entry.insert(0, str(value))
     
     def update_y_angle_label(self, *args):
         value = self.y_angle_var.get()
-        self.y_angle_label.config(text=str(value))
+        self.y_angle_label.config(text=str(value)+"°")
         # 同时更新输入框
         self.y_entry.delete(0, tk.END)
         self.y_entry.insert(0, str(value))
     
-    # 一次性发布所有值
+    # 一次性发布所有值（直接发送角度值）
     def publish_all_values(self):
         try:
-            # X角度 - 直接发送精确角度值
+            # X角度 - 发送角度值
             x_angle_msg = Int32()
             x_angle_msg.data = self.x_angle_var.get()
             self.x_angle_pub.publish(x_angle_msg)
-            rospy.loginfo("已发布X轴角度: %d", x_angle_msg.data)
+            rospy.loginfo("已发布X轴角度: %d°", self.x_angle_var.get())
             
-            # Y角度 - 直接发送精确角度值
+            # Y角度 - 发送角度值
             y_angle_msg = Int32()
             y_angle_msg.data = self.y_angle_var.get()
             self.y_angle_pub.publish(y_angle_msg)
-            rospy.loginfo("已发布Y轴角度: %d", y_angle_msg.data)
+            rospy.loginfo("已发布Y轴角度: %d°", self.y_angle_var.get())
             
-            # 更新当前值
+            # 更新当前值（角度值）
             self.current_x_angle = self.x_angle_var.get()
             self.current_y_angle = self.y_angle_var.get()
             
@@ -235,7 +250,7 @@ class ServoControllerGUI:
                     x_angle_msg.data = self.x_angle_var.get()
                     self.x_angle_pub.publish(x_angle_msg)
                     self.current_x_angle = self.x_angle_var.get()
-                    rospy.loginfo("已发布X轴角度: %d", x_angle_msg.data)
+                    rospy.loginfo("已发布X轴角度: %d°", self.x_angle_var.get())
                 
                 # 检查Y角度是否变化
                 if self.y_angle_var.get() != self.current_y_angle:
@@ -243,7 +258,7 @@ class ServoControllerGUI:
                     y_angle_msg.data = self.y_angle_var.get()
                     self.y_angle_pub.publish(y_angle_msg)
                     self.current_y_angle = self.y_angle_var.get()
-                    rospy.loginfo("已发布Y轴角度: %d", y_angle_msg.data)
+                    rospy.loginfo("已发布Y轴角度: %d°", self.y_angle_var.get())
                     
             except Exception as e:
                 rospy.logerr("发布消息时出错: %s", str(e))

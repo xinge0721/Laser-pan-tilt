@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
   "CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
   "CMakeFiles/HTS20L.dir/src/main.cpp.o"
+  "CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/HTS221/HTS221.cpp.o"
   "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o"
   "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o"
+  "/home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/speed/speed.cpp" "/home/ros/chenxu/Laser-pan-tilt/opencv/build/Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

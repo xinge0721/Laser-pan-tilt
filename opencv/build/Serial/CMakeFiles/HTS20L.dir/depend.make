@@ -15,6 +15,7 @@ Serial/CMakeFiles/HTS20L.dir/src/Serial/Serial.cpp.o: /opt/ros/noetic/include/se
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/main.cpp
+Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/speed/speed.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/ros/advertise_options.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/ros/advertise_service_options.h
@@ -78,4 +79,11 @@ Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_msgs/In
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/std_msgs/String.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 Serial/CMakeFiles/HTS20L.dir/src/main.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
+
+Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/HTS221/HTS221.h
+Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/Serial/Serial.h
+Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/speed/speed.cpp
+Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial/src/speed/speed.h
+Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o: /opt/ros/noetic/include/serial/serial.h
+Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o: /opt/ros/noetic/include/serial/v8stdint.h
 

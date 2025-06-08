@@ -56,6 +56,18 @@ CMAKE_BINARY_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -65,17 +77,6 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -88,16 +89,28 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
-.PHONY : test/fast
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -111,29 +124,16 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target test
+test/fast: test
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,49 +168,94 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-Serial/CMakeFiles/Serial_generate_messages.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_generate_messages.dir/rule
+Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-Serial_generate_messages: Serial/CMakeFiles/Serial_generate_messages.dir/rule
+rosgraph_msgs_generate_messages_py: Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
-.PHONY : Serial_generate_messages
+.PHONY : rosgraph_msgs_generate_messages_py
 
 # fast build rule for target.
-Serial_generate_messages/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages.dir/build.make Serial/CMakeFiles/Serial_generate_messages.dir/build
-.PHONY : Serial_generate_messages/fast
+rosgraph_msgs_generate_messages_py/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make Serial/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule
+Serial/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : Serial/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-Serial_generate_messages_cpp: Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule
+roscpp_generate_messages_lisp: Serial/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
-.PHONY : Serial_generate_messages_cpp
+.PHONY : roscpp_generate_messages_lisp
 
 # fast build rule for target.
-Serial_generate_messages_cpp/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages_cpp.dir/build.make Serial/CMakeFiles/Serial_generate_messages_cpp.dir/build
-.PHONY : Serial_generate_messages_cpp/fast
+roscpp_generate_messages_lisp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make Serial/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
 
 # Convenience name for target.
-Serial/CMakeFiles/Serial_gencpp.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_gencpp.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_gencpp.dir/rule
+Serial/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+.PHONY : Serial/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-Serial_gencpp: Serial/CMakeFiles/Serial_gencpp.dir/rule
+rosgraph_msgs_generate_messages_lisp: Serial/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : Serial_gencpp
+.PHONY : rosgraph_msgs_generate_messages_lisp
 
 # fast build rule for target.
-Serial_gencpp/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_gencpp.dir/build.make Serial/CMakeFiles/Serial_gencpp.dir/build
-.PHONY : Serial_gencpp/fast
+rosgraph_msgs_generate_messages_lisp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make Serial/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : Serial/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_eus: Serial/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make Serial/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : Serial/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_cpp: Serial/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make Serial/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/Serial_genlisp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_genlisp.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_genlisp.dir/rule
+
+# Convenience name for target.
+Serial_genlisp: Serial/CMakeFiles/Serial_genlisp.dir/rule
+
+.PHONY : Serial_genlisp
+
+# fast build rule for target.
+Serial_genlisp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_genlisp.dir/build.make Serial/CMakeFiles/Serial_genlisp.dir/build
+.PHONY : Serial_genlisp/fast
 
 # Convenience name for target.
 Serial/CMakeFiles/Serial_generate_messages_py.dir/rule:
@@ -243,49 +288,34 @@ Serial_genpy/fast:
 .PHONY : Serial_genpy/fast
 
 # Convenience name for target.
-Serial/CMakeFiles/Serial_genlisp.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_genlisp.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_genlisp.dir/rule
+Serial/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : Serial/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-Serial_genlisp: Serial/CMakeFiles/Serial_genlisp.dir/rule
+roscpp_generate_messages_nodejs: Serial/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
 
-.PHONY : Serial_genlisp
+.PHONY : roscpp_generate_messages_nodejs
 
 # fast build rule for target.
-Serial_genlisp/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_genlisp.dir/build.make Serial/CMakeFiles/Serial_genlisp.dir/build
-.PHONY : Serial_genlisp/fast
+roscpp_generate_messages_nodejs/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make Serial/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
 
 # Convenience name for target.
-Serial/CMakeFiles/Serial_geneus.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_geneus.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_geneus.dir/rule
+Serial/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : Serial/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-Serial_geneus: Serial/CMakeFiles/Serial_geneus.dir/rule
+std_msgs_generate_messages_eus: Serial/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 
-.PHONY : Serial_geneus
+.PHONY : std_msgs_generate_messages_eus
 
 # fast build rule for target.
-Serial_geneus/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_geneus.dir/build.make Serial/CMakeFiles/Serial_geneus.dir/build
-.PHONY : Serial_geneus/fast
-
-# Convenience name for target.
-Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-Serial_generate_messages_nodejs: Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule
-
-.PHONY : Serial_generate_messages_nodejs
-
-# fast build rule for target.
-Serial_generate_messages_nodejs/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/build.make Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/build
-.PHONY : Serial_generate_messages_nodejs/fast
+std_msgs_generate_messages_eus/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make Serial/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 Serial/CMakeFiles/Serial_generate_messages_lisp.dir/rule:
@@ -303,19 +333,19 @@ Serial_generate_messages_lisp/fast:
 .PHONY : Serial_generate_messages_lisp/fast
 
 # Convenience name for target.
-Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule
-.PHONY : Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule
+Serial/CMakeFiles/roscpp_generate_messages_py.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/roscpp_generate_messages_py.dir/rule
+.PHONY : Serial/CMakeFiles/roscpp_generate_messages_py.dir/rule
 
 # Convenience name for target.
-Serial_generate_messages_eus: Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule
+roscpp_generate_messages_py: Serial/CMakeFiles/roscpp_generate_messages_py.dir/rule
 
-.PHONY : Serial_generate_messages_eus
+.PHONY : roscpp_generate_messages_py
 
 # fast build rule for target.
-Serial_generate_messages_eus/fast:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages_eus.dir/build.make Serial/CMakeFiles/Serial_generate_messages_eus.dir/build
-.PHONY : Serial_generate_messages_eus/fast
+roscpp_generate_messages_py/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/roscpp_generate_messages_py.dir/build.make Serial/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
 
 # Convenience name for target.
 Serial/CMakeFiles/Serial_gennodejs.dir/rule:
@@ -333,6 +363,141 @@ Serial_gennodejs/fast:
 .PHONY : Serial_gennodejs/fast
 
 # Convenience name for target.
+Serial/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : Serial/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_lisp: Serial/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make Serial/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : Serial/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_nodejs: Serial/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make Serial/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+Serial_generate_messages_eus: Serial/CMakeFiles/Serial_generate_messages_eus.dir/rule
+
+.PHONY : Serial_generate_messages_eus
+
+# fast build rule for target.
+Serial_generate_messages_eus/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages_eus.dir/build.make Serial/CMakeFiles/Serial_generate_messages_eus.dir/build
+.PHONY : Serial_generate_messages_eus/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : Serial/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_eus: Serial/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/roscpp_generate_messages_eus.dir/build.make Serial/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+Serial_generate_messages_nodejs: Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/rule
+
+.PHONY : Serial_generate_messages_nodejs
+
+# fast build rule for target.
+Serial_generate_messages_nodejs/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/build.make Serial/CMakeFiles/Serial_generate_messages_nodejs.dir/build
+.PHONY : Serial_generate_messages_nodejs/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : Serial/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_cpp: Serial/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+.PHONY : roscpp_generate_messages_cpp
+
+# fast build rule for target.
+roscpp_generate_messages_cpp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make Serial/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+.PHONY : Serial/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_nodejs: Serial/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make Serial/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : Serial/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_py: Serial/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/std_msgs_generate_messages_py.dir/build.make Serial/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/Serial_generate_messages.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_generate_messages.dir/rule
+
+# Convenience name for target.
+Serial_generate_messages: Serial/CMakeFiles/Serial_generate_messages.dir/rule
+
+.PHONY : Serial_generate_messages
+
+# fast build rule for target.
+Serial_generate_messages/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages.dir/build.make Serial/CMakeFiles/Serial_generate_messages.dir/build
+.PHONY : Serial_generate_messages/fast
+
+# Convenience name for target.
 Serial/CMakeFiles/_Serial_generate_messages_check_deps_date.dir/rule:
 	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/_Serial_generate_messages_check_deps_date.dir/rule
 .PHONY : Serial/CMakeFiles/_Serial_generate_messages_check_deps_date.dir/rule
@@ -348,6 +513,21 @@ _Serial_generate_messages_check_deps_date/fast:
 .PHONY : _Serial_generate_messages_check_deps_date/fast
 
 # Convenience name for target.
+Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+Serial_generate_messages_cpp: Serial/CMakeFiles/Serial_generate_messages_cpp.dir/rule
+
+.PHONY : Serial_generate_messages_cpp
+
+# fast build rule for target.
+Serial_generate_messages_cpp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_generate_messages_cpp.dir/build.make Serial/CMakeFiles/Serial_generate_messages_cpp.dir/build
+.PHONY : Serial_generate_messages_cpp/fast
+
+# Convenience name for target.
 Serial/CMakeFiles/HTS20L.dir/rule:
 	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/HTS20L.dir/rule
 .PHONY : Serial/CMakeFiles/HTS20L.dir/rule
@@ -361,6 +541,51 @@ HTS20L: Serial/CMakeFiles/HTS20L.dir/rule
 HTS20L/fast:
 	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/build
 .PHONY : HTS20L/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/Serial_gencpp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_gencpp.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_gencpp.dir/rule
+
+# Convenience name for target.
+Serial_gencpp: Serial/CMakeFiles/Serial_gencpp.dir/rule
+
+.PHONY : Serial_gencpp
+
+# fast build rule for target.
+Serial_gencpp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_gencpp.dir/build.make Serial/CMakeFiles/Serial_gencpp.dir/build
+.PHONY : Serial_gencpp/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/Serial_geneus.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/Serial_geneus.dir/rule
+.PHONY : Serial/CMakeFiles/Serial_geneus.dir/rule
+
+# Convenience name for target.
+Serial_geneus: Serial/CMakeFiles/Serial_geneus.dir/rule
+
+.PHONY : Serial_geneus
+
+# fast build rule for target.
+Serial_geneus/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/Serial_geneus.dir/build.make Serial/CMakeFiles/Serial_geneus.dir/build
+.PHONY : Serial_geneus/fast
+
+# Convenience name for target.
+Serial/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f CMakeFiles/Makefile2 Serial/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : Serial/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_cpp: Serial/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make Serial/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 src/HTS221/HTS221.o: src/HTS221/HTS221.cpp.o
 
@@ -443,32 +668,74 @@ src/main.cpp.s:
 	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/speed/speed.o: src/speed/speed.cpp.o
+
+.PHONY : src/speed/speed.o
+
+# target to build an object file
+src/speed/speed.cpp.o:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.o
+.PHONY : src/speed/speed.cpp.o
+
+src/speed/speed.i: src/speed/speed.cpp.i
+
+.PHONY : src/speed/speed.i
+
+# target to preprocess a source file
+src/speed/speed.cpp.i:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.i
+.PHONY : src/speed/speed.cpp.i
+
+src/speed/speed.s: src/speed/speed.cpp.s
+
+.PHONY : src/speed/speed.s
+
+# target to generate assembly for a file
+src/speed/speed.cpp.s:
+	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(MAKE) -f Serial/CMakeFiles/HTS20L.dir/build.make Serial/CMakeFiles/HTS20L.dir/src/speed/speed.cpp.s
+.PHONY : src/speed/speed.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... test"
-	@echo "... Serial_generate_messages"
-	@echo "... Serial_generate_messages_cpp"
-	@echo "... Serial_gencpp"
-	@echo "... install/strip"
+	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... roscpp_generate_messages_lisp"
+	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... install/local"
+	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... Serial_genlisp"
 	@echo "... Serial_generate_messages_py"
 	@echo "... Serial_genpy"
-	@echo "... Serial_genlisp"
-	@echo "... Serial_geneus"
-	@echo "... Serial_generate_messages_nodejs"
-	@echo "... install"
+	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... std_msgs_generate_messages_eus"
 	@echo "... Serial_generate_messages_lisp"
-	@echo "... Serial_generate_messages_eus"
+	@echo "... roscpp_generate_messages_py"
 	@echo "... Serial_gennodejs"
-	@echo "... install/local"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... rebuild_cache"
+	@echo "... Serial_generate_messages_eus"
+	@echo "... roscpp_generate_messages_eus"
+	@echo "... install/strip"
+	@echo "... Serial_generate_messages_nodejs"
+	@echo "... roscpp_generate_messages_cpp"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... Serial_generate_messages"
 	@echo "... _Serial_generate_messages_check_deps_date"
+	@echo "... Serial_generate_messages_cpp"
 	@echo "... HTS20L"
+	@echo "... Serial_gencpp"
+	@echo "... Serial_geneus"
+	@echo "... rosgraph_msgs_generate_messages_cpp"
+	@echo "... test"
 	@echo "... src/HTS221/HTS221.o"
 	@echo "... src/HTS221/HTS221.i"
 	@echo "... src/HTS221/HTS221.s"
@@ -478,6 +745,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/speed/speed.o"
+	@echo "... src/speed/speed.i"
+	@echo "... src/speed/speed.s"
 .PHONY : help
 
 

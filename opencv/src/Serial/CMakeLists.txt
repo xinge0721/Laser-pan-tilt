@@ -136,7 +136,8 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(HTS20L src/main.cpp
                       src/HTS221/HTS221.cpp
-                      src/Serial/Serial.cpp)
+                      src/Serial/Serial.cpp
+                      src/speed/speed.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
