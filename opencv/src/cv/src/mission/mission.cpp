@@ -259,14 +259,41 @@ cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_re
     
     // 如果检测到激光点
     if (!contours.empty()) {
-        // 获取激光点位置
-        cv::Moments m = cv::moments(contours[0]);
+        // 找出面积最大的轮廓
+        int maxContourIdx = 0;
+        double maxArea = 0;
+        const double MIN_AREA = 300.0; // 设置最小面积阈值为300像素
+        
+        for (size_t i = 0; i < contours.size(); i++) {
+            double area = cv::contourArea(contours[i]);
+            if (area > maxArea) {
+                maxArea = area;
+                maxContourIdx = i;
+            }
+        }
+        
+        // 检查最大面积是否满足最小阈值要求
+        if (maxArea < MIN_AREA) {
+            std::cout << "检测到轮廓面积过小: " << maxArea << " 像素，低于阈值 " << MIN_AREA << std::endl;
+            return cv::Point(-1, -1);
+        }
+        
+        // 获取最大面积激光点位置
+        cv::Moments m = cv::moments(contours[maxContourIdx]);
         cv::Point laserPoint(m.m10/m.m00, m.m01/m.m00);
         
         if (show_result) {
             // 显示结果
             cv::Mat display = cropped.clone();
-            cv::circle(display, laserPoint, 5, cv::Scalar(0, 255, 0), -1);
+            // 绘制所有轮廓
+            cv::drawContours(display, contours, -1, cv::Scalar(0, 0, 255), 1);
+            // 高亮显示最大面积轮廓
+            cv::drawContours(display, contours, maxContourIdx, cv::Scalar(0, 255, 0), 2);
+            // 标记中心点
+            cv::circle(display, laserPoint, 5, cv::Scalar(255, 0, 0), -1);
+            cv::putText(display, "Area: " + std::to_string(int(maxArea)), 
+                      cv::Point(laserPoint.x + 10, laserPoint.y), 
+                      cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
             cv::imshow("激光位置", display);
         }
         
@@ -280,7 +307,7 @@ cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_re
 /**
  * 判断激光点是否已经接近校准点
  */
-#define DISTANCE_THRESHOLD 10.0
+#define DISTANCE_THRESHOLD 2.0
 
 
 // 第一题回归原点（复位）
@@ -329,9 +356,25 @@ geometry_msgs::Point Mission::one(cv::VideoCapture& cap, ros::Publisher angle_pu
             // 如果检测到激光点
             if (laserPoint.x != -1 && laserPoint.y != -1) {
                 // 计算激光点与中心点的偏差
-                point_msg.x = laserPoint.x - point_zhon.x;
-                point_msg.y = laserPoint.y - point_zhon.y;
-                
+                if(abs(point_msg.x) > DISTANCE_THRESHOLD)
+                {
+                    point_msg.x = 2;
+
+                }
+                else
+                {
+                    point_msg.x = laserPoint.x - point_zhon.x;
+                }
+                if(abs(point_msg.y) > DISTANCE_THRESHOLD)
+                {
+                    point_msg.y = 2;
+
+                }
+                else
+                {
+                     point_msg.y = laserPoint.y - point_zhon.y;
+
+                }
                 // // 输出激光位置到控制台
                 // std::cout << "激光位置: (" << laserPoint.x << ", " << laserPoint.y << ")" << std::endl;
                 // std::cout << "偏差: X=" << point_msg.x << ", Y=" << point_msg.y << std::endl;
@@ -357,15 +400,17 @@ geometry_msgs::Point Mission::one(cv::VideoCapture& cap, ros::Publisher angle_pu
                 // 如果距离小于阈值，说明激光点已经接近目标位置，任务完成
                 if (abs(point_msg.x) < DISTANCE_THRESHOLD && abs(point_msg.y) < DISTANCE_THRESHOLD) {
                     std::cout << "激光点已到达目标位置，任务完成！" << std::endl;
+                    point_msg.x = 1;
+                    point_msg.y = 1;
+                    angle_pub.publish(point_msg);
                     // 跳出循环，结束当前任务
                     break;
                 }
             }
             
             // 等待10ms
-            cv::waitKey(10);
-            // 等待10ms
-            ros::Duration(0.5).sleep();
+            cv::waitKey(1);
+
         }
         catch(const std::exception& e)
         {

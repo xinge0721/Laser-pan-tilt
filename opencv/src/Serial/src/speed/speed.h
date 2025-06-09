@@ -8,7 +8,7 @@
 #include "./../HTS221/HTS221.h"
 
 // 开环电机模式控制
-void setSpeed(HTS221& hts221, int juli);
+int16_t setSpeed(int juli);
 
 
 

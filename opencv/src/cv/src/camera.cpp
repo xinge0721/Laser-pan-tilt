@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
 
         // sleep(50);
         cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
-
+        sleep(1);
         // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
         // mission.two(cap,angle_pub,rectPoints);
         // 处理ROS回调

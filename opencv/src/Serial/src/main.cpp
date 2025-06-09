@@ -145,8 +145,7 @@ void angleDataCallback(const geometry_msgs::Point::ConstPtr& msg)
     // // 使用固定速度
     // x.turn(x_data, FIXED_SPEED);
     // y.turn(y_data, FIXED_SPEED);
-    setSpeed(x,x_angle);
-    setSpeed(y,y_angle);
+
 }
 
 /**
@@ -230,35 +229,54 @@ int main(int argc, char *argv[])
             }
 
             // 读取Y轴角度
-            // y.readAngle();
-            // y.return_flag = false;
+            y.readAngle();
+            y.return_flag = false;
             
-            // // 添加超时机制，最多等待50ms
-            // start_time = std::chrono::steady_clock::now();
-            // while(!y.return_flag) {
-            //     auto now = std::chrono::steady_clock::now();
-            //     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time).count();
-            //     if (elapsed > 50) {
-            //         cout << "Y轴读取超时" << endl;
-            //         break;
-            //     }
-            //     std::this_thread::sleep_for(std::chrono::milliseconds(1));
-            // }
+            // 添加超时机制，最多等待50ms
+            start_time = std::chrono::steady_clock::now();
+            while(!y.return_flag) {
+                auto now = std::chrono::steady_clock::now();
+                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time).count();
+                if (elapsed > 50) {
+                    cout << "Y轴读取超时" << endl;
+                    break;
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
         }
         else {
             // 控制X和Y轴舵机（在这里集中控制，而不是回调函数中）
             // 将角度值转换为数据值，然后控制X轴舵机
-            int x_data = angleConverter.angleToData(target_angle_x);
-            x.turn(x_data, FIXED_SPEED);
-            // cout << "控制X轴: " << target_angle_x << "度 (数据值: " << x_data << ")" << endl;
+            // int x_data = angleConverter.angleToData(target_angle_x);
+            // x.turn(x_data, FIXED_SPEED);
+            // // cout << "控制X轴: " << target_angle_x << "度 (数据值: " << x_data << ")" << endl;
             
-            // 等待一小段时间，让命令完成发送，避免命令冲突
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            // // 等待一小段时间，让命令完成发送，避免命令冲突
+            // std::this_thread::sleep_for(std::chrono::milliseconds(10));
             
-            // 将角度值转换为数据值，然后控制Y轴舵机
-            int y_data = angleConverter.angleToData(target_angle_y);
-            y.turn(y_data, FIXED_SPEED);
-            // cout << "控制Y轴: " << target_angle_y << "度 (数据值: " << y_data << ")" << endl;
+            // // 将角度值转换为数据值，然后控制Y轴舵机
+            // int y_data = angleConverter.angleToData(target_angle_y);
+                // y.turn(y_data, FIXED_SPEED);
+                // cout << "控制Y轴: " << target_angle_y << "度 (数据值: " << y_data << ")" << endl;
+
+                if((y.angle < 300 && current_y_angle <= 0) || (y.angle > 800 && current_y_angle >= 0)) {
+                    // 已在范围边界外且还要继续远离有效范围，阻止移动
+                    y.setMotorMode(5);
+                } 
+                else {
+                    // 在有效范围内，或正在返回有效范围，允许移动
+                    y.setMotorMode(setSpeed(current_y_angle));
+                }
+                
+                // X轴限制逻辑：允许从超出范围返回到有效范围
+                if((x.angle < 500 && current_x_angle <= 0) || (x.angle > 1000 && current_x_angle >= 0)) {
+                    // 已在范围边界外且还要继续远离有效范围，阻止移动
+                    x.setMotorMode(5);
+                } 
+                else {
+                    // 在有效范围内，或正在返回有效范围，允许移动
+                    x.setMotorMode(setSpeed(current_x_angle));
+                }
         }
         
 
