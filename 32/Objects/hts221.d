@@ -1,4 +1,4 @@
-.\objects\hts221.o: Hardware\HTS221\HTS221.cpp
+.\objects\hts221.o: Hardware\HTS221\HTS221.c
 .\objects\hts221.o: Hardware\HTS221\HTS221.h
 .\objects\hts221.o: .\Start\stm32f10x.h
 .\objects\hts221.o: .\Start\core_cm3.h

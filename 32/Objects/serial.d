@@ -1,4 +1,4 @@
-.\objects\serial.o: Hardware\Serial\Serial.cpp
+.\objects\serial.o: Hardware\Serial\Serial.c
 .\objects\serial.o: .\Start\stm32f10x.h
 .\objects\serial.o: .\Start\core_cm3.h
 .\objects\serial.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

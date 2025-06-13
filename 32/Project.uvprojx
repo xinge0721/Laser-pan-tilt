@@ -52,7 +52,7 @@
           <OutputName>Project</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -340,7 +340,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\HTS221;.\Hardware\OLED;.\Hardware\Serial;.\System\delay;.\System\sys</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\HTS221;.\Hardware\OLED;.\Hardware\Serial;.\System\delay;.\System\sys;.\Hardware\Servo</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -655,19 +655,24 @@
           <GroupName>System</GroupName>
           <Files>
             <File>
-              <FileName>delay.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\System\delay\delay.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>sys.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\System\sys\sys.cpp</FilePath>
-            </File>
-            <File>
               <FileName>sys.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\System\sys\sys.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\sys\sys.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\delay\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\System\delay\delay.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -675,29 +680,39 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>HTS221.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Hardware\HTS221\HTS221.cpp</FilePath>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Serial\Serial.c</FilePath>
             </File>
             <File>
-              <FileName>HTS221.h</FileName>
+              <FileName>Serial2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Serial\Serial2.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial2.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Hardware\HTS221\HTS221.h</FilePath>
+              <FilePath>.\Hardware\Serial\Serial2.h</FilePath>
             </File>
             <File>
-              <FileName>OLED.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Hardware\OLED\OLED.cpp</FilePath>
+              <FileName>Serial.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\Serial\Serial.h</FilePath>
             </File>
             <File>
-              <FileName>Serial.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Hardware\Serial\Serial.cpp</FilePath>
+              <FileName>Servo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\Servo\Servo.h</FilePath>
             </File>
             <File>
-              <FileName>Serial2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Hardware\Serial\Serial2.cpp</FilePath>
+              <FileName>Servo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Servo\Servo.c</FilePath>
+            </File>
+            <File>
+              <FileName>OLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\OLED\OLED.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -720,9 +735,9 @@
               <FilePath>.\User\stm32f10x_it.h</FilePath>
             </File>
             <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\User\main.cpp</FilePath>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\main.c</FilePath>
             </File>
           </Files>
         </Group>
