@@ -117,7 +117,7 @@ u32 oled_pow(u8 m,u8 n)
 //size:字体大小
 //mode:模式	0,填充模式;1,叠加模式
 //num:数值(0~4294967295);	 		  
-void OLED_ShowNumber(u8 x,u8 y,u32 num,u8 len,u8 size)
+void ShowNumber(u8 x,u8 y,u32 num,u8 len,u8 size)
 {         	
 	u8 t,temp;
 	u8 enshow=0;						   
@@ -136,11 +136,21 @@ void OLED_ShowNumber(u8 x,u8 y,u32 num,u8 len,u8 size)
 	 	OLED_ShowChar(x+(size/2)*t,y,temp+'0',size,1); 
 	}
 } 
+
+//显示2个数字
+//x,y :行和列	 
+//num:数值(0~4294967295);	
+//len :数字的长度
+
+void OLED_ShowNumber(u8 x,u8 y,u32 num,u8 len)
+{         	
+	ShowNumber(x*7,y*10,num,len,12);
+} 
 //显示字符串
 //x,y:起点坐标  
 //*p:字符串起始地址
 //用16字体
-void OLED_ShowString(u8 x,u8 y,const u8 *p)
+void ShowString(u8 x,u8 y,const u8 *p)
 {
 #define MAX_CHAR_POSX 122
 #define MAX_CHAR_POSY 58          
@@ -152,7 +162,17 @@ void OLED_ShowString(u8 x,u8 y,const u8 *p)
         x+=8;
         p++;
     }  
-}	   
+}
+
+//显示字符串
+//x,y:起点坐标  
+//*p:字符串起始地址
+//用16字体
+void OLED_ShowString(u8 x,u8 y,void*p)
+{
+	ShowString(x*7,y*10,(u8*)p);
+}
+
 //初始化OLED					    
 void OLED_Init(void)
 { 	

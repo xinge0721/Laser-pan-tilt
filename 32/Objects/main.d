@@ -38,3 +38,6 @@
 .\objects\main.o: .\Hardware\OLED\OLED.h
 .\objects\main.o: .\Hardware\Serial\Serial.h
 .\objects\main.o: .\Hardware\Servo\Servo.h
+.\objects\main.o: .\Hardware\Serial\Serial3.h
+.\objects\main.o: .\Hardware\PID\PID.h
+.\objects\main.o: User\APP.h

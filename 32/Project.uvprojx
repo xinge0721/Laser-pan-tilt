@@ -340,7 +340,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\HTS221;.\Hardware\OLED;.\Hardware\Serial;.\System\delay;.\System\sys;.\Hardware\Servo</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\HTS221;.\Hardware\OLED;.\Hardware\Serial;.\System\delay;.\System\sys;.\Hardware\Servo;.\Hardware\PID;.\Hardware\Time</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -714,6 +714,21 @@
               <FileType>1</FileType>
               <FilePath>.\Hardware\OLED\OLED.c</FilePath>
             </File>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\PID\PID.c</FilePath>
+            </File>
+            <File>
+              <FileName>Time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Time\Time.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Serial\Serial3.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -738,6 +753,11 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>APP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\APP.c</FilePath>
             </File>
           </Files>
         </Group>
