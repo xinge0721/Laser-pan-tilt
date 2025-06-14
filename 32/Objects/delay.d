@@ -1,4 +1,4 @@
-.\objects\delay.o: System\delay\delay.cpp
+.\objects\delay.o: System\delay\delay.c
 .\objects\delay.o: System\delay\delay.h
 .\objects\delay.o: .\System\sys\sys.h
 .\objects\delay.o: .\Start\stm32f10x.h

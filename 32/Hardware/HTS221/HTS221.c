@@ -128,11 +128,6 @@
 		Serial_SendArray(date, 10);
 	}
 
-// 串口接收数据
-void HTS221::RXData(uint8_t data)
-{
-	
-}
 
 // AngleData结构体函数实现
 // 数据转换

@@ -1,4 +1,4 @@
-.\objects\sys.o: System\sys\sys.cpp
+.\objects\sys.o: System\sys\sys.c
 .\objects\sys.o: System\sys\sys.h
 .\objects\sys.o: .\Start\stm32f10x.h
 .\objects\sys.o: .\Start\core_cm3.h

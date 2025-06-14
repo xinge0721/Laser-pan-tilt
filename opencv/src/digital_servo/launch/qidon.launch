@@ -1,0 +1,8 @@
+<launch>
+  <!-- 启动数字舵机控制节点 -->
+  <node name="digital_servo_node" pkg="digital_servo" type="main" output="screen">
+    <!-- 可以在这里添加参数设置 -->
+    <!-- <param name="x_servo_pin" value="18"/> -->
+    <!-- <param name="y_servo_pin" value="19"/> -->
+  </node>
+</launch> 

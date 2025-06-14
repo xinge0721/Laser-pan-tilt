@@ -2,6 +2,7 @@
 #define __SERIAL2_H
 
 #include <stdio.h>
+#include "stm32f10x.h"                  // Device header
 
 
 
