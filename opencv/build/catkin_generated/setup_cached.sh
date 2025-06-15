@@ -7,8 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/ros/chenxu/Laser-pan-tilt/opencv/devel:$CMAKE_PREFIX_PATH"
-export PATH='/opt/ros/noetic/bin:/home/ros/.local/bin:/home/ros/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
-export PWD='/home/ros/chenxu/Laser-pan-tilt/opencv/build'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/ros/chenxu/Laser-pan-tilt/opencv/src:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/xinge/chenxu/opencv/devel:$CMAKE_PREFIX_PATH"
+export PWD='/home/xinge/chenxu/opencv/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/xinge/chenxu/opencv/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/xinge/chenxu/opencv/src:$ROS_PACKAGE_PATH"

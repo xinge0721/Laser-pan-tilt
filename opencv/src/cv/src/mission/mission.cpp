@@ -2,7 +2,6 @@
 #include <iostream>
 using namespace std;
 #include <opencv2/opencv.hpp>
-#include <geometry_msgs/Point.h>
 #include "./../laser_processor/laser_processor.h"
 #include "./../hsv_threshold/hsv_threshold.h"
 
@@ -237,7 +236,7 @@ std::vector<cv::Point> Mission::calibration(HsvThreshold& hsvThresh,cv::VideoCap
  * @param show_result 是否显示处理过程和结果
  * @return 激光点位置，如果未检测到返回(-1,-1)
  */
-cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_result = true)
+cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_result = false)
 {
     // 裁剪中心区域以便更精确处理
     // cv::Mat cropped = cropCenterRegion(frame);
@@ -309,19 +308,111 @@ cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_re
  */
 #define DISTANCE_THRESHOLD 2.0
 
+// 移动激光到目标（轮询方式）
+// 参数一：摄像头
+// 参数二：发布者
+// 参数三：目标点
+// 返回值：是否到达目标点
+// 成功返回true，失败返回false
+bool Mission::getPoint(cv::VideoCapture& cap, myserial& serial,const cv::Point & targetPoint)
+{
+    cv::Mat frame;
+    // 创建点消息对象
+    cv::Point point_msg;
+    
+    // 定义静态变量记录连续接近目标点的次数
+    static int success_count = 0;
+    // 设置需要连续接近的次数阈值
+    const int SUCCESS_THRESHOLD = 5;
+
+    // 控制发送频率
+    static ros::Time last_send_time = ros::Time(0);
+    const ros::Duration send_interval(0.1); // 100ms, 10Hz
+    
+    try
+    {
+        // 获取当前图像
+        cap >> frame;
+        // 裁剪图像
+        cv::Mat cropped = cropCenterRegion(frame);
+        
+        // 获取激光位置
+        cv::Point laserPoint = findLaserPoint(cropped, hsvThresh);
+        
+        // 如果检测到激光点
+        if (laserPoint.x != -1 && laserPoint.y != -1) {
+            // 计算激光点与目标点的偏差
+            point_msg.x = laserPoint.x - targetPoint.x;
+            point_msg.y = laserPoint.y - targetPoint.y;
+            
+            ros::Time now = ros::Time::now();
+            if (now - last_send_time > send_interval)
+            {
+                // 发布消息
+                serial.sendPoint(point_msg.x, point_msg.y);
+                last_send_time = now;
+
+                // 显示距离信息
+                std::cout << "x 距离目标点: " << point_msg.x << " 像素" << std::endl;
+                std::cout << "y 距离目标点: " << point_msg.y << " 像素" << std::endl;
+            }
+            
+            // 画线（激光和目标点）
+            cv::line(cropped, laserPoint, targetPoint, cv::Scalar(0, 0, 255), 2);
+            cv::circle(cropped, targetPoint, 5, cv::Scalar(0, 255, 0), -1);  // 绘制目标点
+            cv::imshow("当前图像", cropped);
+
+            // 如果距离小于阈值，说明激光点接近目标位置
+            if (abs(point_msg.x) < DISTANCE_THRESHOLD && abs(point_msg.y) < DISTANCE_THRESHOLD) {
+                // 增加连续接近计数
+                success_count++;
+                std::cout << "接近目标点，连续次数: " << success_count << "/" << SUCCESS_THRESHOLD << std::endl;
+                
+                // 只有连续多次接近目标点才算真正到达
+                if (success_count >= SUCCESS_THRESHOLD) {
+                    std::cout << "激光点已稳定到达目标位置，任务完成！" << std::endl;
+                    point_msg.x = 0;
+                    point_msg.y = 0;
+                    serial.sendPoint(point_msg.x, point_msg.y);
+                    // 重置计数器，为下一个目标做准备
+                    success_count = 0;
+                    return true;
+                }
+            } else {
+                // 如果偏离目标点，重置计数器
+                if (success_count > 0) {
+                    std::cout << "偏离目标点，重置计数器" << std::endl;
+                    success_count = 0;
+                }
+            }
+        }
+        // 等待1ms以更新界面显示
+        cv::waitKey(1);
+        return false;  // 未到达目标点，返回false
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        // 出现异常时也重置计数器
+        success_count = 0;
+        return false;
+    }
+}
 
 // 第一题回归原点（复位）
 // 参数一：摄像头
 // 参数二：发布者
 // 参数三：校准点
 // 返回值：中心点坐标
-geometry_msgs::Point Mission::one(cv::VideoCapture& cap, ros::Publisher angle_pub, std::vector<cv::Point> & points)
+cv::Point Mission::one(cv::VideoCapture& cap, myserial& serial, std::vector<cv::Point> & points)
 {
     cv::Mat frame;
+
     // 创建点消息对象
     // 一个发送数据（偏差值），一个是中心点数据
-    geometry_msgs::Point point_msg;
-    geometry_msgs::Point point_zhon;
+
+    cv::Point point_zhon;
+
     // 设置坐标值
     // 校准点的第一点和第二点的x轴坐标相减，除以2，得出中心点X坐标距离第一点的距离，则再加上第一点的x轴
     // 则是中心点x轴，相对于摄像头的x轴坐标
@@ -329,96 +420,26 @@ geometry_msgs::Point Mission::one(cv::VideoCapture& cap, ros::Publisher angle_pu
     // 则是中心点y轴，相对于摄像头的y轴坐标
     point_zhon.x = points[0].x + (abs(points[1].x - points[0].x) / 2); // 中心点X坐标
     point_zhon.y = points[0].y + (abs(points[2].y - points[0].y) / 2); // 中心点Y坐标
-
-    
     
     // // 调试用确定的调试点
     // point_zhon.x = points[0].x; // 中心点X坐标
     // point_zhon.y = points[0].y; // 中心点Y坐标
 
-
-        // 打印调试信息
-    std::cout << "中心点X坐标: " << point_msg.x << std::endl;
-    std::cout << "中心点Y坐标: " << point_msg.y << std::endl;
-    while(ros::ok())
+    // 打印调试信息
+    std::cout << "中心点X坐标: " << point_zhon.x << std::endl;
+    std::cout << "中心点Y坐标: " << point_zhon.y << std::endl;
+    
+    // 轮询方式到达中心点
+    bool reached = false;
+    while(ros::ok() && !reached)
     {
-        try
-        {
-            // 获取当前图像
-            cap >> frame;
-            // 显示当前图像
-            // cv::imshow("当前图像", frame);
-            cv::Mat cropped = cropCenterRegion(frame);
-            
-            // 获取激光位置
-            cv::Point laserPoint = findLaserPoint(cropped, hsvThresh);
-            
-            // 如果检测到激光点
-            if (laserPoint.x != -1 && laserPoint.y != -1) {
-                // 计算激光点与中心点的偏差
-                if(abs(point_msg.x) > DISTANCE_THRESHOLD)
-                {
-                    point_msg.x = 2;
-
-                }
-                else
-                {
-                    point_msg.x = laserPoint.x - point_zhon.x;
-                }
-                if(abs(point_msg.y) > DISTANCE_THRESHOLD)
-                {
-                    point_msg.y = 2;
-
-                }
-                else
-                {
-                     point_msg.y = laserPoint.y - point_zhon.y;
-
-                }
-                // // 输出激光位置到控制台
-                // std::cout << "激光位置: (" << laserPoint.x << ", " << laserPoint.y << ")" << std::endl;
-                // std::cout << "偏差: X=" << point_msg.x << ", Y=" << point_msg.y << std::endl;
-                
-                // 发布消息
-                angle_pub.publish(point_msg);
-                
-                // 判断激光点是否已经接近中心点
-                // const double DISTANCE_THRESHOLD = 5.0;
-                
-                // 计算激光点与中心点的欧氏距离                
-                // 显示距离信息
-                std::cout << "x 距离中心点: " << point_msg.x << " 像素" << std::endl;
-                std::cout << "y 距离中心点: " << point_msg.y << " 像素" << std::endl;
-                
-                // 画线（激光和中心点）
-                // 将 geometry_msgs::Point 转换为 cv::Point
-                cv::Point cvPointZhon(point_zhon.x, point_zhon.y);
-                cv::line(cropped, laserPoint, cvPointZhon, cv::Scalar(0, 0, 255), 2);
-                cv::imshow("当前图像", cropped);
-
-
-                // 如果距离小于阈值，说明激光点已经接近目标位置，任务完成
-                if (abs(point_msg.x) < DISTANCE_THRESHOLD && abs(point_msg.y) < DISTANCE_THRESHOLD) {
-                    std::cout << "激光点已到达目标位置，任务完成！" << std::endl;
-                    point_msg.x = 1;
-                    point_msg.y = 1;
-                    angle_pub.publish(point_msg);
-                    // 跳出循环，结束当前任务
-                    break;
-                }
-            }
-            
-            // 等待10ms
-            cv::waitKey(1);
-
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
+        reached = getPoint(cap, serial, point_zhon);
+        // 等待短暂时间以避免CPU占用过高
+        cv::waitKey(1);
+        ros::spinOnce(); // 允许ROS处理回调
     }
 
-    std::cout << "已发送回归原点指令" << std::endl;
+    std::cout << "已成功回归原点" << std::endl;
 
     return point_zhon;//返回中心点坐标,重复使用
 }
@@ -427,102 +448,269 @@ geometry_msgs::Point Mission::one(cv::VideoCapture& cap, ros::Publisher angle_pu
 // 参数一：摄像头
 // 参数二：发布者
 // 参数三：校准点
-void Mission::two(cv::VideoCapture& cap, ros::Publisher angle_pub, std::vector<cv::Point> & points)
+void Mission::two(cv::VideoCapture& cap, myserial& serial, std::vector<cv::Point> & points)
 {
     cv::Mat frame;
     // 创建点消息对象
-    geometry_msgs::Point point_msg;
+    cv::Point point_msg;
     
     // 直接遍历四个点
     for(int i = 0; i < 4; i++)
     {
-        // 直接围绕校准点跑一圈
-        while(ros::ok())
+        // 轮询方式到达每个目标点
+        bool reached = false;
+        while(ros::ok() && !reached)
         {
-            try
-            {
-                // 获取当前图像
-                cap >> frame;
-                // 显示当前图像
-                cv::imshow("当前图像", frame);
-
-                // 获取激光位置
-                cv::Point laserPoint = findLaserPoint(frame, hsvThresh);
-                
-                // 如果检测到激光点
-                if (laserPoint.x != -1 && laserPoint.y != -1) {
-                    // 计算激光点与中心点的偏差
-                    point_msg.x = laserPoint.x - points[i].x;
-                    point_msg.y = laserPoint.y - points[i].y;
-                    
-                    // 输出激光位置到控制台
-                    std::cout << "激光位置: (" << laserPoint.x << ", " << laserPoint.y << ")" << std::endl;
-                    std::cout << "偏差: X=" << point_msg.x << ", Y=" << point_msg.y << std::endl;
-                    
-                    // 发布消息
-                    angle_pub.publish(point_msg);
-                    
-                    // 计算激光点与校准点的欧氏距离
-                    double distance = sqrt(point_msg.x * point_msg.x + point_msg.y * point_msg.y);
-                    
-                    // 显示距离信息
-                    std::cout << "距离校准点: " << distance << " 像素" << std::endl;
-                    
-                    // 添加可视化连线
-                    cv::circle(frame, points[i], 5, cv::Scalar(0, 255, 0), -1);  // 绘制目标点
-                    cv::line(frame, laserPoint, cv::Point(points[i].x, points[i].y), cv::Scalar(0, 0, 255), 2);  // 绘制连线
-                    cv::imshow("当前图像", frame);
-                    
-                    // 如果距离小于阈值，说明激光点已经接近目标位置，任务完成
-                    if (distance < DISTANCE_THRESHOLD) {
-                        std::cout << "激光点已到达校准点" << i << "，继续下一个点！" << std::endl;
-                        // 跳出循环，结束当前任务
-                        break;
-                    }
-                }
-                
-                // 等待10ms
-                cv::waitKey(10);
-                // 等待10ms
-                ros::Duration(0.5).sleep();
-            }
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << '\n';
-            }
+            reached = getPoint(cap, serial, points[i]);
+            // 等待短暂时间以避免CPU占用过高
+            cv::waitKey(1);
+            ros::spinOnce(); // 允许ROS处理回调
         }
+        std::cout << "已到达第" << i+1 << "个点" << std::endl;
     }
     
-    std::cout << "已完成矩形路径遍历任务" << std::endl;
+    std::cout << "已完成屏幕走任务" << std::endl;
 }
 
-// 第三第四题 沿着矩形走
-// 因为第三第四题，几乎一模一样，都是围着矩形走
-// 而第四题是围绕倾斜的矩形走，比第三题多了一个旋转的步骤
-// 所以，第三第四题，可以写成一个函数
-void Mission::three(cv::VideoCapture& cap,ros::Publisher angle_pub)
+// 第三题 沿着矩形走
+// 参数一：摄像头
+// 参数二：发布者
+void Mission::three(cv::VideoCapture& cap,myserial& serial)
 {
     cv::Mat frame;
+    cap >> frame;
     // 获取矩形
     std::vector<cv::Point> rectPoints = getRect(frame);
 
     // 分割矩形
     rectPoints = divideRectangle(rectPoints, 10);
 
-    // 通过迭代器的方式，在图形上绘制园，确保每一个点，以做调试
-    while(1)
+    // 遍历矩形上的所有点
+    for(auto& point : rectPoints)
     {
-        for(auto point : rectPoints)
+        // 轮询方式到达每个点
+        bool reached = false;
+        while(ros::ok() && !reached)
         {
-            cv::circle(frame, point, 5, cv::Scalar(0, 0, 255), -1);
+            reached = getPoint(cap, serial, point);    
+            // 等待短暂时间以避免CPU占用过高
+            ros::spinOnce(); // 允许ROS处理回调
         }
-        cv::imshow("矩形分割结果", frame);
-        cv::waitKey(1);
     }
-
-    std::cout << "mission one" << std::endl;
+    std::cout << "已完成矩形路径遍历任务" << std::endl;
 }
 
 
+// 第四题 沿着斜着的矩形走
+// 参数一：摄像头
+// 参数二：发布者
+void Mission::four(cv::VideoCapture& cap,myserial& serial)
+{
+    cv::Mat frame;
+    cap >> frame;
+    // 获取矩形
+    std::vector<cv::Point> rectPoints = getRect(frame);
+
+    // 分割矩形
+    rectPoints = divideRectangle(rectPoints, 10);
+
+    // 遍历矩形上的所有点
+    for(auto& point : rectPoints)
+    {
+        // 轮询方式到达每个点
+        bool reached = false;
+        while(ros::ok() && !reached)
+        {
+            reached = getPoint(cap, serial, point);    
+            // 等待短暂时间以避免CPU占用过高
+            ros::spinOnce(); // 允许ROS处理回调
+        }
+    }
+    std::cout << "已完成斜矩形路径遍历任务" << std::endl;
+}
+
+// 第五题 激光跟踪
+// 参数一：摄像头
+// 参数二：发布者   
+void Mission::five(cv::VideoCapture& cap,myserial& serial)
+{
+    cv::Mat frame;
+
+    // 创建一个定时两秒的循环
+    ros::Time start_time = ros::Time::now();
+    ros::Duration loop_duration(2.0); // 2秒的持续时间
+    bool reached = false;
+    while (ros::ok())
+    {
+        // 获取当前图像
+        cap >> frame;
+        cv::Mat cropped = cropCenterRegion(frame);
+        
+        // 获取当前时间
+        ros::Time current_time = ros::Time::now();
+        
+        // 计算已经过去的时间
+        ros::Duration elapsed_time = current_time - start_time;
+        
+        // 获取绿色激光位置
+        cv::Point greenLaserPoint = findLaserPoint(cropped, GREEN_HSV);
+
+        // 如果检测到激光点
+        if (greenLaserPoint.x != -1 && greenLaserPoint.y != -1) {
+            std::cout << "激光点位置: " << greenLaserPoint << std::endl;
+            
+            // 轮询方式到达目标点，但在这里我们只尝试一次，不等待成功
+            // 因为目标点可能在不断移动
+            reached = getPoint(cap, serial, greenLaserPoint);
+
+        }
+
+        // 如果已经过去了2秒，则说明完成任务，退出循环
+        if (elapsed_time >= loop_duration)
+        {
+            std::cout << "两秒时间到" << std::endl;
+            std::cout << "激光跟踪任务完成" << std::endl;
+            if(reached) {
+                std::cout << "已成功跟踪到激光点" << std::endl;
+            }
+            else{
+                std::cout << "激光点未到达目标位置，任务失败" << std::endl;
+            }
+            return;
+        }
+        
+        // 处理ROS回调
+        ros::spinOnce();
+    }
+}
+
+void Mission::six(cv::VideoCapture& cap, myserial& serial)
+{
+    std::cout << "第六题未实现" << std::endl;
+}
 
 
+// 测试函数 - 计算两次激光位置的差值
+void Mission::testLaserDifference(cv::VideoCapture& cap) 
+{
+    cv::Mat frame;
+    cv::Point firstPosition(-1, -1);  // 第一次激光位置
+    cv::Point secondPosition(-1, -1);  // 第二次激光位置
+    bool firstRecorded = false;  // 是否已记录第一个位置
+    
+    std::cout << "按空格键记录第一个激光位置..." << std::endl;
+    
+    while(ros::ok()) {
+        try {
+            // 获取当前图像
+            cap >> frame;
+            if(frame.empty()) {
+                std::cerr << "获取图像失败" << std::endl;
+                continue;
+            }
+            
+            // 裁剪中心区域
+            cv::Mat cropped = cropCenterRegion(frame);
+            
+            // 获取激光位置
+            cv::Point laserPoint = findLaserPoint(cropped, hsvThresh);
+            
+            // 在图像上显示当前激光点
+            if (laserPoint.x != -1 && laserPoint.y != -1) {
+                cv::circle(cropped, laserPoint, 5, cv::Scalar(0, 255, 0), -1);
+                cv::putText(cropped, "当前位置: (" + std::to_string(laserPoint.x) + 
+                          ", " + std::to_string(laserPoint.y) + ")", 
+                          cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 
+                          0.5, cv::Scalar(0, 255, 0), 1);
+                
+                // 如果已记录第一个位置，显示连线
+                if (firstRecorded) {
+                    cv::circle(cropped, firstPosition, 5, cv::Scalar(0, 0, 255), -1);
+                    cv::line(cropped, firstPosition, laserPoint, 
+                            cv::Scalar(0, 0, 255), 2);
+                }
+            }
+            
+            // 显示提示信息
+            std::string prompt = firstRecorded ? 
+                "按空格键记录第二个位置并计算差值..." : 
+                "按空格键记录第一个位置...";
+            cv::putText(cropped, prompt, cv::Point(10, 60), 
+                      cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 0, 0), 1);
+            
+            cv::imshow("激光位置测试", cropped);
+            
+            int key = cv::waitKey(1);
+            if (key == 27) { // ESC键退出
+                break;
+            } else if (key == 32 && laserPoint.x != -1 && laserPoint.y != -1) { // 空格键记录位置
+                if (!firstRecorded) {
+                    // 记录第一个位置
+                    firstPosition = laserPoint;
+                    firstRecorded = true;
+                    std::cout << "第一个激光位置已记录: (" << firstPosition.x 
+                            << ", " << firstPosition.y << ")" << std::endl;
+                    std::cout << "按空格键记录第二个位置并计算差值..." << std::endl;
+                } else {
+                    // 记录第二个位置并计算差值
+                    secondPosition = laserPoint;
+                    std::cout << "第二个激光位置已记录: (" << secondPosition.x 
+                            << ", " << secondPosition.y << ")" << std::endl;
+                    
+                    // 计算差值
+                    int xDiff = secondPosition.x - firstPosition.x;
+                    int yDiff = secondPosition.y - firstPosition.y;
+                    double distance = sqrt(xDiff * xDiff + yDiff * yDiff);
+                    
+                    std::cout << "======================" << std::endl;
+                    std::cout << "差值结果:" << std::endl;
+                    std::cout << "X轴差值: " << xDiff << " 像素" << std::endl;
+                    std::cout << "Y轴差值: " << yDiff << " 像素" << std::endl;
+                    std::cout << "两点距离: " << distance << " 像素" << std::endl;
+                    std::cout << "======================" << std::endl;
+                    
+                    // 在图像上显示差值信息
+                    cv::Mat resultImage = cropped.clone();
+                    cv::circle(resultImage, firstPosition, 5, cv::Scalar(0, 0, 255), -1);
+                    cv::circle(resultImage, secondPosition, 5, cv::Scalar(0, 255, 0), -1);
+                    cv::line(resultImage, firstPosition, secondPosition, 
+                            cv::Scalar(255, 0, 0), 2);
+                    
+                    cv::putText(resultImage, "起点: (" + std::to_string(firstPosition.x) + 
+                              ", " + std::to_string(firstPosition.y) + ")", 
+                              cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 
+                              0.5, cv::Scalar(0, 0, 255), 1);
+                    cv::putText(resultImage, "终点: (" + std::to_string(secondPosition.x) + 
+                              ", " + std::to_string(secondPosition.y) + ")", 
+                              cv::Point(10, 60), cv::FONT_HERSHEY_SIMPLEX, 
+                              0.5, cv::Scalar(0, 255, 0), 1);
+                    cv::putText(resultImage, "X轴差值: " + std::to_string(xDiff) + " 像素", 
+                              cv::Point(10, 90), cv::FONT_HERSHEY_SIMPLEX, 
+                              0.5, cv::Scalar(255, 0, 0), 1);
+                    cv::putText(resultImage, "Y轴差值: " + std::to_string(yDiff) + " 像素", 
+                              cv::Point(10, 120), cv::FONT_HERSHEY_SIMPLEX, 
+                              0.5, cv::Scalar(255, 0, 0), 1);
+                    cv::putText(resultImage, "距离: " + std::to_string(distance) + " 像素", 
+                              cv::Point(10, 150), cv::FONT_HERSHEY_SIMPLEX, 
+                              0.5, cv::Scalar(255, 0, 0), 1);
+                    
+                    cv::imshow("位置差值结果", resultImage);
+                    cv::waitKey(0);  // 等待按键继续
+                    
+                    // 重置记录状态，准备下一轮测试
+                    firstRecorded = false;
+                    firstPosition = cv::Point(-1, -1);
+                    secondPosition = cv::Point(-1, -1);
+                    std::cout << "按空格键记录第一个位置..." << std::endl;
+                }
+            }
+            
+            // 处理ROS回调
+            ros::spinOnce();
+        } catch (const std::exception& e) {
+            std::cerr << "错误: " << e.what() << std::endl;
+        }
+    }
+    
+    cv::destroyAllWindows();
+}

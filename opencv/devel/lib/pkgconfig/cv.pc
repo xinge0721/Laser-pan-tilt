@@ -1,8 +1,8 @@
-prefix=/home/ros/chenxu/Laser-pan-tilt/opencv/devel
+prefix=/home/xinge/chenxu/opencv/devel
 
 Name: cv
 Description: Description of cv
 Version: 0.0.0
-Cflags: -I/home/ros/chenxu/Laser-pan-tilt/opencv/devel/include
+Cflags: -I/home/xinge/chenxu/opencv/devel/include
 Libs: -L${prefix}/lib 
 Requires: 

@@ -1,5 +1,6 @@
 #include "./Serial.h"
 #include <cstring>  // 为std::memcpy添加头文件
+#include <cmath>   // 为std::abs添加头文件
 
 myserial::myserial() : isConnected(false), portName(""), baudRate(0)
 {
@@ -234,3 +235,81 @@ bool myserial::isOpen() const
 {
     return isConnected && ser.isOpen();
 }
+
+/**
+ * 发送Point点数据到32位单片机
+ * 数据包格式:
+ * - 包头(1字节): 0xAA
+ * - 数据位一(1字节): x轴高八位（最高位表示符号，1为负数）
+ * - 数据位二(1字节): x轴低八位
+ * - 数据位三(1字节): y轴高八位（最高位表示符号，1为负数）
+ * - 数据位四(1字节): y轴低八位
+ * - 校验位(1字节): 四个数据位相加取余256
+ * - 包尾(1字节): 0x55
+ * 
+ * @param point 要发送的点坐标
+ * @return 发送是否成功
+ */
+bool myserial::sendPoint(int x, int y) {
+    // 提取Point中的x和y坐标
+    
+    // 创建7字节的数据包缓冲区
+    uint8_t buffer[7];
+    
+    // 设置包头: 0xAA
+    buffer[0] = 0xAA;
+    
+    // 处理X坐标
+    bool x_negative = x < 0;
+    uint16_t abs_x = std::abs(x);
+    uint8_t x_high = (abs_x >> 8) & 0x7F;  // 取高8位，并清除最高位
+    uint8_t x_low = abs_x & 0xFF;          // 取低8位
+    
+    // 处理Y坐标
+    bool y_negative = y < 0;
+    uint16_t abs_y = std::abs(y);
+    uint8_t y_high = (abs_y >> 8) & 0x7F;  // 取高8位，并清除最高位
+    uint8_t y_low = abs_y & 0xFF;          // 取低8位
+    
+    // 如果原值为负，在高8位的最高位设置为1
+    if (x_negative) x_high |= 0x80;
+    if (y_negative) y_high |= 0x80;
+    
+    // 填充缓冲区
+    buffer[1] = x_high;
+    buffer[2] = x_low;
+    buffer[3] = y_high;
+    buffer[4] = y_low;
+    
+    // 计算校验和: 四个数据位相加取余256
+    buffer[5] = (x_high + x_low + y_high + y_low) & 0xFF;
+    
+    // 设置包尾: 0x55
+    buffer[6] = 0x55;
+    
+    // 发送数据包
+    return sendArray(buffer, sizeof(buffer));
+}
+
+/*
+ * 示例1: 发送点 (100, 200)
+ * x = 100 (0x0064), y = 200 (0x00C8)
+ * x_high = 0x00, x_low = 0x64
+ * y_high = 0x00, y_low = 0xC8
+ * 校验和 = (0x00 + 0x64 + 0x00 + 0xC8) & 0xFF = 0x2C
+ * 数据包: [0xAA, 0x00, 0x64, 0x00, 0xC8, 0x2C, 0x55]
+ *
+ * 示例2: 发送点 (-100, 200)
+ * x = -100, abs(x) = 100 (0x0064), y = 200 (0x00C8)
+ * x_high = 0x00 | 0x80 = 0x80, x_low = 0x64
+ * y_high = 0x00, y_low = 0xC8
+ * 校验和 = (0x80 + 0x64 + 0x00 + 0xC8) & 0xFF = 0xAC
+ * 数据包: [0xAA, 0x80, 0x64, 0x00, 0xC8, 0xAC, 0x55]
+ *
+ * 示例3: 发送点 (1000, -2000)
+ * x = 1000 (0x03E8), abs(y) = 2000 (0x07D0)
+ * x_high = 0x03, x_low = 0xE8
+ * y_high = 0x07 | 0x80 = 0x87, y_low = 0xD0
+ * 校验和 = (0x03 + 0xE8 + 0x87 + 0xD0) & 0xFF = 0x42
+ * 数据包: [0xAA, 0x03, 0xE8, 0x87, 0xD0, 0x42, 0x55]
+ */

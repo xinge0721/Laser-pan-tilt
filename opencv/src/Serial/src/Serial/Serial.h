@@ -70,6 +70,9 @@ public:
     
     // 检查串口是否已打开
     bool isOpen() const;
+    
+    // Add function to send Point data to 32-bit MCU
+    bool sendPoint(int x, int y);
 
 private:
     serial::Serial ser;

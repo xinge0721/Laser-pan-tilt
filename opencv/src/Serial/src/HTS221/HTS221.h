@@ -81,6 +81,7 @@ public:
 
     // 舵机返回数据函数
     void returnData(uint8_t data);
+
     // 滑块控制函数
     // 根据滑块值调整舵机角度和速度
     // angle_percent: 角度百分比，范围0-100，对应舵机角度0-1000
@@ -96,6 +97,7 @@ public:
     float kd;       // 微分系数
     int last_Err;   // 上一次误差
     int pwm;        // 控制PWM值
+    
     bool return_flag; // 返回标志位
 public:  // 使angle可直接访问
 	const uint8_t ID;

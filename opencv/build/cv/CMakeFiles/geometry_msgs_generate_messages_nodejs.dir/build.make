@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/src
+CMAKE_SOURCE_DIR = /home/xinge/chenxu/opencv/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/build
+CMAKE_BINARY_DIR = /home/xinge/chenxu/opencv/build
 
 # Utility rule file for geometry_msgs_generate_messages_nodejs.
 
@@ -63,10 +63,10 @@ cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build: geometry_msgs_ge
 .PHONY : cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
 
 cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/clean:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
+	cd /home/xinge/chenxu/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
 .PHONY : cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/clean
 
 cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/depend:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/chenxu/Laser-pan-tilt/opencv/src /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv /home/ros/chenxu/Laser-pan-tilt/opencv/build /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xinge/chenxu/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xinge/chenxu/opencv/src /home/xinge/chenxu/opencv/src/cv /home/xinge/chenxu/opencv/build /home/xinge/chenxu/opencv/build/cv /home/xinge/chenxu/opencv/build/cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : cv/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/depend
 

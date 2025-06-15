@@ -200,7 +200,6 @@ void USART1_IRQHandler(void)
 		uint8_t RxData = USART_ReceiveData(USART1);				//读取数据寄存器，存放在接收的数据变量
 		
 		Serial_SendByte(RxData);
-		
 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);		//清除标志位
 	}
 }

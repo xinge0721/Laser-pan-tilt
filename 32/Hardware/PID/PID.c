@@ -11,8 +11,8 @@ struct PID_TypeDef
 	float	Last_Bias;
 };
 
-struct PID_TypeDef PID_x = {20,0,4,0,0,0};
-struct PID_TypeDef PID_y = {20,0,5,0,0,0};
+struct PID_TypeDef PID_x = {20,0,10,0,0,0};
+struct PID_TypeDef PID_y = {20,0,10,0,0,0};
 
 /*************************************************************************
 函数功能：位置式PID控制器

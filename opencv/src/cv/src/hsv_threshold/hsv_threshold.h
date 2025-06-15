@@ -12,7 +12,8 @@ struct HsvThreshold {
 
 // 红色预设值
 extern HsvThreshold RED_HSV;
-
+// 绿色预设值
+extern HsvThreshold GREEN_HSV;
 // 对图像进行HSV阈值处理
 cv::Mat thresholdHsv(const cv::Mat& src, const HsvThreshold& thresh);
 

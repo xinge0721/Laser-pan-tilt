@@ -1,25 +1,26 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
 import rospy
 from std_msgs.msg import Int32
+from geometry_msgs.msg import Point # 导入Point消息类型
 
 # 全局配置参数，方便调整
 # 初始角度值（从数据值转换为角度值）
-INITIAL_X_ANGLE = round(701 * 0.24)  # 约168度
-INITIAL_Y_ANGLE = round(650 * 0.24)  # 约156度
+INITIAL_X_ANGLE = 168  # 约168度
+INITIAL_Y_ANGLE = 156  # 约156度
 
 # 角度范围限制（从数据值转换为角度值）
-X_MIN_ANGLE = round(613 * 0.24)  # 约147度
-X_MAX_ANGLE = round(823 * 0.24)  # 约198度
-Y_MIN_ANGLE = round(562 * 0.24)  # 约135度
-Y_MAX_ANGLE = round(750 * 0.24)  # 约180度
+X_MIN_ANGLE = 147  # 约147度
+X_MAX_ANGLE = 198  # 约198度
+Y_MIN_ANGLE = 135  # 约135度
+Y_MAX_ANGLE = 180  # 约180度
 
 # 舵机速度（仅显示用）
 SERVO_SPEED = 50  # 更新为50与main.cpp匹配
 
-# 角度转换函数
+# 角度转换函数 (虽然不再直接发布数据值，但保留用于显示)
 def angle_to_data(angle):
     """将角度值(0-240度)转换为数据值(0-1000)"""
     if angle > 240:
@@ -52,7 +53,7 @@ except ImportError:
 class ServoControllerGUI:
     def __init__(self, master):
         self.master = master
-        master.title("舵机控制器 (精确角度模式)")
+        master.title("舵机控制器 (增量模式)")
         
         # 设置窗口大小
         master.geometry("500x300")
@@ -60,9 +61,8 @@ class ServoControllerGUI:
         # 创建ROS节点
         rospy.init_node('servo_controller_gui')
         
-        # 创建发布者 - 只保留角度控制发布者
-        self.x_angle_pub = rospy.Publisher('/x_angle_slider', Int32, queue_size=1)
-        self.y_angle_pub = rospy.Publisher('/y_angle_slider', Int32, queue_size=1)
+        # 创建发布者 - 改为发布增量
+        self.increment_pub = rospy.Publisher('angle_data', Point, queue_size=10)
         
         # 存储当前值，用于避免重复发布（以角度值存储）
         self.current_x_angle = INITIAL_X_ANGLE
@@ -79,7 +79,7 @@ class ServoControllerGUI:
         info_frame = ttk.Frame(master)
         info_frame.grid(row=3, column=0, padx=10, pady=5, sticky="w")
         
-        speed_info = ttk.Label(info_frame, text="舵机速度固定为{}".format(SERVO_SPEED))
+        speed_info = ttk.Label(info_frame, text="舵机控制模式: 增量控制 (0.1度/步)")
         speed_info.grid(row=0, column=0, padx=10, pady=5, sticky="w")
         
         x_range_info = ttk.Label(info_frame, text="X轴角度范围: {}-{}度".format(X_MIN_ANGLE, X_MAX_ANGLE))
@@ -97,9 +97,9 @@ class ServoControllerGUI:
         # 设置关闭窗口时的处理
         master.protocol("WM_DELETE_WINDOW", self.on_closing)
         
-        # 初始化时发布一次所有值
-        rospy.sleep(1.0) # 等待发布者完全初始化
-        self.publish_all_values()
+        # 初始化时不需要发布任何值，舵机保持原位
+        # rospy.sleep(1.0) # 等待发布者完全初始化
+        # self.publish_all_values()
     
     def create_x_angle_frame(self):
         frame = ttk.LabelFrame(self.master, text="X轴舵机角度控制 (度)")
@@ -217,54 +217,43 @@ class ServoControllerGUI:
         self.y_entry.delete(0, tk.END)
         self.y_entry.insert(0, str(value))
     
-    # 一次性发布所有值（直接发送角度值）
+    # 发布增量值
     def publish_all_values(self):
         try:
-            # X角度 - 发送角度值
-            x_angle_msg = Int32()
-            x_angle_msg.data = self.x_angle_var.get()
-            self.x_angle_pub.publish(x_angle_msg)
-            rospy.loginfo("已发布X轴角度: %d°", self.x_angle_var.get())
+            x_angle = self.x_angle_var.get()
+            y_angle = self.y_angle_var.get()
             
-            # Y角度 - 发送角度值
-            y_angle_msg = Int32()
-            y_angle_msg.data = self.y_angle_var.get()
-            self.y_angle_pub.publish(y_angle_msg)
-            rospy.loginfo("已发布Y轴角度: %d°", self.y_angle_var.get())
+            # 计算角度差并转换为增量步数
+            x_diff = x_angle - self.current_x_angle
+            y_diff = y_angle - self.current_y_angle
             
-            # 更新当前值（角度值）
-            self.current_x_angle = self.x_angle_var.get()
-            self.current_y_angle = self.y_angle_var.get()
+            # 每0.1度为一步
+            x_steps = int(round(x_diff * 10))
+            y_steps = int(round(y_diff * 10))
+            
+            if x_steps != 0 or y_steps != 0:
+                point_msg = Point()
+                point_msg.x = x_steps
+                point_msg.y = y_steps
+                point_msg.z = 0 # z轴未使用
+                
+                self.increment_pub.publish(point_msg)
+                rospy.loginfo("已发布增量: X=%d 步, Y=%d 步", x_steps, y_steps)
+                
+                # 更新当前角度值
+                self.current_x_angle = x_angle
+                self.current_y_angle = y_angle
             
         except Exception as e:
             rospy.logerr("发布消息时出错: %s", str(e))
     
-    # 发布消息到ROS话题，只有当值变化时才发布
+    # 定时检查滑块值变化并发布增量
     def publish_values(self):
-        # 只有当发布开启时才检查数值变化并发送数据
         if self.start_stop_var.get():
-            try:
-                # 检查X角度是否变化
-                if self.x_angle_var.get() != self.current_x_angle:
-                    x_angle_msg = Int32()
-                    x_angle_msg.data = self.x_angle_var.get()
-                    self.x_angle_pub.publish(x_angle_msg)
-                    self.current_x_angle = self.x_angle_var.get()
-                    rospy.loginfo("已发布X轴角度: %d°", self.x_angle_var.get())
-                
-                # 检查Y角度是否变化
-                if self.y_angle_var.get() != self.current_y_angle:
-                    y_angle_msg = Int32()
-                    y_angle_msg.data = self.y_angle_var.get()
-                    self.y_angle_pub.publish(y_angle_msg)
-                    self.current_y_angle = self.y_angle_var.get()
-                    rospy.loginfo("已发布Y轴角度: %d°", self.y_angle_var.get())
-                    
-            except Exception as e:
-                rospy.logerr("发布消息时出错: %s", str(e))
+            self.publish_all_values()
         
         # 重新安排计时器
-        self.timer = self.master.after(500, self.publish_values)  # 500ms发布频率
+        self.timer = self.master.after(200, self.publish_values)  # 200ms检查一次
     
     # 重置舵机到默认位置
     def reset_to_default(self):
@@ -278,10 +267,18 @@ class ServoControllerGUI:
         self.start_stop_var.set(not self.start_stop_var.get())
         if self.start_stop_var.get():
             self.start_stop_btn.config(text="停止发布")
-            # 重新开始发布消息时，先发布一次当前值
-            self.publish_all_values()
         else:
             self.start_stop_btn.config(text="开始发布")
+            # 当停止发布时，可以发送一个0增量来确保舵机停止
+            try:
+                point_msg = Point()
+                point_msg.x = 0
+                point_msg.y = 0
+                point_msg.z = 0
+                self.increment_pub.publish(point_msg)
+                rospy.loginfo("已发布停止命令 (增量: X=0, Y=0)")
+            except Exception as e:
+                rospy.logerr("发布停止命令时出错: %s", str(e))
     
     # 处理窗口关闭
     def on_closing(self):

@@ -9,7 +9,15 @@ HsvThreshold RED_HSV = {
     143,  // V_min - 亮度最小值
     255  // V_max - 亮度最大值
 };
-
+// 绿色预设值
+HsvThreshold GREEN_HSV = {
+    122, // H_min - 色调最小值
+    179, // H_max - 色调最大值
+    26,  // S_min - 饱和度最小值
+    121, // S_max - 饱和度最大值
+    143,  // V_min - 亮度最小值
+    255  // V_max - 亮度最大值
+};
 // 对图像进行HSV阈值处理
 cv::Mat thresholdHsv(const cv::Mat& src, const HsvThreshold& thresh)
 {

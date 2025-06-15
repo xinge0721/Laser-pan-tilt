@@ -67,14 +67,14 @@ set(Serial_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(Serial_SOURCE_PREFIX /home/ros/chenxu/Laser-pan-tilt/opencv/src/Serial)
-  set(Serial_DEVEL_PREFIX /home/ros/chenxu/Laser-pan-tilt/opencv/devel)
+  set(Serial_SOURCE_PREFIX /home/xinge/chenxu/opencv/src/Serial)
+  set(Serial_DEVEL_PREFIX /home/xinge/chenxu/opencv/devel)
   set(Serial_INSTALL_PREFIX "")
   set(Serial_PREFIX ${Serial_DEVEL_PREFIX})
 else()
   set(Serial_SOURCE_PREFIX "")
   set(Serial_DEVEL_PREFIX "")
-  set(Serial_INSTALL_PREFIX /home/ros/chenxu/Laser-pan-tilt/opencv/install)
+  set(Serial_INSTALL_PREFIX /home/xinge/chenxu/opencv/install)
   set(Serial_PREFIX ${Serial_INSTALL_PREFIX})
 endif()
 
@@ -156,7 +156,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ros/chenxu/Laser-pan-tilt/opencv/install/lib;/opt/ros/noetic/lib)
+    foreach(path /home/xinge/chenxu/opencv/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

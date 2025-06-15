@@ -1,7 +1,7 @@
 #ifndef __OLED_H
 #define __OLED_H			  	 
 #include "sys.h"
-//-----------------OLED¶Ë¿Ú¶¨Òå---------------- 
+//-----------------OLEDï¿½Ë¿Ú¶ï¿½ï¿½ï¿½---------------- 
 #define OLED_RST_Clr() PBout(3)=0   //RST
 #define OLED_RST_Set() PBout(3)=1   //RST
 
@@ -14,9 +14,9 @@
 #define OLED_SDIN_Clr()  PBout(4)=0   //SDA
 #define OLED_SDIN_Set()  PBout(4)=1   //SDA
 
-#define OLED_CMD  0	//Ð´ÃüÁî
-#define OLED_DATA 1	//Ð´Êý¾Ý
-//OLED¿ØÖÆÓÃº¯Êý
+#define OLED_CMD  0	//Ð´ï¿½ï¿½ï¿½ï¿½
+#define OLED_DATA 1	//Ð´ï¿½ï¿½ï¿½ï¿½
+//OLEDï¿½ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½
 void OLED_WR_Byte(u8 dat,u8 cmd);	    
 void OLED_Display_On(void);
 void OLED_Display_Off(void);
@@ -27,5 +27,6 @@ void OLED_DrawPoint(u8 x,u8 y,u8 t);
 void OLED_ShowChar(u8 x,u8 y,u8 chr,u8 size,u8 mode);
 void OLED_ShowNumber(u8 x,u8 y,u32 num,u8 len);
 void OLED_ShowString(u8 x,u8 y,void*p);	 
+void OLED_ShowFloat(u8 x, u8 y, float num, u8 len);
 #endif  
 	 

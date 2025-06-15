@@ -1,4 +1,4 @@
-prefix=/home/ros/chenxu/Laser-pan-tilt/opencv/install
+prefix=/home/xinge/chenxu/opencv/install
 
 Name: Serial
 Description: Description of Serial

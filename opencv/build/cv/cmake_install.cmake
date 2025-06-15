@@ -1,8 +1,8 @@
-# Install script for directory: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv
+# Install script for directory: /home/xinge/chenxu/opencv/src/cv
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ros/chenxu/Laser-pan-tilt/opencv/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xinge/chenxu/opencv/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -38,53 +38,53 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/srv" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/srv/date.srv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/srv" TYPE FILE FILES "/home/xinge/chenxu/opencv/src/cv/srv/date.srv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/cmake" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cv-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/cmake" TYPE FILE FILES "/home/xinge/chenxu/opencv/build/cv/catkin_generated/installspace/cv-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/include/cv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xinge/chenxu/opencv/devel/include/cv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/roseus/ros/cv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/xinge/chenxu/opencv/devel/share/roseus/ros/cv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/common-lisp/ros/cv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/xinge/chenxu/opencv/devel/share/common-lisp/ros/cv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/share/gennodejs/ros/cv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/xinge/chenxu/opencv/devel/share/gennodejs/ros/cv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/python3/dist-packages/cv")
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/xinge/chenxu/opencv/devel/lib/python3/dist-packages/cv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/python3/dist-packages/cv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/xinge/chenxu/opencv/devel/lib/python3/dist-packages/cv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cv.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xinge/chenxu/opencv/build/cv/catkin_generated/installspace/cv.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/cmake" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cv-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/cmake" TYPE FILE FILES "/home/xinge/chenxu/opencv/build/cv/catkin_generated/installspace/cv-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv/cmake" TYPE FILE FILES
-    "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cvConfig.cmake"
-    "/home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/catkin_generated/installspace/cvConfig-version.cmake"
+    "/home/xinge/chenxu/opencv/build/cv/catkin_generated/installspace/cvConfig.cmake"
+    "/home/xinge/chenxu/opencv/build/cv/catkin_generated/installspace/cvConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv" TYPE FILE FILES "/home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cv" TYPE FILE FILES "/home/xinge/chenxu/opencv/src/cv/package.xml")
 endif()
 

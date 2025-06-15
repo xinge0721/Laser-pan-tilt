@@ -1,10 +1,8 @@
-#include "stm32f10x.h"                  // Device header
+#include "Serial3.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
 
-float x_angle = 100;
-float y_angle = 100;
 
 void RX_Data_Process(uint8_t RxData);
 
@@ -59,6 +57,9 @@ void Serial3_SendByte(uint8_t Byte)
 	USART_SendData(USART3, Byte);		//将字节数据写入数据寄存器,写入后USART自动生成时序波形
 	while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);	//等待发送完成
 }
+
+float x_angle = 120;
+float y_angle = 120;
 
 void RX_Data_Process(uint8_t RxData)
 {
@@ -119,8 +120,8 @@ void RX_Data_Process(uint8_t RxData)
 				y_val = -y_val;
 			}
 			
-			x_angle += x_val ;
-			y_angle += y_val ;
+			x_angle += x_val /10;
+			y_angle += y_val /10;
 
 			for(int i = 0; i < 5; i++) data[i] = 0;
 			count = 0;
@@ -133,9 +134,9 @@ void USART3_IRQHandler(void)
 	if (USART_GetITStatus(USART3, USART_IT_RXNE) == SET)
 	{
 		uint8_t RxData = USART_ReceiveData(USART3);
-		Serial3_SendByte(RxData);
+
 		RX_Data_Process(RxData);
-		
+		Serial3_SendByte(RxData);//回显数据
 		USART_ClearITPendingBit(USART3, USART_IT_RXNE);
 	}
 } 

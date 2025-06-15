@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-    <!-- 启动舵机控制节点 -->
-    <node pkg="Serial" type="HTS20L" name="servo_controller" output="screen" />
-    
-    <!-- 启动舵机控制GUI界面 -->
-    <node pkg="Serial" type="servo_controller_gui.py" name="servo_controller_gui" output="screen" />
-</launch> 

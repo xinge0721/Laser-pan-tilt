@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/usr/src/googletest")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/ros/chenxu/Laser-pan-tilt/opencv/build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/xinge/chenxu/opencv/build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

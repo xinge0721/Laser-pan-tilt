@@ -61,21 +61,21 @@ void Servo_PWM_Init(void)
 /**
   * 函数：Servo::SetAngle
   * 描述：设置舵机角度，支持0.1度精度
-  * 参数：angle - 角度值（0-180度，支持小数精度0.1度）
+  * 参数：angle - 角度值（0-240度，支持小数精度0.1度）
   * 返回：无
-  * 备注：标准舵机通常是0.5ms-2.5ms对应0-180度
+  * 备注：标准舵机通常是0.5ms-2.5ms对应0-240度
   *       对应PWM值为1000-5000 (在2MHz计数频率下)
   */
 void SetAngle(float angle,uint8_t _channel)
 {
-    if (angle < 0.0f) angle = 0.0f;
+    if (angle < 30.0f) angle = 30.0f;
     if (angle > 180.0f) angle = 180.0f;
     
     // 将角度转换为脉宽，每0.1度都可以正确映射
     // 0度 = 0.5ms = 1000 counts
-    // 180度 = 2.5ms = 5000 counts
+    // 240度 = 2.5ms = 5000 counts
     // 精确计算每0.1度对应的脉宽增量
-    float pulseWidth = 1000.0f + (angle * 22.222f);  // 更精确的映射: (5000-1000)/180 = 22.222...
+    float pulseWidth = 1000.0f + (angle * 16.666667f);  // 更精确的映射: (5000-1000)/240 = 16.666...
     uint16_t pulse = (uint16_t)(pulseWidth + 0.5f);  // 加0.5并取整，确保舍入精确
     
     // 根据通道设置PWM值

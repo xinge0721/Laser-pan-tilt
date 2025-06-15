@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/src
+CMAKE_SOURCE_DIR = /home/xinge/chenxu/opencv/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/build
+CMAKE_BINARY_DIR = /home/xinge/chenxu/opencv/build
 
 # Utility rule file for sensor_msgs_generate_messages_cpp.
 
@@ -63,10 +63,10 @@ cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build: sensor_msgs_generate_
 .PHONY : cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
 
 cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/clean:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/sensor_msgs_generate_messages_cpp.dir/cmake_clean.cmake
+	cd /home/xinge/chenxu/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/sensor_msgs_generate_messages_cpp.dir/cmake_clean.cmake
 .PHONY : cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/clean
 
 cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/depend:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/chenxu/Laser-pan-tilt/opencv/src /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv /home/ros/chenxu/Laser-pan-tilt/opencv/build /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xinge/chenxu/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xinge/chenxu/opencv/src /home/xinge/chenxu/opencv/src/cv /home/xinge/chenxu/opencv/build /home/xinge/chenxu/opencv/build/cv /home/xinge/chenxu/opencv/build/cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : cv/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/depend
 

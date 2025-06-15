@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera"
-  "/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera.pdb"
+  "/home/xinge/chenxu/opencv/devel/lib/cv/camera"
+  "/home/xinge/chenxu/opencv/devel/lib/cv/camera.pdb"
+  "CMakeFiles/camera.dir/src/Serial/Serial.cpp.o"
   "CMakeFiles/camera.dir/src/camera.cpp.o"
   "CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
   "CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"

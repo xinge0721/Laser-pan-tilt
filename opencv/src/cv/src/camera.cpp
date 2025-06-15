@@ -6,6 +6,10 @@
 #include <std_msgs/Int32.h>
 #include <geometry_msgs/Point.h>
 #include "./mission/mission.h"
+#include "./Serial/Serial.h"
+
+// 创建一个全局串口对象
+myserial g_serial;
 
 // 自定义服务消息类型的包含路径
 // 实际使用时，需要创建以下服务文件并在CMakeLists.txt中配置
@@ -30,7 +34,10 @@ HsvThreshold hsvThresh = RED_HSV;
  */
 cv::VideoCapture initCamera(int camera_id, int width, int height, int fps)
 {
-    cv::VideoCapture cap(camera_id, cv::CAP_V4L2); // 显式使用V4L2后端
+    // 使用默认构造函数初始化VideoCapture，然后只使用摄像头ID打开
+    cv::VideoCapture cap;
+    cap.open(camera_id); // 只使用摄像头ID
+    
     // 检查摄像头是否成功打开
     if(!cap.isOpened())
     {
@@ -84,11 +91,13 @@ int main(int argc, char *argv[])
     //创建 ros 节点句柄(非必须)
     ros::NodeHandle n;
     
-    // 创建角度发布者（替代原来的服务）
-    ros::Publisher angle_pub = n.advertise<geometry_msgs::Point>("angle_data", 10);
-    // 创建模式发布者
-    ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("camera_mode", 10);
+    // 初始化串口
+    if (!g_serial.init()) {
+        std::cerr << "串口初始化失败！" << std::endl;
+        return -1;
+    }
     
+
     // 初始化摄像头
     auto cap = initCamera(0,640,480,60);
     if (!cap.isOpened()) {
@@ -107,37 +116,58 @@ int main(int argc, char *argv[])
     cv::Mat frame;
 
     cap >> frame; // 从摄像头获取原始图片
-    // 校准（必须的）
-    std::cout << "开始校准"<<std::endl;
-    std::vector<cv::Point> rectPoints = mission.calibration(hsvThresh,cap);
+
+    mission.testLaserDifference(cap);
+    // // 校准（必须的）
+    // std::cout << "开始校准"<<std::endl;
+    // std::vector<cv::Point> rectPoints = mission.calibration(hsvThresh,cap);
     
-    cap >> frame;
-    frame = cropCenterRegion(frame);
+    // cap >> frame;
+    // frame = cropCenterRegion(frame);
 
-    // 校准顺序为左上角，然后顺时针
-    for(auto point : rectPoints)
-    {
-        std::cout << "矩形顶点: " << point << std::endl;
-        // 画个圆，将标注的点画出来
-        cv::circle(frame, point, 10, cv::Scalar(0, 0, 255), -1);
-    }
+    // // 校准顺序为左上角，然后顺时针
+    // for(auto point : rectPoints)
+    // {
+    //     std::cout << "矩形顶点: " << point << std::endl;
+    //     // 画个圆，将标注的点画出来
+    //     cv::circle(frame, point, 10, cv::Scalar(0, 0, 255), -1);
+    // }
 
-    cv::imshow("校准结果", frame);
+    // cv::imshow("校准结果", frame);
 
-    sleep(2);
-    cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
-    while(ros::ok())
-    {
-        mission.one(cap,angle_pub,rectPoints);
+    // sleep(2);
+    // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+    // while(ros::ok())
+    // {
+    //     mission.one(cap,g_serial,rectPoints);
 
-        // sleep(50);
-        cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
-        sleep(1);
-        // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
-        // mission.two(cap,angle_pub,rectPoints);
-        // 处理ROS回调
-        ros::spinOnce();
-    }
+    //     sleep(2);
+    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+
+    //     mission.two(cap,g_serial,rectPoints);
+    //     // 处理ROS回调
+    //     sleep(2);
+    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+
+    //     mission.three(cap,g_serial);
+    //     // 处理ROS回调
+    //     sleep(2);
+    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+
+    //     mission.four(cap,g_serial);
+    //     // 处理ROS回调
+    //     sleep(2);
+    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+
+    //     mission.five(cap,g_serial);
+    //     // 处理ROS回调
+    //     sleep(2);
+    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+
+    //     mission.six(cap,g_serial);
+    
+    //     ros::spinOnce();
+    // }
     return 0;
 }
 

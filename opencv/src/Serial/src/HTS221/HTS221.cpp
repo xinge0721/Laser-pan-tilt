@@ -163,7 +163,7 @@
     void HTS221::returnData(uint8_t data)
     {
         // 打印每个接收的字节
-        // std::cout << (int)data << " ";
+        std::cout << (int)data << " ";
         
 		switch(cont)
 		{
@@ -203,10 +203,10 @@
 			        // 创建AngleData对象转换角度
 			        int angleValue = angleConverter.dataToAngle(this->angle);
 			        
-			        // std::cout << "舵机" << (int)ID << "角度值: " << angleValue << "° (数据: " << this->angle << ")" << std::endl;
+			        std::cout << "舵机" << (int)ID << "角度值: " << angleValue << "° (数据: " << this->angle << ")" << std::endl;
 			        return_flag = true;
 			    } else {
-			        // std::cout << "舵机" << (int)ID << "校验错误" << std::endl;
+			        std::cout << "舵机" << (int)ID << "校验错误" << std::endl;
 			    }
 			    cont = 0;
 			    break;

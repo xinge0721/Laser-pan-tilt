@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/src
+CMAKE_SOURCE_DIR = /home/xinge/chenxu/opencv/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ros/chenxu/Laser-pan-tilt/opencv/build
+CMAKE_BINARY_DIR = /home/xinge/chenxu/opencv/build
 
 # Include any dependencies generated for this target.
 include cv/CMakeFiles/camera.dir/depend.make
@@ -58,152 +58,216 @@ include cv/CMakeFiles/camera.dir/progress.make
 include cv/CMakeFiles/camera.dir/flags.make
 
 cv/CMakeFiles/camera.dir/src/camera.cpp.o: cv/CMakeFiles/camera.dir/flags.make
-cv/CMakeFiles/camera.dir/src/camera.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object cv/CMakeFiles/camera.dir/src/camera.cpp.o"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/camera.cpp.o -c /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp
+cv/CMakeFiles/camera.dir/src/camera.cpp.o: /home/xinge/chenxu/opencv/src/cv/src/camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xinge/chenxu/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object cv/CMakeFiles/camera.dir/src/camera.cpp.o"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/camera.cpp.o -c /home/xinge/chenxu/opencv/src/cv/src/camera.cpp
 
 cv/CMakeFiles/camera.dir/src/camera.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera.dir/src/camera.cpp.i"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp > CMakeFiles/camera.dir/src/camera.cpp.i
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xinge/chenxu/opencv/src/cv/src/camera.cpp > CMakeFiles/camera.dir/src/camera.cpp.i
 
 cv/CMakeFiles/camera.dir/src/camera.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera.dir/src/camera.cpp.s"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/camera.cpp -o CMakeFiles/camera.dir/src/camera.cpp.s
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xinge/chenxu/opencv/src/cv/src/camera.cpp -o CMakeFiles/camera.dir/src/camera.cpp.s
 
 cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o: cv/CMakeFiles/camera.dir/flags.make
-cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o -c /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp
+cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o: /home/xinge/chenxu/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xinge/chenxu/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o -c /home/xinge/chenxu/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp
 
 cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.i"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp > CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.i
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xinge/chenxu/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp > CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.i
 
 cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.s"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp -o CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.s
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xinge/chenxu/opencv/src/cv/src/hsv_threshold/hsv_threshold.cpp -o CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.s
 
 cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o: cv/CMakeFiles/camera.dir/flags.make
-cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o -c /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp
+cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o: /home/xinge/chenxu/opencv/src/cv/src/laser_processor/laser_processor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xinge/chenxu/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o -c /home/xinge/chenxu/opencv/src/cv/src/laser_processor/laser_processor.cpp
 
 cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.i"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp > CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.i
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xinge/chenxu/opencv/src/cv/src/laser_processor/laser_processor.cpp > CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.i
 
 cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.s"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/laser_processor/laser_processor.cpp -o CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.s
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xinge/chenxu/opencv/src/cv/src/laser_processor/laser_processor.cpp -o CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.s
 
 cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: cv/CMakeFiles/camera.dir/flags.make
-cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/mission/mission.cpp.o -c /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.cpp
+cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o: /home/xinge/chenxu/opencv/src/cv/src/mission/mission.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xinge/chenxu/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/mission/mission.cpp.o -c /home/xinge/chenxu/opencv/src/cv/src/mission/mission.cpp
 
 cv/CMakeFiles/camera.dir/src/mission/mission.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera.dir/src/mission/mission.cpp.i"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.cpp > CMakeFiles/camera.dir/src/mission/mission.cpp.i
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xinge/chenxu/opencv/src/cv/src/mission/mission.cpp > CMakeFiles/camera.dir/src/mission/mission.cpp.i
 
 cv/CMakeFiles/camera.dir/src/mission/mission.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera.dir/src/mission/mission.cpp.s"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv/src/mission/mission.cpp -o CMakeFiles/camera.dir/src/mission/mission.cpp.s
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xinge/chenxu/opencv/src/cv/src/mission/mission.cpp -o CMakeFiles/camera.dir/src/mission/mission.cpp.s
+
+cv/CMakeFiles/camera.dir/src/Serial/Serial.cpp.o: cv/CMakeFiles/camera.dir/flags.make
+cv/CMakeFiles/camera.dir/src/Serial/Serial.cpp.o: /home/xinge/chenxu/opencv/src/cv/src/Serial/Serial.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xinge/chenxu/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object cv/CMakeFiles/camera.dir/src/Serial/Serial.cpp.o"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/camera.dir/src/Serial/Serial.cpp.o -c /home/xinge/chenxu/opencv/src/cv/src/Serial/Serial.cpp
+
+cv/CMakeFiles/camera.dir/src/Serial/Serial.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera.dir/src/Serial/Serial.cpp.i"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xinge/chenxu/opencv/src/cv/src/Serial/Serial.cpp > CMakeFiles/camera.dir/src/Serial/Serial.cpp.i
+
+cv/CMakeFiles/camera.dir/src/Serial/Serial.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera.dir/src/Serial/Serial.cpp.s"
+	cd /home/xinge/chenxu/opencv/build/cv && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xinge/chenxu/opencv/src/cv/src/Serial/Serial.cpp -o CMakeFiles/camera.dir/src/Serial/Serial.cpp.s
 
 # Object files for target camera
 camera_OBJECTS = \
 "CMakeFiles/camera.dir/src/camera.cpp.o" \
 "CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o" \
 "CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o" \
-"CMakeFiles/camera.dir/src/mission/mission.cpp.o"
+"CMakeFiles/camera.dir/src/mission/mission.cpp.o" \
+"CMakeFiles/camera.dir/src/Serial/Serial.cpp.o"
 
 # External object files for target camera
 camera_EXTERNAL_OBJECTS =
 
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/camera.cpp.o
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/build.make
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libcv_bridge.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.2.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libroscpp.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librosconsole.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librosconsole_log4cxx.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librosconsole_backend_interface.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libxmlrpcpp.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libroscpp_serialization.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librostime.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libcpp_common.so
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ros/chenxu/Laser-pan-tilt/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable /home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera"
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/camera.dir/link.txt --verbose=$(VERBOSE)
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/camera.cpp.o
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/hsv_threshold/hsv_threshold.cpp.o
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/laser_processor/laser_processor.cpp.o
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/mission/mission.cpp.o
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/src/Serial/Serial.cpp.o
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/build.make
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libcv_bridge.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libroscpp.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librosconsole.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librosconsole_log4cxx.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librosconsole_backend_interface.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libxmlrpcpp.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libroscpp_serialization.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/librostime.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libcpp_common.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /opt/ros/noetic/lib/libserial.so
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
+/home/xinge/chenxu/opencv/devel/lib/cv/camera: cv/CMakeFiles/camera.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xinge/chenxu/opencv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable /home/xinge/chenxu/opencv/devel/lib/cv/camera"
+	cd /home/xinge/chenxu/opencv/build/cv && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/camera.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-cv/CMakeFiles/camera.dir/build: /home/ros/chenxu/Laser-pan-tilt/opencv/devel/lib/cv/camera
+cv/CMakeFiles/camera.dir/build: /home/xinge/chenxu/opencv/devel/lib/cv/camera
 
 .PHONY : cv/CMakeFiles/camera.dir/build
 
 cv/CMakeFiles/camera.dir/clean:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/camera.dir/cmake_clean.cmake
+	cd /home/xinge/chenxu/opencv/build/cv && $(CMAKE_COMMAND) -P CMakeFiles/camera.dir/cmake_clean.cmake
 .PHONY : cv/CMakeFiles/camera.dir/clean
 
 cv/CMakeFiles/camera.dir/depend:
-	cd /home/ros/chenxu/Laser-pan-tilt/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros/chenxu/Laser-pan-tilt/opencv/src /home/ros/chenxu/Laser-pan-tilt/opencv/src/cv /home/ros/chenxu/Laser-pan-tilt/opencv/build /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv /home/ros/chenxu/Laser-pan-tilt/opencv/build/cv/CMakeFiles/camera.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xinge/chenxu/opencv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xinge/chenxu/opencv/src /home/xinge/chenxu/opencv/src/cv /home/xinge/chenxu/opencv/build /home/xinge/chenxu/opencv/build/cv /home/xinge/chenxu/opencv/build/cv/CMakeFiles/camera.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : cv/CMakeFiles/camera.dir/depend
 

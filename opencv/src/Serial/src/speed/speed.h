@@ -5,11 +5,11 @@
 #include <thread>
 #include <chrono>
 #include <atomic>
-#include "./../HTS221/HTS221.h"
 
 // 开环电机模式控制
-int16_t setSpeed(int juli);
-
+// 参数一：距离（像素点）
+// 参数二：舵机ID（1=X轴，2=Y轴）
+int16_t setSpeed(int juli, int servo_id);
 
 
 
