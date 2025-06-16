@@ -164,11 +164,56 @@ std::vector<std::vector<cv::Point>> processContours(const cv::Mat& result, cv::M
         cv::rectangle(display, border_rect, cv::Scalar(0, 255, 0), 2);
         
         // 打印调试信息
-        std::cout << "轮廓面积: " << cv::contourArea(contour) << std::endl; 
-        std::cout << "轮廓点数: " << contour.size() << std::endl;
-        std::cout << "轮廓周长: " << cv::arcLength(contour, true) << std::endl;
-        std::cout << "轮廓中心: " << cv::moments(contour).m00 << std::endl;
+        // std::cout << "轮廓面积: " << cv::contourArea(contour) << std::endl; 
+        // std::cout << "轮廓点数: " << contour.size() << std::endl;
+        // std::cout << "轮廓周长: " << cv::arcLength(contour, true) << std::endl;
+        // std::cout << "轮廓中心: " << cv::moments(contour).m00 << std::endl;
     }
     
     return contours;
+} 
+
+/**
+ * @brief 查找并区分内外轮廓
+ * @param src 输入图像
+ * @return 包含内外轮廓的 ContourResult 对象
+ */
+ContourResult findInnerAndOuterRects(cv::Mat& src)
+{
+    ContourResult result;
+    cv::Mat gray, binary;
+
+    // 灰度化和二值化
+    cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
+    cv::threshold(gray, binary, 127, 255, cv::THRESH_BINARY_INV);
+    // cv::imshow("二值化", binary);
+
+    // 对二值图像进行预处理
+    rectProcess(binary);
+
+    // 查找所有轮廓并建立层级结构
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy;
+    cv::findContours(binary, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
+
+    // 遍历所有找到的轮廓
+    for (int i = 0; i < contours.size(); i++)
+    {
+        // 过滤掉面积过小的轮廓，以减少噪声
+        if (cv::contourArea(contours[i]) < 400.0) {
+            continue;
+        }
+
+        // 检查层级结构来区分内外轮廓
+        // hierarchy[i][3] 表示轮廓 i 的父轮廓索引
+        // 如果父轮廓索引为-1，表示它是一个最外层的轮廓
+        if (hierarchy[i][3] == -1) {
+            result.outer_contours.push_back(contours[i]);
+        } else {
+            // 否则，它是一个内轮廓
+            result.inner_contours.push_back(contours[i]);
+        }
+    }
+
+    return result;
 } 

@@ -9,7 +9,7 @@
 #include "PID.h"
 #include "APP.h"
 float Velocity1 = 0,Velocity2 = 0;     //电机PWM变量
-float Position1 = 120,Position2 = 120; //舵机当前位置
+float Position1 = 3000,Position2 = 3000; //舵机当前位置
 unsigned char Send_Count; //串口需要发送的数据个数
 /**
   * 函数：main
@@ -23,13 +23,8 @@ int main(void)
 	Serial_Init(115200);		//串口初始化
 	Serial3_Init(115200);		//串口初始化
 	Servo_PWM_Init();			  //数字舵机初始化
-//	TIM_SetCompare3(TIM3, 0);
-//	TIM_SetCompare4(TIM3, 0);
-	x_angle = y_angle = 120;
-	delay_ms(500);
-	delay_ms(500);
-	delay_ms(500);
-	delay_ms(500);
+
+
 	TIM2_Init();
 	OLED_Init();
 
@@ -37,36 +32,39 @@ int main(void)
 	{
 
 		delay_ms(10);
-		OLED_ShowString(0,0,"X:");
-		OLED_ShowString(0,1,"Y:");
-		OLED_ShowFloat(2,0,x_angle,4);
-		OLED_ShowFloat(2,1,y_angle,4);
-
+		OLED_ShowString(0,0,"X_pulse:");
+		OLED_ShowString(0,1,"Y_pulse:");
+		OLED_ShowNumber(9,0,x_pulse,5);
+		OLED_ShowNumber(9,1,y_pulse,5);
+//		delay_ms(500);
+//		SetPulse(x_pulse,1);
+//		x_pulse+=100;
+//		delay_ms(500);
 		
 		OLED_Refresh_Gram();	//非常重要，若是不使用，单纯使用OLED_ShowString()，则不会显示内容
-		delay_ms(10);
-		DataScope_Get_Channel_Data(56.3, 1 );//目标数据
-		DataScope_Get_Channel_Data(Position1, 2 );//当前左轮数据
-		DataScope_Get_Channel_Data(Position2, 3 );//当前右轮数据
-		DataScope_Get_Channel_Data(Velocity1, 4 );//当前右轮数据
-		DataScope_Get_Channel_Data(Velocity2, 5);//当前右轮数据
+//		delay_ms(10);
+//		DataScope_Get_Channel_Data(x_pulse*0.01, 1 );//目标数据
+//		DataScope_Get_Channel_Data(Position1*0.01, 2 );//当前左轮数据
+//		DataScope_Get_Channel_Data(Position2*0.01, 3 );//当前右轮数据
+//		DataScope_Get_Channel_Data(Velocity1, 4 );//当前右轮数据
+//		DataScope_Get_Channel_Data(Velocity2, 5);//当前右轮数据
 
-			
-		Send_Count = DataScope_Data_Generate(10);
-		for(int j = 0 ; j < Send_Count; j++) 
-		{
-			Serial3_SendByte( DataScope_OutPut_Buffer[j]); //发送到上位机
-		}
-		 delay_ms(50);
+//			
+//		Send_Count = DataScope_Data_Generate(10);
+//		for(int j = 0 ; j < Send_Count; j++) 
+//		{
+//			Serial_SendByte( DataScope_OutPut_Buffer[j]); //发送到上位机
+//		}
+//		 delay_ms(50);
 		}
 }
 
-float xianzhi(float x)
+float xianzhi_pulse(float x)
 {
-	if(x<30)
-		return 30;
-	else if(x>180)
-		return 180;
+	if(x<2000)
+		return 2000;
+	else if(x>4000)
+		return 4000;
 	else
 		return x;
 }
@@ -77,16 +75,16 @@ void TIM2_IRQHandler(void)
     // 检查是否发生了更新中断
     if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
     {
-				x_angle=xianzhi(x_angle);
-				y_angle=xianzhi(y_angle);
+				x_pulse=xianzhi_pulse(x_pulse);
+				y_pulse=xianzhi_pulse(y_pulse);
 				
-				Velocity1=Position_PID_1(Position1,56.3);
-				Velocity2=Position_PID_2(Position2,56.3);
+				Velocity1=Position_PID_1(Position1,x_pulse);
+				Velocity2=Position_PID_2(Position2,y_pulse);
 				Position1+=Velocity1;
 				Position2+=Velocity2;
 
-				SetAngle(Position1,1);
-				SetAngle(Position2,2);
+				SetPulse((uint16_t)Position1,1);
+				 SetPulse((uint16_t)Position2,2);
 				TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
     }
 } 

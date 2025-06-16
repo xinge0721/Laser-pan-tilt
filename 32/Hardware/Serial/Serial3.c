@@ -58,8 +58,8 @@ void Serial3_SendByte(uint8_t Byte)
 	while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);	//等待发送完成
 }
 
-float x_angle = 120;
-float y_angle = 120;
+float x_pulse = 3000;
+float y_pulse = 3000;
 
 void RX_Data_Process(uint8_t RxData)
 {
@@ -120,8 +120,8 @@ void RX_Data_Process(uint8_t RxData)
 				y_val = -y_val;
 			}
 			
-			x_angle += x_val /10;
-			y_angle += y_val /10;
+			x_pulse += x_val ;
+			y_pulse += y_val ;
 
 			for(int i = 0; i < 5; i++) data[i] = 0;
 			count = 0;

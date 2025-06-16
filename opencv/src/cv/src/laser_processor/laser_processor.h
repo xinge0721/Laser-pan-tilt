@@ -26,4 +26,19 @@ std::vector<cv::Point> getRectAndMark(cv::Mat& src);
  */
 std::vector<std::vector<cv::Point>> processContours(const cv::Mat& result, cv::Mat& display);
 
+/**
+ * @brief 用于存储内外轮廓的结果
+ */
+struct ContourResult {
+    std::vector<std::vector<cv::Point>> outer_contours; // 外轮廓
+    std::vector<std::vector<cv::Point>> inner_contours; // 内轮廓
+};
+
+/**
+ * @brief 查找并区分内外轮廓
+ * @param src 输入图像
+ * @return 包含内外轮廓的 ContourResult 对象
+ */
+ContourResult findInnerAndOuterRects(cv::Mat& src);
+
 #endif // LASER_PROCESSOR_H 
