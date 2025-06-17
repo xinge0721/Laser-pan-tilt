@@ -14,7 +14,7 @@ extern HsvThreshold hsvThresh;
 extern HsvThreshold GREEN_HSV;
 
 // 采用统一的裁剪比例
-#define CROP_RATIO 0.75
+#define CROP_RATIO 0.9
 #define X_RATIO 0.6
 
  cv::Mat cropCenterRegion(const cv::Mat& src, double crop_ratio = CROP_RATIO, double x_ratio = X_RATIO);

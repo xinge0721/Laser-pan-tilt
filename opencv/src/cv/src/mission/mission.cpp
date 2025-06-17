@@ -236,7 +236,7 @@ std::vector<cv::Point> Mission::calibration(HsvThreshold& hsvThresh,cv::VideoCap
  * @param show_result 是否显示处理过程和结果
  * @return 激光点位置，如果未检测到返回(-1,-1)
  */
-cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_result = false)
+cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_result = 1)
 {
     // 裁剪中心区域以便更精确处理
     // cv::Mat cropped = cropCenterRegion(frame);
@@ -261,7 +261,7 @@ cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_re
         // 找出面积最大的轮廓
         int maxContourIdx = 0;
         double maxArea = 0;
-        const double MIN_AREA = 300.0; // 设置最小面积阈值为300像素
+        const double MIN_AREA = 100.0; // 设置最小面积阈值为300像素
         
         for (size_t i = 0; i < contours.size(); i++) {
             double area = cv::contourArea(contours[i]);
@@ -306,7 +306,7 @@ cv::Point findLaserPoint(cv::Mat& cropped, HsvThreshold& hsvThresh, bool show_re
 /**
  * 判断激光点是否已经接近校准点
  */
-#define DISTANCE_THRESHOLD 2.0
+#define DISTANCE_THRESHOLD 4.5
 
 // 移动激光到目标（轮询方式）
 // 参数一：摄像头
@@ -327,8 +327,9 @@ bool Mission::getPoint(cv::VideoCapture& cap, myserial& serial,const cv::Point &
 
     // 控制发送频率
     static ros::Time last_send_time = ros::Time(0);
-    const ros::Duration send_interval(0.1); // 100ms, 10Hz
-    
+    const ros::Duration send_interval(0.5); // 100ms, 10Hz
+    // const ros::Duration send_interval(0.25); // 100ms, 10Hz
+
     try
     {
         // 获取当前图像
@@ -398,6 +399,7 @@ bool Mission::getPoint(cv::VideoCapture& cap, myserial& serial,const cv::Point &
         return false;
     }
 }
+
 
 // 第一题回归原点（复位）
 // 参数一：摄像头
@@ -477,29 +479,130 @@ void Mission::two(cv::VideoCapture& cap, myserial& serial, std::vector<cv::Point
 // 参数二：发布者
 void Mission::three(cv::VideoCapture& cap,myserial& serial)
 {
+    // 1. 获取图像帧
     cv::Mat frame;
-    cap >> frame;
-    // 获取矩形
-    std::vector<cv::Point> rectPoints = getRect(frame);
+    cap >> frame; // 从摄像头获取新的一帧
 
-    // 分割矩形
-    rectPoints = divideRectangle(rectPoints, 10);
+    if (frame.empty()) {
+        std::cerr << "在 Mission::three 中无法从摄像头读取图像帧" << std::endl;
+        return;
+    }
+    
+    // 2. 预处理：裁剪图像中心区域
+    // 目的是减少背景干扰，聚焦于可能出现矩形的核心区域。
+    frame = cropCenterRegion(frame);
+    
+    // 3. 查找内外轮廓
+    // 调用 findInnerAndOuterContours 函数，它会返回一个包含内外旋转矩形顶点的pair。
+    auto rect_points_pair = findInnerAndOuterContours(frame);
+    std::vector<cv::Point2f> outer_points_f = rect_points_pair.first;
+    std::vector<cv::Point2f> inner_points_f = rect_points_pair.second;
 
-    // 遍历矩形上的所有点
-    for(auto& point : rectPoints)
+    // 4. 绘制与处理轮廓
+    // 确保同时找到了外轮廓和内轮廓才继续处理。
+    if (!outer_points_f.empty() && !inner_points_f.empty())
     {
-        // 轮询方式到达每个点
-        bool reached = false;
-        while(ros::ok() && !reached)
+        std::cout << "找到内外轮廓" << std::endl;
+
+        // 4.1 将Point2f转换为Point，并组织成轮廓(vector<vector<Point>>)格式
+        // 这是因为OpenCV的绘图函数（如drawContours）通常需要vector<Point>格式。
+        std::vector<std::vector<cv::Point>> outer_contours;
+        // findInnerAndOuterContours返回的顶点是平铺的，每4个点构成一个矩形，需要重新分组。
+        for (size_t i = 0; i < outer_points_f.size(); i += 4) {
+            std::vector<cv::Point> contour;
+            for(size_t j=0; j<4; ++j) {
+                if(i+j < outer_points_f.size())
+                    contour.push_back(cv::Point(outer_points_f[i+j]));
+            }
+            outer_contours.push_back(contour);
+        }
+
+        std::vector<std::vector<cv::Point>> inner_contours;
+        for (size_t i = 0; i < inner_points_f.size(); i += 4) {
+            std::vector<cv::Point> contour;
+            for(size_t j=0; j<4; ++j) {
+                if(i+j < inner_points_f.size())
+                    contour.push_back(cv::Point(inner_points_f[i+j]));
+            }
+            inner_contours.push_back(contour);
+        }
+
+        // // 4.2 绘制检测到的轮廓用于可视化
+        // // 外轮廓用绿色绘制
+        // cv::drawContours(frame, outer_contours, -1, cv::Scalar(0, 255, 0), 2);
+        // // 内轮廓用红色绘制
+        // cv::drawContours(frame, inner_contours, -1, cv::Scalar(0, 0, 255), 2);
+
+        // // 在轮廓的每个顶点上绘制一个粉色小圆圈，以便更清晰地看到顶点位置。
+        // for (const auto& contour : outer_contours)
+        // {
+        //     for (const auto& point : contour)
+        //     {
+        //         cv::circle(frame, point, 2, cv::Scalar(255, 0, 255), -1); 
+        //     }
+        // }
+        // for (const auto& contour : inner_contours)
+        // {
+        //     for (const auto& point : contour)
+        //     {
+        //         cv::circle(frame, point, 2, cv::Scalar(255, 0, 255), -1); 
+        //     }
+        // }
+
+        // cv::imshow("内外轮廓识别结果", frame);
+
+        // 5. 计算并规划中间路径
+        // 假设我们只处理检测到的第一对内外矩形。
+        if (!outer_contours.empty() && !inner_contours.empty() && outer_contours[0].size() == 4 && inner_contours[0].size() == 4)
         {
-            reached = getPoint(cap, serial, point);    
-            // 等待短暂时间以避免CPU占用过高
-            ros::spinOnce(); // 允许ROS处理回调
+            std::vector<cv::Point> rectPoints;
+            rectPoints.resize(4); // 为4个路径点分配空间
+            
+            // // 为保证内外顶点能正确配对，先对它们进行排序。
+            // // 这里使用一个简单的排序方法：按 (x+y) 坐标和升序排列，
+            // // 这通常能将顶点按左上、右上/左下、右下的顺序排列。
+            // std::sort(outer_contours[0].begin(), outer_contours[0].end(), [](const cv::Point& a, const cv::Point& b){
+            //     return (a.x + a.y) < (b.x + b.y);
+            // });
+            // std::sort(inner_contours[0].begin(), inner_contours[0].end(), [](const cv::Point& a, const cv::Point& b){
+            //     return (a.x + a.y) < (b.x + b.y);
+            // });
+
+            // 计算内外矩形对应顶点的中点，作为激光要行走的路径点。
+            for(int i = 0; i < 4; i++) {
+                rectPoints[i].x = (outer_contours[0][i].x + inner_contours[0][i].x) / 2;
+                rectPoints[i].y = (outer_contours[0][i].y + inner_contours[0][i].y) / 2;
+            }
+            std::vector<cv::Point> dividedPoints = divideRectangle(rectPoints, 3);
+            // 7. 执行路径（当前为注释状态）
+            // 遍历所有路径点，并控制激光依次到达。
+            for(auto& point : dividedPoints)
+            {
+                // 轮询方式到达每个点
+                bool reached = false;
+                while(ros::ok() && !reached)
+                {
+                    reached = getPoint(cap, serial, point);    
+                    // 等待短暂时间以避免CPU占用过高
+                    ros::spinOnce(); // 允许ROS处理回调
+                }
+            }
+            std::cout << "已完成矩形路径遍历任务" << std::endl;
+            cv::waitKey(1);
+        }
+        else
+        {
+            std::cout << "轮廓顶点数不为4，无法计算路径" << std::endl;
         }
     }
-    std::cout << "已完成矩形路径遍历任务" << std::endl;
-}
+    else 
+    {
+        std::cout << "未找到足够的内外轮廓" << std::endl;
+    }
 
+    cv::imshow("轮廓", frame);
+    cv::waitKey(1);
+}
 
 // 第四题 沿着斜着的矩形走
 // 参数一：摄像头

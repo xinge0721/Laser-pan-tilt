@@ -36,7 +36,7 @@ cv::VideoCapture initCamera(int camera_id, int width, int height, int fps)
 {
     // 使用默认构造函数初始化VideoCapture，然后只使用摄像头ID打开
     cv::VideoCapture cap;
-    cap.open(camera_id); // 只使用摄像头ID
+    cap.open(camera_id, cv::CAP_V4L2);
     
     // 检查摄像头是否成功打开
     if(!cap.isOpened())
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     // 初始化串口
     if (!g_serial.init()) {
         std::cerr << "串口初始化失败！" << std::endl;
-        return -1;
+        // return -1;
     }
     
 
@@ -110,15 +110,17 @@ int main(int argc, char *argv[])
     // 创建Mission对象
     Mission mission;
 
-    // 创建HSV阈值调节滑块
-    createHsvSliders("红色HSV阈值", hsvThresh);
+    // 使用红色HSV预设，用于后续的图像处理
+    HsvThreshold hsvThresh = RED_HSV;
 
-    cv::Mat frame;
+    // // 创建HSV阈值调节滑块
+    // createHsvSliders("红色HSV阈值", hsvThresh);
 
-    cap >> frame; // 从摄像头获取原始图片
+    // cv::Mat frame;
 
-    mission.testLaserDifference(cap);
-    // // 校准（必须的）
+    // cap >> frame; // 从摄像头获取原始图片
+
+    //  // 校准（必须的）
     // std::cout << "开始校准"<<std::endl;
     // std::vector<cv::Point> rectPoints = mission.calibration(hsvThresh,cap);
     
@@ -137,37 +139,38 @@ int main(int argc, char *argv[])
 
     // sleep(2);
     // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
-    // while(ros::ok())
-    // {
-    //     mission.one(cap,g_serial,rectPoints);
+    while(ros::ok())
+    {
+        // mission.one(cap,g_serial,rectPoints);
 
-    //     sleep(2);
-    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+        // sleep(2);
+        // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
 
-    //     mission.two(cap,g_serial,rectPoints);
-    //     // 处理ROS回调
-    //     sleep(2);
-    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+        // mission.two(cap,g_serial,rectPoints);
+        // // 处理ROS回调
+        // sleep(2);
+        // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
 
-    //     mission.three(cap,g_serial);
-    //     // 处理ROS回调
-    //     sleep(2);
-    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+        mission.three(cap,g_serial);
+        // 处理ROS回调
+        sleep(2);
+        cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
 
-    //     mission.four(cap,g_serial);
-    //     // 处理ROS回调
-    //     sleep(2);
-    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+        // mission.four(cap,g_serial);
+        // // 处理ROS回调
+        // sleep(2);
+        // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
 
-    //     mission.five(cap,g_serial);
-    //     // 处理ROS回调
-    //     sleep(2);
-    //     cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
+        // mission.five(cap,g_serial);
+        // // 处理ROS回调
+        // sleep(2);
+        // cv::destroyAllWindows();  // 关闭所有OpenCV创建的窗口
 
-    //     mission.six(cap,g_serial);
-    
-    //     ros::spinOnce();
-    // }
+        // mission.six(cap,g_serial);
+
+
+        ros::spinOnce();
+    }
     return 0;
 }
 

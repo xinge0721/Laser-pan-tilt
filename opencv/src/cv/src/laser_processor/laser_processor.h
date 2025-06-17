@@ -3,6 +3,7 @@
 
 #include <opencv2/opencv.hpp>
 #include <vector>
+#include <utility>
 
 /**
  * @brief 膨胀腐蚀处理
@@ -27,18 +28,10 @@ std::vector<cv::Point> getRectAndMark(cv::Mat& src);
 std::vector<std::vector<cv::Point>> processContours(const cv::Mat& result, cv::Mat& display);
 
 /**
- * @brief 用于存储内外轮廓的结果
+ * @brief 识别内外框, 返回包含内外轮廓的向量
+ * @param src 二值化图像
+ * @return 一个包含内外矩形顶点坐标对的pair。pair.first是外矩形，pair.second是内矩形。
  */
-struct ContourResult {
-    std::vector<std::vector<cv::Point>> outer_contours; // 外轮廓
-    std::vector<std::vector<cv::Point>> inner_contours; // 内轮廓
-};
-
-/**
- * @brief 查找并区分内外轮廓
- * @param src 输入图像
- * @return 包含内外轮廓的 ContourResult 对象
- */
-ContourResult findInnerAndOuterRects(cv::Mat& src);
+std::pair<std::vector<cv::Point2f>, std::vector<cv::Point2f>> findInnerAndOuterContours(const cv::Mat& src);
 
 #endif // LASER_PROCESSOR_H 

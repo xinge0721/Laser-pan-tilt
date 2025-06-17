@@ -37,8 +37,11 @@ cv::Mat& rectProcess(cv::Mat& src)
     cv::medianBlur(src, src, 3);
     
     // 最后进行轻微的闭操作，确保形状完整但不过度膨胀
-    cv::morphologyEx(src, src, cv::MORPH_CLOSE, kernel_close);
+    // cv::morphologyEx(src, src, cv::MORPH_CLOSE, kernel_close);
 
+    // cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+
+    // cv::erode(src, src, kernel, cv::Point(-1, -1), 4);
     // 显示处理结果
     cv::imshow("形态学处理后", src);
     return src;
@@ -171,49 +174,98 @@ std::vector<std::vector<cv::Point>> processContours(const cv::Mat& result, cv::M
     }
     
     return contours;
-} 
+}
 
 /**
- * @brief 查找并区分内外轮廓
- * @param src 输入图像
- * @return 包含内外轮廓的 ContourResult 对象
+ * @brief 识别内外框, 并返回内外旋转矩形的顶点。
+ * @param src 待处理的输入图像，期望是包含矩形框的BGR或灰度图。
+ * @return 一个std::pair，包含两个std::vector<cv::Point2f>。
+ *         pair.first 是所有外层旋转矩形的顶点集合。
+ *         pair.second 是所有内层旋转矩形的顶点集合。
+ *         如果未找到任何矩形，则返回的向量将为空。
  */
-ContourResult findInnerAndOuterRects(cv::Mat& src)
+std::pair<std::vector<cv::Point2f>, std::vector<cv::Point2f>> findInnerAndOuterContours(const cv::Mat& src)
 {
-    ContourResult result;
+    // 1. 输入有效性检查
+    if (src.empty()) {
+        // 如果输入图像为空，则直接返回空结果，避免后续处理出错。
+        return {};
+    }
+
+    // 2. 图像预处理
     cv::Mat gray, binary;
+    // 如果是彩色图，则转换为灰度图
+    if (src.channels() == 3) {
+        cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
+    } else {
+        // 如果已经是灰度图，则直接使用
+        gray = src;
+    }
 
-    // 灰度化和二值化
-    cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
+    // 3. 二值化
+    // 使用反向二值化（THRESH_BINARY_INV），使矩形目标变为白色(255)，背景变为黑色(0)。
+    // 这是因为`findContours`通常在白色前景中查找轮廓。
     cv::threshold(gray, binary, 127, 255, cv::THRESH_BINARY_INV);
-    // cv::imshow("二值化", binary);
+    cv::imshow("灰度二值化", binary); // 显示二值化结果以供调试
+    // 对二值图像进行形态学处理，以平滑边缘、填充孔洞，使矩形更完整。
+    // rectProcess(binary);
 
-    // 对二值图像进行预处理
-    rectProcess(binary);
-
-    // 查找所有轮廓并建立层级结构
+    // 4. 轮廓检测
     std::vector<std::vector<cv::Point>> contours;
     std::vector<cv::Vec4i> hierarchy;
-    cv::findContours(binary, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
+    // 使用cv::RETR_TREE模式查找轮廓，此模式会建立完整的轮廓层级树。
+    // hierarchy[i] 对应 contours[i] 的层级信息：
+    // hierarchy[i][0]: 同层级的下一个轮廓索引
+    // hierarchy[i][1]: 同层级的上一个轮廓索引
+    // hierarchy[i][2]: 第一个子轮廓的索引
+    // hierarchy[i][3]: 父轮廓的索引
+    cv::findContours(
+        binary, contours, hierarchy,
+        cv::RETR_TREE, // 检测所有轮廓并建立完整的层级关系
+        cv::CHAIN_APPROX_SIMPLE // 压缩水平、垂直和对角线段，只保留其端点
+    );
 
-    // 遍历所有找到的轮廓
-    for (int i = 0; i < contours.size(); i++)
-    {
-        // 过滤掉面积过小的轮廓，以减少噪声
-        if (cv::contourArea(contours[i]) < 400.0) {
-            continue;
-        }
+    // 5. 区分内外矩形
+    std::vector<cv::RotatedRect> outerRects, innerRects;
 
-        // 检查层级结构来区分内外轮廓
-        // hierarchy[i][3] 表示轮廓 i 的父轮廓索引
-        // 如果父轮廓索引为-1，表示它是一个最外层的轮廓
-        if (hierarchy[i][3] == -1) {
-            result.outer_contours.push_back(contours[i]);
-        } else {
-            // 否则，它是一个内轮廓
-            result.inner_contours.push_back(contours[i]);
+    for (int i = 0; i < contours.size(); ++i) {
+        // 过滤掉过小的轮廓，避免噪声干扰
+        if (contours[i].size() < 5 || cv::contourArea(contours[i]) < 100) continue;  
+
+        // 根据轮廓的父轮廓索引来判断它是外轮廓还是内轮廓
+        if (hierarchy[i][3] == -1) { 
+            // 如果父轮廓索引为-1，说明该轮廓没有父轮廓，是顶层轮廓，即外轮廓。
+            outerRects.push_back(cv::minAreaRect(contours[i]));
+        } else { 
+            // 如果存在父轮廓，则我们将其视为内轮廓。
+            innerRects.push_back(cv::minAreaRect(contours[i]));
         }
     }
 
-    return result;
+    // 6. 提取旋转矩形的顶点
+    // 定义一个lambda表达式，方便地从RotatedRect对象获取其四个顶点。
+    auto getRotatedRectPoints = [](const cv::RotatedRect& rect) {
+        cv::Point2f vertices[4];
+        rect.points(vertices); // 计算并填充顶点数组
+        return std::vector<cv::Point2f>{vertices, vertices + 4};
+    };
+    
+    // 7. 收集所有内外矩形的顶点
+    std::vector<cv::Point2f> outer_points, inner_points;
+
+    // 遍历所有找到的外层旋转矩形，提取它们的顶点并存入一个向量
+    for (const auto& rect : outerRects) {
+        auto points = getRotatedRectPoints(rect);
+        outer_points.insert(outer_points.end(), points.begin(), points.end());
+    }
+
+    // 遍历所有找到的内层旋转矩形，提取它们的顶点并存入另一个向量
+    for (const auto& rect : innerRects) {
+        auto points = getRotatedRectPoints(rect);
+        inner_points.insert(inner_points.end(), points.begin(), points.end());
+    }
+
+    // 8. 返回结果
+    // 将收集到的内外矩形顶点作为一对向量返回。
+    return {outer_points, inner_points};
 } 
